@@ -11,7 +11,7 @@
        </div>
        <div class="col-lg-10 col-6 {{$rtl == 1 ? 'text-left' : 'text-right'}} position-static">
           <ul class="main-menu d-lg-flex justify-content-between align-items-center" id="mainMenu">
-             <div>
+             <li>
                 @foreach ($links as $link)
                  @php
                      $href = getHref($link);
@@ -61,7 +61,7 @@
                  @endif
 
              @endforeach
-             </div>
+             </li>
 
              @if ($bs->is_quote == 1)
              <li><a aria-label="{{__('Request A Quote')}}" href="{{route('front.quote')}}" class="boxed-btn">{{__('Request A Quote')}}</a></li>

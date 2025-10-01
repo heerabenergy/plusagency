@@ -264,7 +264,7 @@
       loop: true,
       dots: true,
       nav: true,
-      navText: ["<i class='flaticon-left-arrow'></i>", "<i class='flaticon-right-arrow'></i>"],
+      navText: ["<span aria-label='Previous'><i class='flaticon-left-arrow'></i></span>", "<span aria-label='Next'><i class='flaticon-right-arrow'></i></span>"],
       autoplay: false,
       autoplayTimeout: 5000,
       smartSpeed: 1500,

@@ -97,7 +97,7 @@
                     autoplaySpeed: autoplaySpeed,
                     dots: dots,
                     nav: nav,
-                    navText: ["<i class='flaticon-left-arrow'></i>", "<i class='flaticon-right-arrow'></i>"],
+                    navText: ["<span aria-label='Previous'><i class='flaticon-left-arrow'></i></span>", "<span aria-label='Next'><i class='flaticon-right-arrow'></i></span>"],
                     smartSpeed: smartSpeed,
                     autoplayHoverPause: autoplayHoverPause,
                     animateOut: animateOut,

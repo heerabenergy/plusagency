@@ -323,6 +323,8 @@
                     position: "right" //Position: left | right
 
                 });
+                $('.floating-wpp-input-message textarea')
+                .attr('aria-label', '{{ $bex->whatsapp_header_title }}');
             });
         </script>
       @endif

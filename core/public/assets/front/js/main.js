@@ -43,7 +43,7 @@
             loop: true,
             dots: false,
             nav: pricingNav,
-            navText: ["<i class='flaticon-left-arrow'></i>", "<i class='flaticon-right-arrow'></i>"],
+            navText: ["<span aria-label='Previous'><i class='flaticon-left-arrow'></i></span>", "<span aria-label='Next'><i class='flaticon-right-arrow'></i></span>"],
             autoplay: false,
             autoplayTimeout: 5000,
             smartSpeed: 1500,
@@ -107,7 +107,7 @@
                     autoplaySpeed: autoplaySpeed,
                     dots: dots,
                     nav: nav,
-                    navText: ["<i class='flaticon-left-arrow'></i>", "<i class='flaticon-right-arrow'></i>"],
+                    navText: ["<span aria-label='Previous'><i class='flaticon-left-arrow'></i></span>", "<span aria-label='Next'><i class='flaticon-right-arrow'></i></span>"],
                     smartSpeed: smartSpeed,
                     autoplayHoverPause: autoplayHoverPause,
                     animateOut: animateOut,
@@ -131,7 +131,7 @@
             autoplayHoverPause: true,
             rtl: rtl == 1 ? true : false,
             nav: true,
-            navText: ["<i class='flaticon-left-arrow'></i>", "<i class='flaticon-right-arrow'></i>"],
+            navText: ["<span aria-label='Previous'><i class='flaticon-left-arrow'></i></span>", "<span aria-label='Next'><i class='flaticon-right-arrow'></i></span>"],
             responsive: {
                 0: {
                     items: 1
@@ -161,7 +161,7 @@
             autoplayHoverPause: true,
             nav: true,
             rtl: rtl == 1 ? true : false,
-            navText: ["<i class='flaticon-left-arrow'></i>", "<i class='flaticon-right-arrow'></i>"],
+            navText: ["<span aria-label='Previous'><i class='flaticon-left-arrow'></i></span>", "<span aria-label='Next'><i class='flaticon-right-arrow'></i></span>"],
             responsive: {
                 0: {
                     items: 1
@@ -263,8 +263,14 @@
                 }
             });
         }
-
-
+        $('button.owl-prev, button.owl-next').removeAttr('role'); 
+        $('.owl-carousel').each(function() {
+            //Find each set of dots in this carousel
+          $(this).find('.owl-dot').each(function(index) {
+            //Add one to index so it starts from 1
+            $(this).attr('aria-label', index + 1);
+          });
+        });
 
 
     });
@@ -309,4 +315,5 @@
 
     
     new LazyLoad();
+    
 }(jQuery));
