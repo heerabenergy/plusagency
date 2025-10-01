@@ -10,7 +10,7 @@
           </div>
        </div>
        <div class="col-lg-10 col-6 {{$rtl == 1 ? 'text-left' : 'text-right'}} position-static">
-          <ul class="main-menu d-flex justify-content-between align-items-center" id="mainMenu">
+          <ul class="main-menu d-lg-flex justify-content-between align-items-center" id="mainMenu">
              <div>
                 @foreach ($links as $link)
                  @php
