@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{app()->getLocale()}}" @if ($rtl == 1) dir="rtl" @endif>
    <head>
       <!--Start of Google Analytics script-->
       @if ($bs->is_analytics == 1)

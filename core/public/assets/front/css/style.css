@@ -3298,3 +3298,11 @@ a#cartIcon span.length {
 .partner-carousel img {
     width: 100% !important;
 }
+.line-clamp-2-15em {
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* فقط ۲ خط */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    height: calc(1.5em * 2); /* ارتفاع حداقل دو خط */
+    line-height: 1.5em !important; /* اینو با line-height متن هماهنگ کن */
+  }

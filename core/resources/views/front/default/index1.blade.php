@@ -137,15 +137,15 @@
                             <div class="single-category">
                                 @if (!empty($scategory->image))
                                     <div class="img-wrapper">
-                                        <img class="lazy" data-src="{{asset('assets/front/img/service_category_icons/'.$scategory->image)}}" alt="{{__($scategory->name)}}">
+                                        <img class="lazy d-block" data-src="{{asset('assets/front/img/service_category_icons/'.$scategory->image)}}" style="width: 195px; height: 110px;" alt="{{__($scategory->name)}}">
                                     </div>
                                 @endif
                                 <div class="text">
-                                    <h4>{{convertUtf8($scategory->name)}}</h4>
-                                    <p>
+                                    <h4 class="line-clamp-2-15em">{{convertUtf8($scategory->name)}}</h4>
+                                    <p class="line-clamp-2-15em">
                                        @if (strlen($scategory->short_text) > 112)
                                           {{mb_substr($scategory->short_text, 0, 112, 'utf-8')}}<span style="display: none;">{{mb_substr($scategory->short_text, 112,null, 'utf-8')}}</span>
-                                          <a href="#" class="see-more">{{__('see more')}}...</a>
+                                          <a aria-label="{{__('See More')}}" href="#" class="see-more">{{__('see more')}}...</a>
                                        @else
                                           {{$scategory->short_text}}
                                        @endif
