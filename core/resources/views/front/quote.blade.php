@@ -25,8 +25,8 @@
             <div class="row">
                 <div class="col-lg-6">
                     <div class="form-element mb-4">
-                        <label>{{__('Name')}} <span>**</span></label>
-                        <input name="name" type="text" value="{{old("name")}}" placeholder="{{__('Enter Name')}}">
+                        <label for="name">{{__('Name')}} <span>**</span></label>
+                        <input name="name" id="name" type="text" value="{{old("name")}}" placeholder="{{__('Enter Name')}}">
 
                         @if ($errors->has("name"))
                         <p class="text-danger mb-0">{{$errors->first("name")}}</p>
@@ -35,8 +35,8 @@
                 </div>
                 <div class="col-lg-6">
                     <div class="form-element mb-4">
-                        <label>{{__('Email')}} <span>**</span></label>
-                        <input name="email" type="text" value="{{old("email")}}" placeholder="{{__('Enter Email Address')}}">
+                        <label for="email">{{__('Email')}} <span>**</span></label>
+                        <input name="email" id="email" type="text" value="{{old("email")}}" placeholder="{{__('Enter Email Address')}}">
 
                         @if ($errors->has("email"))
                         <p class="text-danger mb-0">{{$errors->first("email")}}</p>
@@ -48,13 +48,13 @@
                     <div class="{{$input->type == 4 || $input->type == 3 ? 'col-lg-12' : 'col-lg-6'}}">
                         <div class="form-element mb-4">
                             @if ($input->type == 1)
-                                <label>{{convertUtf8($input->label)}} @if($input->required == 1) <span>**</span> @endif</label>
-                                <input name="{{$input->name}}" type="text" value="{{old("$input->name")}}" placeholder="{{convertUtf8($input->placeholder)}}">
+                                <label for="text{{$input->name}}">{{convertUtf8($input->label)}} @if($input->required == 1) <span>**</span> @endif</label>
+                                <input name="{{$input->name}}" id="text{{$input->name}}" type="text" value="{{old("$input->name")}}" placeholder="{{convertUtf8($input->placeholder)}}">
                             @endif
 
                             @if ($input->type == 2)
-                                <label>{{convertUtf8($input->label)}} @if($input->required == 1) <span>**</span> @endif</label>
-                                <select name="{{$input->name}}">
+                                <label for="select{{$input->name}}">{{convertUtf8($input->label)}} @if($input->required == 1) <span>**</span> @endif</label>
+                                <select name="{{$input->name}}" id="select{{$input->name}}">
                                     <option value="" selected disabled>{{convertUtf8($input->placeholder)}}</option>
                                     @foreach ($input->quote_input_options as $option)
                                         <option value="{{convertUtf8($option->name)}}" {{old("$input->name") == convertUtf8($option->name) ? 'selected' : ''}}>{{convertUtf8($option->name)}}</option>
@@ -63,36 +63,36 @@
                             @endif
 
                             @if ($input->type == 3)
-                                <label>{{convertUtf8($input->label)}} @if($input->required == 1) <span>**</span> @endif</label>
+                                <label for="checkbox{{$input->name}}">{{convertUtf8($input->label)}} @if($input->required == 1) <span>**</span> @endif</label>
                                 @foreach ($input->quote_input_options as $option)
                                     <div class="custom-control custom-checkbox custom-control-inline">
-                                        <input type="checkbox" id="customCheckboxInline{{$option->id}}" name="{{$input->name}}[]" class="custom-control-input" value="{{convertUtf8($option->name)}}" {{is_array(old("$input->name")) && in_array(convertUtf8($option->name), old("$input->name")) ? 'checked' : ''}}>
+                                        <input type="checkbox" id="customCheckboxInline{{$option->id}}" name="{{$input->name}}[]" id="checkbox{{$input->name}}" class="custom-control-input" value="{{convertUtf8($option->name)}}" {{is_array(old("$input->name")) && in_array(convertUtf8($option->name), old("$input->name")) ? 'checked' : ''}}>
                                         <label class="custom-control-label" for="customCheckboxInline{{$option->id}}">{{convertUtf8($option->name)}}</label>
                                     </div>
                                 @endforeach
                             @endif
 
                             @if ($input->type == 4)
-                                <label>{{convertUtf8($input->label)}} @if($input->required == 1) <span>**</span> @endif</label>
-                                <textarea name="{{$input->name}}" id="" cols="30" rows="10" placeholder="{{convertUtf8($input->placeholder)}}">{{old("$input->name")}}</textarea>
+                                <label for="textarea{{$input->name}}">{{convertUtf8($input->label)}} @if($input->required == 1) <span>**</span> @endif</label>
+                                <textarea name="{{$input->name}}" id="textarea{{$input->name}}" cols="30" rows="10" placeholder="{{convertUtf8($input->placeholder)}}">{{old("$input->name")}}</textarea>
                             @endif
 
                             @if ($input->type == 6)
-                                <label>{{convertUtf8($input->label)}} @if($input->required == 1) <span>**</span> @endif</label>
-                                <input class="datepicker" name="{{$input->name}}" type="text" value="{{old("$input->name")}}" placeholder="{{convertUtf8($input->placeholder)}}" autocomplete="off">
+                                <label for="datepicker{{$input->name}}">{{convertUtf8($input->label)}} @if($input->required == 1) <span>**</span> @endif</label>
+                                <input class="datepicker" name="{{$input->name}}" id="datepicker{{$input->name}}" type="text" value="{{old("$input->name")}}" placeholder="{{convertUtf8($input->placeholder)}}" autocomplete="off">
                             @endif
 
                             @if ($input->type == 7)
-                                <label>{{convertUtf8($input->label)}} @if($input->required == 1) <span>**</span> @endif</label>
-                                <input class="timepicker" name="{{$input->name}}" type="text" value="{{old("$input->name")}}" placeholder="{{convertUtf8($input->placeholder)}}" autocomplete="off">
+                                <label for="timepicker{{$input->name}}">{{convertUtf8($input->label)}} @if($input->required == 1) <span>**</span> @endif</label>
+                                <input class="timepicker" name="{{$input->name}}" id="timepicker{{$input->name}}" type="text" value="{{old("$input->name")}}" placeholder="{{convertUtf8($input->placeholder)}}" autocomplete="off">
                             @endif
 
                             @if ($input->type == 5)
                             <div class="row">
                               <div class="col-lg-12">
                                 <div class="form-element mb-2">
-                                  <label>{{$input->label}} @if($input->required == 1) <span>**</span> @endif</label>
-                                  <input type="file" name="{{$input->name}}" value="">
+                                  <label for="file{{$input->name}}">{{$input->label}} @if($input->required == 1) <span>**</span> @endif</label>
+                                  <input type="file" name="{{$input->name}}" id="file{{$input->name}}" value="">
                                 </div>
                                 <p class="text-warning mb-0">** {{__('Only zip file is allowed')}}</p>
                               </div>

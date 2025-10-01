@@ -43,43 +43,43 @@
 
                                             <div class="row">
                                                 <div class="col-lg-6">
-                                                    <input type="text" class="form_control" placeholder="{{__('First Name')}}" name="shpping_fname" value="{{convertUtf8($user->shpping_fname)}}" value="{{Request::old('fname')}}">
+                                                    <input aria-label="{{__('First Name')}}" type="text" class="form_control" placeholder="{{__('First Name')}}" name="shpping_fname" value="{{convertUtf8($user->shpping_fname)}}" value="{{Request::old('fname')}}">
                                                     @error('shpping_fname')
                                                         <p class="text-danger mb-4">{{ convertUtf8($message) }}</p>
                                                     @enderror
                                                 </div>
                                                 <div class="col-lg-6">
-                                                    <input type="text" class="form_control" placeholder="{{__('Last Name')}}" name="shpping_lname" value="{{convertUtf8($user->shpping_lname)}}" value="{{Request::old('fname')}}">
+                                                    <input aria-label="{{__('Last Name')}}" type="text" class="form_control" placeholder="{{__('Last Name')}}" name="shpping_lname" value="{{convertUtf8($user->shpping_lname)}}" value="{{Request::old('fname')}}">
                                                     @error('shpping_lname')
                                                         <p class="text-danger mb-4">{{ convertUtf8($message) }}</p>
                                                     @enderror
                                                 </div>
                                                 <div class="col-lg-6">
-                                                    <input type="email" class="form_control" placeholder="{{__('Email')}}" name="shpping_email"  value="{{convertUtf8($user->shpping_email)}}">
+                                                    <input aria-label="{{__('Email')}}" type="email" class="form_control" placeholder="{{__('Email')}}" name="shpping_email"  value="{{convertUtf8($user->shpping_email)}}">
                                                     @error('shpping_email')
                                                     <p class="text-danger mb-4">{{ convertUtf8($message) }}</p>
                                                     @enderror
                                                 </div>
                                                 <div class="col-lg-6">
-                                                    <input type="text" class="form_control" placeholder="{{__('Phone')}}" name="shpping_number" value="{{convertUtf8($user->shpping_number)}}">
+                                                    <input aria-label="{{__('Phone')}}" type="text" class="form_control" placeholder="{{__('Phone')}}" name="shpping_number" value="{{convertUtf8($user->shpping_number)}}">
                                                     @error('shpping_number')
                                                     <p class="text-danger mb-4">{{ convertUtf8($message) }}</p>
                                                     @enderror
                                                 </div>
                                                 <div class="col-lg-6">
-                                                    <input type="text" class="form_control" placeholder="{{__('City')}}" name="shpping_city" value="{{convertUtf8($user->shpping_city)}}">
+                                                    <input aria-label="{{__('City')}}" type="text" class="form_control" placeholder="{{__('City')}}" name="shpping_city" value="{{convertUtf8($user->shpping_city)}}">
                                                     @error('shpping_city')
                                                     <p class="text-danger mb-4">{{ convertUtf8($message) }}</p>
                                                     @enderror
                                                 </div>
                                                 <div class="col-lg-6">
-                                                    <input type="text" class="form_control" placeholder="{{__('State')}}" name="shpping_state" value="{{convertUtf8($user->shpping_state)}}">
+                                                    <input aria-label="{{__('State')}}" type="text" class="form_control" placeholder="{{__('State')}}" name="shpping_state" value="{{convertUtf8($user->shpping_state)}}">
                                                     @error('shpping_state')
                                                     <p class="text-danger mb-4">{{ convertUtf8($message) }}</p>
                                                     @enderror
                                                 </div>
                                                 <div class="col-lg-6">
-                                                    <input type="text" class="form_control" placeholder="{{__('Country')}}" name="shpping_country" value="{{convertUtf8($user->shpping_country)}}">
+                                                    <input aria-label="{{__('Country')}}" type="text" class="form_control" placeholder="{{__('Country')}}" name="shpping_country" value="{{convertUtf8($user->shpping_country)}}">
                                                     @error('shpping_country')
                                                     <p class="text-danger mb-4">{{ convertUtf8($message) }}</p>
                                                     @enderror
@@ -87,7 +87,7 @@
 
 
                                                 <div class="col-lg-12">
-                                                    <textarea name="shpping_address" class="form_control" placeholder="{{__('Address')}}">{{convertUtf8($user->shpping_address)}}</textarea>
+                                                    <textarea aria-label="{{__('Address')}}" name="shpping_address" class="form_control" placeholder="{{__('Address')}}">{{convertUtf8($user->shpping_address)}}</textarea>
                                                     @error('shpping_address')
                                                     <p class="text-danger">{{ convertUtf8($message) }}</p>
                                                     @enderror

@@ -43,43 +43,43 @@
 
                                             <div class="row">
                                                 <div class="col-lg-6">
-                                                    <input type="text" class="form_control" placeholder="{{__('First Name')}}" name="billing_fname" value="{{convertUtf8($user->billing_fname)}}">
+                                                    <input aria-label="{{__('First Name')}}" type="text" class="form_control" placeholder="{{__('First Name')}}" name="billing_fname" value="{{convertUtf8($user->billing_fname)}}">
                                                     @error('billing_fname')
                                                         <p class="text-danger mb-2">{{ convertUtf8($message) }}</p>
                                                     @enderror
                                                 </div>
                                                 <div class="col-lg-6">
-                                                    <input type="text" class="form_control" placeholder="{{__('Last Name')}}" name="billing_lname" value="{{convertUtf8($user->billing_lname)}}">
+                                                    <input aria-label="{{__('Last Name')}}" type="text" class="form_control" placeholder="{{__('Last Name')}}" name="billing_lname" value="{{convertUtf8($user->billing_lname)}}">
                                                     @error('billing_lname')
                                                         <p class="text-danger mb-2">{{ convertUtf8($message) }}</p>
                                                     @enderror
                                                 </div>
                                                 <div class="col-lg-6">
-                                                    <input type="email" class="form_control" placeholder="{{__('Email')}}" name="billing_email"  value="{{convertUtf8($user->billing_email)}}">
+                                                    <input aria-label="{{__('Email')}}" type="email" class="form_control" placeholder="{{__('Email')}}" name="billing_email"  value="{{convertUtf8($user->billing_email)}}">
                                                     @error('billing_email')
                                                     <p class="text-danger mb-2">{{ convertUtf8($message) }}</p>
                                                     @enderror
                                                 </div>
                                                 <div class="col-lg-6">
-                                                    <input type="text" class="form_control" placeholder="{{__('Phone')}}" name="billing_number" value="{{convertUtf8($user->billing_number)}}">
+                                                    <input aria-label="{{__('Phone')}}" type="text" class="form_control" placeholder="{{__('Phone')}}" name="billing_number" value="{{convertUtf8($user->billing_number)}}">
                                                     @error('billing_number')
                                                     <p class="text-danger mb-2">{{ convertUtf8($message) }}</p>
                                                     @enderror
                                                 </div>
                                                 <div class="col-lg-6">
-                                                    <input type="text" class="form_control" placeholder="{{__('City')}}" name="billing_city" value="{{convertUtf8($user->billing_city)}}">
+                                                    <input aria-label="{{__('City')}}" type="text" class="form_control" placeholder="{{__('City')}}" name="billing_city" value="{{convertUtf8($user->billing_city)}}">
                                                     @error('billing_city')
                                                     <p class="text-danger mb-2">{{ convertUtf8($message) }}</p>
                                                     @enderror
                                                 </div>
                                                 <div class="col-lg-6">
-                                                    <input type="text" class="form_control" placeholder="{{__('State')}}" name="billing_state" value="{{convertUtf8($user->billing_state)}}">
+                                                    <input aria-label="{{__('State')}}" type="text" class="form_control" placeholder="{{__('State')}}" name="billing_state" value="{{convertUtf8($user->billing_state)}}">
                                                     @error('billing_state')
                                                     <p class="text-danger mb-2">{{ convertUtf8($message) }}</p>
                                                     @enderror
                                                 </div>
                                                 <div class="col-lg-6">
-                                                    <input type="text" class="form_control" placeholder="{{__('Country')}}" name="billing_country" value="{{convertUtf8($user->billing_country)}}">
+                                                    <input aria-label="{{__('Country')}}" type="text" class="form_control" placeholder="{{__('Country')}}" name="billing_country" value="{{convertUtf8($user->billing_country)}}">
                                                     @error('billing_country')
                                                     <p class="text-danger mb-2">{{ convertUtf8($message) }}</p>
                                                     @enderror
@@ -87,7 +87,7 @@
 
 
                                                 <div class="col-lg-12">
-                                                    <textarea name="billing_address" class="form_control" placeholder="{{__('Address')}}">{{convertUtf8($user->billing_address)}}</textarea>
+                                                    <textarea aria-label="{{__('Address')}}" name="billing_address" class="form_control" placeholder="{{__('Address')}}">{{convertUtf8($user->billing_address)}}</textarea>
                                                     @error('billing_address')
                                                     <p class="text-danger">{{ convertUtf8($message) }}</p>
                                                     @enderror

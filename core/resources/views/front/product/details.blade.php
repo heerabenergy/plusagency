@@ -86,7 +86,7 @@
                     <div class="product-btns d-block d-sm-flex align-items-center mt-40">
                         <div class="product-quantity  d-flex" id="quantity">
                             <button aria-label="{{__('Subtract')}}" type="button" id="sub" class="sub subclick">-</button>
-                            <input type="text" class="cart-amount" id="1" value="1" />
+                            <input aria-label="{{__('Quantity')}}" type="text" class="cart-amount" id="1" value="1" />
                             <button aria-label="{{__('Add')}}" type="button" id="add" class="add addclick">+</button>
                         </div>
                     </div>
@@ -96,7 +96,7 @@
                         <div class="actions">
                             <a aria-label="{{__('Add to Cart')}}: {{$product->title}}" class="main-btn cart-btn cart-link d-inline-block" data-href="{{route('add.cart',$product->id)}}">{{__('Add To Cart')}}</a>
                             <form class="d-inline-block ml-2" method="GET" action="{{route('front.product.checkout',$product->slug)}}">
-                                <input type="hidden" value="" name="qty" id="order_click_with_qty">
+                                <input aria-label="{{__('Quantity')}}" type="hidden" value="" name="qty" id="order_click_with_qty">
                                 <button aria-label="{{__('Order Now')}}" type="submit" class="main-btn checkout-btn" >{{__('Order Now')}}</button>
                             </form>
                         </div>
@@ -210,10 +210,10 @@
                                         <form class="mt-5" action="{{route('product.review.submit')}}" method="POST">@csrf
                                             <div class="input-box">
                                                 <span>{{__('Comment')}}</span>
-                                                <textarea name="comment"  cols="30" rows="10" placeholder="{{__('Comment')}}"></textarea>
+                                                <textarea aria-label="{{__('Comment')}}" name="comment"  cols="30" rows="10" placeholder="{{__('Comment')}}"></textarea>
                                             </div>
-                                            <input type="hidden" value="" id="reviewValue" name="review">
-                                            <input type="hidden" value="{{$product->id}}" name="product_id">
+                                            <input aria-label="{{__('Rating')}}" type="hidden" value="" id="reviewValue" name="review">
+                                            <input aria-label="{{__('Product ID')}}" type="hidden" value="{{$product->id}}" name="product_id">
                                             <div class="input-box">
                                                 <span>{{__('Rating')}} *</span>
                                                 <div class="review-content ">

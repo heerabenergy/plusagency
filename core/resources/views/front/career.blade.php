@@ -63,8 +63,8 @@
                 <div class="searchbar-form-section">
                    <form action="{{route('front.career')}}">
                       <div class="searchbar">
-                         <input name="category" type="hidden" value="{{request()->input('category')}}">
-                         <input name="term" type="text" placeholder="{{__('Search Jobs')}}" value="{{request()->input('term')}}">
+                         <input aria-label="{{__('Category')}}" name="category" type="hidden" value="{{request()->input('category')}}">
+                         <input aria-label="{{__('Search Jobs')}}" name="term" type="text" placeholder="{{__('Search Jobs')}}" value="{{request()->input('term')}}">
                          <button aria-label="{{__('Search')}}" type="submit"><i class="fa fa-search"></i></button>
                       </div>
                    </form>

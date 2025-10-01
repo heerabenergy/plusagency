@@ -104,11 +104,11 @@
                 <form action="{{ route('front.causes.payment') }}" method="post" enctype="multipart/form-data"
                   id="donationForm">
                   @csrf
-                  <input type="hidden" name="donation_id" value="{{ $cause->id }}" />
-                  <input type="hidden" name="donation_slug" value="{{ $cause->slug }}" />
+                  <input aria-label="{{__('Donation ID')}}" type="hidden" name="donation_id" value="{{ $cause->id }}" />
+                  <input aria-label="{{__('Donation Slug')}}" type="hidden" name="donation_slug" value="{{ $cause->slug }}" />
                   <div id="donation-section">
                     <div class="form_group">
-                      <input type="number" class="form_control amount_input" name="amount"
+                      <input aria-label="{{__('Amount')}}" type="number" class="form_control amount_input" name="amount"
                         min="{{ $cause->min_amount }}" value="{{ $cause->min_amount }}" id="custom_amount">
                       <span>{{ $bex->base_currency_symbol }}</span>
                     </div>
@@ -135,17 +135,17 @@
                       }
                     @endphp
                     <div id="donation-info-section">
-                      <input type="hidden" name="minimum_amount" value="{{ $cause->min_amount }}">
-                      <input type="text" class="form_control" name="name" placeholder="{{ __('Enter your name') }}"
+                      <input aria-label="{{__('Min Amount')}}" type="hidden" name="minimum_amount" value="{{ $cause->min_amount }}">
+                      <input aria-label="{{__('Name')}}" type="text" class="form_control" name="name" placeholder="{{ __('Enter your name') }}"
                         value="{{ $name }}">
-                      <input type="email" class="form_control" name="email"
+                      <input aria-label="{{__('Email')}}" type="email" class="form_control" name="email"
                         placeholder="{{ __('Enter your email address') }}" value="{{ $email }}">
-                      <input type="text" class="form_control" name="phone"
+                      <input aria-label="{{__('Phone')}}" type="text" class="form_control" name="phone"
                         placeholder="{{ __('Enter your phone') }}" value="{{ $phone }}">
                     </div>
                   </div>
 
-                  <select class="form-control" name="payment_method" id="payment-gateway" style="margin-bottom: 20px;"
+                  <select aria-label="{{__('Payment Method')}}" class="form-control" name="payment_method" id="payment-gateway" style="margin-bottom: 20px;"
                     required>
                     <option value="0">{{ __('Choose an option') }}</option>
                     @foreach ($payment_gateways as $payment_gateway)
@@ -155,29 +155,29 @@
                   </select>
 
                   <div class="iyzico-element {{ old('payment_method') == 'Iyzico' ? '' : 'd-none' }}">
-                    <input type="text" name="identity_number" class="form-control mb-3" placeholder="Identity Number"
+                    <input aria-label="{{__('Identity Number')}}" type="text" name="identity_number" class="form-control mb-3" placeholder="Identity Number"
                       value="{{ old('identity_number') }}">
                     @error('identity_number')
                       <p class="text-danger text-left">{{ $message }}</p>
                     @enderror
 
-                    <input type="text" name="city" class="form-control mb-3" placeholder="City"
+                    <input aria-label="{{__('City')}}" type="text" name="city" class="form-control mb-3" placeholder="City"
                       value="{{ old('city') }}">
                     @error('city')
                       <p class="text-danger text-left">{{ $message }}</p>
                     @enderror
-                    <input type="text" name="country" class="form-control mb-3" placeholder="Country"
+                    <input aria-label="{{__('Country')}}" type="text" name="country" class="form-control mb-3" placeholder="Country"
                       value="{{ old('country') }}">
                     @error('country')
                       <p class="text-danger text-left">{{ $message }}</p>
                     @enderror
-                    <input type="text" name="address" class="form-control mb-3" placeholder="Address"
+                    <input aria-label="{{__('Address')}}" type="text" name="address" class="form-control mb-3" placeholder="Address"
                       value="{{ old('address') }}">
                     @error('address')
                       <p class="text-danger text-left">{{ $message }}</p>
                     @enderror
 
-                    <input type="text" name="zip_code" class="form-control mb-3" placeholder="Zip Code"
+                    <input aria-label="{{__('Zip Code')}}" type="text" name="zip_code" class="form-control mb-3" placeholder="Zip Code"
                       value="{{ old('zip_code') }}">
                     @error('zip_code')
                       <p class="text-danger text-left">{{ $message }}</p>
@@ -185,11 +185,11 @@
                   </div>
 
                   <div id="paystack-section" style="display: none">
-                    <input type="text" class="form_control" name="paystack_email"
+                    <input aria-label="{{__('Paystack Email')}}" type="text" class="form_control" name="paystack_email"
                       placeholder="{{ __('Email Address') }}">
                   </div>
                   <div id="flutterwave-section" style="display: none">
-                    <input type="text" class="form_control" name="flutterwave_email"
+                    <input aria-label="{{__('Flutterwave Email')}}" type="text" class="form_control" name="flutterwave_email"
                       placeholder="{{ __('Email Address') }}">
                   </div>
                   <div id="stripe-section" style="display: none">
@@ -200,17 +200,17 @@
                     <div id="stripe-errors" class="pb-2 text-danger text-left" role="alert"></div>
                   </div>
                   <div id="razorpay-section" style="display: none">
-                    <input type="text" class="form_control" name="razorpay_phone"
+                    <input aria-label="{{__('Razorpay Phone')}}" type="text" class="form_control" name="razorpay_phone"
                       placeholder="{{ __('Enter your phone') }}">
-                    <input type="text" class="form_control" name="razorpay_address"
+                    <input aria-label="{{__('Razorpay Address')}}" type="text" class="form_control" name="razorpay_address"
                       placeholder="{{ 'Enter your address' }}">
                   </div>
                   <div id="instructions">
 
                   </div>
-                  <input type="hidden" name="is_receipt" value="0" id="is_receipt">
+                  <input aria-label="{{__('Is Receipt')}}" type="hidden" name="is_receipt" value="0" id="is_receipt">
                   <div class="anonymous_user">
-                    <input type="checkbox" class="form_control" name="checkbox">
+                    <input aria-label="{{__('Anonymous Donation')}}" type="checkbox" class="form_control" name="checkbox">
                     {{ __('Anonymous Donation') }}
                   </div>
                   <button aria-label="{{__('Donate Now')}}" type="submit" class="main-btn"
@@ -362,7 +362,7 @@
               let description = `<div class="gateway-desc"><p>${data.description}</p></div>`;
               let receipt = `<div class="form-element mb-2">
                                               <label>Receipt  <span>**</span> </label>
-                                              <input type="file" name="receipt" value="" class="file-input">
+                                              <input aria-label="{{__('Receipt')}}" type="file" name="receipt" value="" class="file-input">
                                               <p class="mb-0 text-warning">** Receipt image must be .jpg / .jpeg / .png</p>
                                            </div>`;
               if (data.is_receipt === 1) {

@@ -81,8 +81,8 @@
                 <div class="searchbar-form-section">
                    <form action="{{route('front.services')}}">
                       <div class="searchbar">
-                         <input name="category" type="hidden" value="{{request()->input('category')}}">
-                         <input name="term" type="text" placeholder="{{__('Search Services')}}" value="{{request()->input('term')}}">
+                         <input aria-label="{{__('Category')}}" name="category" type="hidden" value="{{request()->input('category')}}">
+                         <input aria-label="{{__('Search Services')}}" name="term" type="text" placeholder="{{__('Search Services')}}" value="{{request()->input('term')}}">
                          <button aria-label="{{__('Search')}}" type="submit"><i class="fa fa-search"></i></button>
                       </div>
                    </form>
@@ -107,7 +107,7 @@
                    @csrf
                    <div class="form-element"><input aria-label="{{__('Email')}}" name="email" type="email" placeholder="{{__('Email')}}"></div>
                    <p id="erremail" class="text-danger mb-3 err-email"></p>
-                   <div class="form-element"><input type="submit" value="{{__('Subscribe')}}"></div>
+                   <div class="form-element"><input aria-label="{{__('Subscribe')}}" type="submit" value="{{__('Subscribe')}}"></div>
                 </form>
              </div>
            </div>

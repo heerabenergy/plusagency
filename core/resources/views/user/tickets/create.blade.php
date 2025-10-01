@@ -68,7 +68,7 @@
                                         <div class="form-element">
                                             <div class="input-group mb-3">
                                                 <div class="custom-file">
-                                                  <input type="file" name="zip_file" data-href="{{route('zip.upload')}}" class="custom-file-input" id="zip_file">
+                                                  <input id="zip_file" type="file" name="zip_file" data-href="{{route('zip.upload')}}" class="custom-file-input" id="zip_file">
                                                   <label class="custom-file-label" for="zip_file">{{__('Choose file')}}</label>
                                                 </div>
                                                 @error('zip_file')

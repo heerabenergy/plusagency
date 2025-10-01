@@ -110,9 +110,9 @@
 
                 @if ($event->available_tickets > 0)
                   <ul class="mb-20" style="display: flex">
-                    <li><input type="number" id="tickets" min="1" max="{{ $event->available_tickets }}">
+                    <li><input aria-label="{{__('Tickets')}}" type="number" id="tickets" min="1" max="{{ $event->available_tickets }}">
                     </li>
-                    <li><input type="hidden" id="cost" value="{{ $event->cost }}"></li>
+                    <li><input aria-label="{{__('Cost')}}" type="hidden" id="cost" value="{{ $event->cost }}"></li>
                     @if (!is_null($event->video))
                       <li><a aria-label="{{__('Play')}}" href="{{ asset('/assets/front/img/events/videos/' . $event->video) }}" class="play_btn"><i
                             class="fas fa-play"></i></a></li>
@@ -149,31 +149,31 @@
                   <hr>
                   <h4>{{ __('Invoice') }}</h4>
                   <hr>
-                  <input type="hidden" name="event_id" value="{{ $event->id }}">
-                  <input type="hidden" name="event_slug" value="{{ $event->slug }}">
+                  <input aria-label="{{__('Event ID')}}" type="hidden" name="event_id" value="{{ $event->id }}">
+                  <input aria-label="{{__('Event Slug')}}" type="hidden" name="event_slug" value="{{ $event->slug }}">
                   <div>{{ __('No. Of Tickets') }}: <span id="quantity">5</span></div>
-                  <input type="hidden" name="ticket_quantity" id="ticket-quantity" value="">
+                  <input aria-label="{{__('Ticket Quantity')}}" type="hidden" name="ticket_quantity" id="ticket-quantity" value="">
                   <div>{{ __('Per Ticket Cost') }}:
                     <span>{{ $bex->base_currency_symbol_position == 'left' ? $bex->base_currency_symbol : '' }}{{ $event->cost }}{{ $bex->base_currency_symbol_position == 'right' ? $bex->base_currency_symbol : '' }}
                     </span>
                   </div>
-                  <input type="hidden" name="ticket_cost" id="ticket-cost" value="{{ $event->cost }}">
+                  <input aria-label="{{__('Ticket Cost')}}" type="hidden" name="ticket_cost" id="ticket-cost" value="{{ $event->cost }}">
                   <div>{{ __('Total Cost') }}:
                     <span>{{ $bex->base_currency_symbol_position == 'left' ? $bex->base_currency_symbol : '' }}<span
                         id="total">100</span>{{ $bex->base_currency_symbol_position == 'right' ? $bex->base_currency_symbol : '' }}</span>
                   </div>
-                  <input type="hidden" name="total_cost" id="total-cost" value="">
+                  <input aria-label="{{__('Total Cost')}}" type="hidden" name="total_cost" id="total-cost" value="">
                   <br>
                   <div id="donation-info-section">
-                    <input type="text" class="form_control" name="name" placeholder="{{ __('Enter your name') }}"
+                    <input aria-label="{{__('Name')}}" type="text" class="form_control" name="name" placeholder="{{ __('Enter your name') }}"
                       value="{{ $name }}">
-                    <input type="email" class="form_control" name="email"
+                    <input aria-label="{{__('Email')}}" type="email" class="form_control" name="email"
                       placeholder="{{ __('Enter your email address') }}" value="{{ $email }}">
-                    <input type="text" class="form_control" name="phone" placeholder="{{ __('Enter your phone') }}"
+                    <input aria-label="{{__('Phone')}}" type="text" class="form_control" name="phone" placeholder="{{ __('Enter your phone') }}"
                       value="{{ $phone }}">
                   </div>
                   <div class="form_group" style="display: flex; flex-direction: column; margin-top: 20px">
-                    <select name="payment_method" id="payment-method">
+                    <select aria-label="{{__('Payment Method')}}" name="payment_method" id="payment-method">
                       <option value="0">{{ __('Choose an option') }}</option>
                       @foreach ($payment_gateways as $payment_gateway)
                         <option value="{{ $payment_gateway->name }}">{{ $payment_gateway->name }}</option>
@@ -182,29 +182,29 @@
                   </div>
 
                   <div class="iyzico-element d-none">
-                    <input type="text" name="identity_number" class="form_control mt-3 mb-3" placeholder="Identity Number"
+                        <input aria-label="{{__('Identity Number')}}" type="text" name="identity_number" class="form_control mt-3 mb-3" placeholder="Identity Number"
                       value="{{ old('identity_number') }}">
                     @error('identity_number')
                       <p class="text-danger text-left">{{ $message }}</p>
                     @enderror
 
-                    <input type="text" name="city" class="form_control mb-3" placeholder="City"
+                    <input aria-label="{{__('City')}}" type="text" name="city" class="form_control mb-3" placeholder="City"
                       value="{{ old('city') }}" >
                     @error('city')
                       <p class="text-danger text-left">{{ $message }}</p>
                     @enderror
-                    <input type="text" name="country" class="form_control mb-3" placeholder="Country"
+                    <input aria-label="{{__('Country')}}" type="text" name="country" class="form_control mb-3" placeholder="Country"
                       value="{{ old('country') }}">
                     @error('country')
                       <p class="text-danger text-left">{{ $message }}</p>
                     @enderror
-                    <input type="text" name="address" class="form_control mb-3" placeholder="Address"
+                    <input aria-label="{{__('Address')}}" type="text" name="address" class="form_control mb-3" placeholder="Address"
                       value="{{ old('address') }}">
                     @error('address')
                       <p class="text-danger text-left">{{ $message }}</p>
                     @enderror
 
-                    <input type="text" name="zip_code" class="form_control mb-3" placeholder="Zip Code"
+                    <input aria-label="{{__('Zip Code')}}" type="text" name="zip_code" class="form_control mb-3" placeholder="Zip Code"
                       value="{{ old('zip_code') }}">
                     @error('zip_code')
                       <p class="text-danger text-left">{{ $message }}</p>
@@ -219,23 +219,23 @@
                     <div id="stripe-errors" class="pb-2 text-danger text-left" role="alert"></div>
                   </div>
                   <div id="razorpay-section" style="display: none">
-                    <input type="text" class="form_control" name="razorpay_phone"
+                    <input aria-label="{{__('Razorpay Phone')}}" type="text" class="form_control" name="razorpay_phone"
                       placeholder="{{ __('Enter your phone') }}">
-                    <input type="text" class="form_control" name="razorpay_address"
+                    <input aria-label="{{__('Razorpay Address')}}" type="text" class="form_control" name="razorpay_address"
                       placeholder="{{ __('Enter your address') }}">
                   </div>
                   <div id="payumoney-section" style="display: none">
-                    <input type="text" class="form_control" name="payumoney_first_name"
+                    <input aria-label="{{__('Payumoney First Name')}}" type="text" class="form_control" name="payumoney_first_name"
                       placeholder="{{ __('First Name') }}">
-                    <input type="text" class="form_control" name="payumoney_last_name"
+                    <input aria-label="{{__('Payumoney Last Name')}}" type="text" class="form_control" name="payumoney_last_name"
                       placeholder="{{ __('Last Name') }}">
-                    <input type="text" class="form_control" name="payumoney_phone"
+                    <input aria-label="{{__('Payumoney Phone')}}" type="text" class="form_control" name="payumoney_phone"
                       placeholder="{{ __('Phone') }}">
                   </div>
                   <div id="instructions">
 
                   </div>
-                  <input type="hidden" name="is_receipt" value="0" id="is_receipt">
+                  <input aria-label="{{__('Is Receipt')}}" type="hidden" name="is_receipt" value="0" id="is_receipt">
                   <div class="form_group"
                     style="display: flex; flex-direction: row;justify-content: space-between; text-align: center;margin-top: 20px;">
                     <a aria-label="{{__('Cancel')}}" href="javascript:void(0)" class="main-btn" id="cancel"
@@ -464,7 +464,7 @@
               let description = `<div class="gateway-desc"><p>${data.description}</p></div>`;
               let receipt = `<div class="form-element mb-2">
                                         <label>Receipt  <span>**</span> </label>
-                                        <input type="file" name="receipt" value="" class="file-input">
+                                        <input aria-label="{{__('Receipt')}}" type="file" name="receipt" value="" class="file-input">
                                         <p class="mb-0 text-warning">** Receipt image must be .jpg / .jpeg / .png</p>
                                     </div>`;
               if (data.is_receipt === 1) {

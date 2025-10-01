@@ -44,7 +44,7 @@
                           $bcountry = old('billing_country');
                       }
                     @endphp
-                    <input type="text" name="billing_country" value="{{ $bcountry }}">
+                    <input aria-label="{{__('Country')}}" type="text" name="billing_country" value="{{ $bcountry }}">
                   </div>
                   @error('billing_country')
                     <p class="text-danger mt-2">{{ convertUtf8($message) }}</p>
@@ -63,7 +63,7 @@
                           $bfname = old('billing_fname');
                       }
                     @endphp
-                    <input type="text" name="billing_fname" value="{{ $bfname }}">
+                    <input aria-label="{{__('First Name')}}" type="text" name="billing_fname" value="{{ $bfname }}">
                   </div>
                   @error('billing_fname')
                     <p class="text-danger mt-2">{{ convertUtf8($message) }}</p>
@@ -82,7 +82,7 @@
                           $blname = old('billing_lname');
                       }
                     @endphp
-                    <input type="text" name="billing_lname" value="{{ $blname }}">
+                    <input aria-label="{{__('Last Name')}}" type="text" name="billing_lname" value="{{ $blname }}">
                   </div>
                   @error('billing_lname')
                     <p class="text-danger mt-2">{{ convertUtf8($message) }}</p>
@@ -101,7 +101,7 @@
                           $baddress = old('billing_address');
                       }
                     @endphp
-                    <input type="text" name="billing_address" value="{{ $baddress }}">
+                    <input aria-label="{{__('Address')}}" type="text" name="billing_address" value="{{ $baddress }}">
                   </div>
                   @error('billing_address')
                     <p class="text-danger mt-2">{{ convertUtf8($message) }}</p>
@@ -121,7 +121,7 @@
                           $bcity = old('billing_city');
                       }
                     @endphp
-                    <input type="text" name="billing_city" value="{{ $bcity }}">
+                    <input aria-label="{{__('Town / City')}}" type="text" name="billing_city" value="{{ $bcity }}">
                   </div>
                   @error('billing_city')
                     <p class="text-danger mt-2">{{ convertUtf8($message) }}</p>
@@ -140,7 +140,7 @@
                           $bmail = old('billing_email');
                       }
                     @endphp
-                    <input type="text" name="billing_email" value="{{ $bmail }}">
+                    <input aria-label="{{__('Contact Email')}}" type="text" name="billing_email" value="{{ $bmail }}">
                   </div>
                   @error('billing_email')
                     <p class="text-danger mt-2">{{ convertUtf8($message) }}</p>
@@ -159,7 +159,7 @@
                           $bnumber = old('billing_number');
                       }
                     @endphp
-                    <input type="text" name="billing_number" value="{{ $bnumber }}">
+                    <input aria-label="{{__('Phone')}}" type="text" name="billing_number" value="{{ $bnumber }}">
                   </div>
                   @error('billing_number')
                     <p class="text-danger mt-2">{{ convertUtf8($message) }}</p>
@@ -187,7 +187,7 @@
                           $scountry = old('shpping_country');
                       }
                     @endphp
-                    <input type="text" name="shpping_country" value="{{ $scountry }}">
+                    <input aria-label="{{__('Country')}}" type="text" name="shpping_country" value="{{ $scountry }}">
                   </div>
                   @error('shpping_country')
                     <p class="text-danger mt-2">{{ convertUtf8($message) }}</p>
@@ -206,7 +206,7 @@
                           $sfname = old('shpping_fname');
                       }
                     @endphp
-                    <input type="text" name="shpping_fname" value="{{ $sfname }}">
+                    <input aria-label="{{__('First Name')}}" type="text" name="shpping_fname" value="{{ $sfname }}">
                   </div>
                   @error('shpping_fname')
                     <p class="text-danger mt-2">{{ convertUtf8($message) }}</p>
@@ -225,7 +225,7 @@
                           $slname = old('shpping_lname');
                       }
                     @endphp
-                    <input type="text" name="shpping_lname" value="{{ $slname }}">
+                    <input aria-label="{{__('Last Name')}}" type="text" name="shpping_lname" value="{{ $slname }}">
                   </div>
                   @error('shpping_lname')
                     <p class="text-danger mt-2">{{ convertUtf8($message) }}</p>
@@ -244,7 +244,7 @@
                           $saddress = old('shpping_address');
                       }
                     @endphp
-                    <input type="text" name="shpping_address" value="{{ $saddress }}">
+                    <input aria-label="{{__('Address')}}" type="text" name="shpping_address" value="{{ $saddress }}">
                   </div>
                   @error('shpping_address')
                     <p class="text-danger mt-2">{{ convertUtf8($message) }}</p>
@@ -264,7 +264,7 @@
                           $scity = old('shpping_city');
                       }
                     @endphp
-                    <input type="text" name="shpping_city" value="{{ $scity }}">
+                    <input aria-label="{{__('Town / City')}}" type="text" name="shpping_city" value="{{ $scity }}">
                   </div>
                   @error('shpping_city')
                     <p class="text-danger mt-2">{{ convertUtf8($message) }}</p>
@@ -283,7 +283,7 @@
                           $smail = old('shpping_email');
                       }
                     @endphp
-                    <input type="text" name="shpping_email" value="{{ $smail }}">
+                    <input aria-label="{{__('Contact Email')}}" type="text" name="shpping_email" value="{{ $smail }}">
                   </div>
                   @error('shpping_email')
                     <p class="text-danger mt-2">{{ convertUtf8($message) }}</p>
@@ -302,7 +302,7 @@
                           $snumber = old('shpping_number');
                       }
                     @endphp
-                    <input type="text" name="shpping_number" value="{{ $snumber }}">
+                    <input aria-label="{{__('Phone')}}" type="text" name="shpping_number" value="{{ $snumber }}">
                   </div>
                   @error('shpping_number')
                     <p class="text-danger mt-2">{{ convertUtf8($message) }}</p>
@@ -335,7 +335,7 @@
                       @foreach ($shippings as $key => $charge)
                         <tr>
                           <td>
-                            <input type="radio" {{ $key == 0 ? 'checked' : '' }} name="shipping_charge"
+                            <input aria-label="{{__('Shipping Charge')}}" type="radio" {{ $key == 0 ? 'checked' : '' }} name="shipping_charge"
                               {{ $cart == null ? 'disabled' : '' }} data="{{ $charge->charge }}"
                               class="shipping-charge" value="{{ $charge->id }}">
                           </td>
@@ -356,7 +356,7 @@
               </div>
             @else
               <div class="col-12">
-                <input style="visibility: hidden;" type="radio" checked name="shipping_charge"
+                <input aria-label="{{__('Shipping Charge')}}" style="visibility: hidden;" type="radio" checked name="shipping_charge"
                   {{ $cart == null ? 'disabled' : '' }} data="0" class="shipping-charge" value="0">
               </div>
             @endif
@@ -380,7 +380,7 @@
                     @endphp
                     @if ($cart)
                       @foreach ($cart as $key => $item)
-                        <input type="hidden" name="product_id[]" value="{{ $key }}">
+                        <input aria-label="{{__('Product ID')}}" type="hidden" name="product_id[]" value="{{ $key }}">
                         @php
                           $total += $item['price'] * $item['qty'];
                           $product = App\Product::findOrFail($key);
@@ -397,7 +397,7 @@
                             </div>
                           </td>
                           <td class="qty">
-                            <input class="quantity-spinner" disabled type="text" value="{{ $item['qty'] }}"
+                            <input aria-label="{{__('Quantity')}}" class="quantity-spinner" disabled type="text" value="{{ $item['qty'] }}"
                               name="quantity">
                           </td>
                           <td class="price">
@@ -495,7 +495,7 @@
                 <div class="coupon mt-4">
                   <h4 class="mb-3">{{ __('Coupon') }}</h4>
                   <div class="form-group d-flex">
-                    <input type="text" class="form-control" name="coupon" value="">
+                    <input aria-label="{{__('Coupon')}}"  type="text" class="form-control" name="coupon" value="">
                     <button aria-label="{{__('Apply')}}" class="btn btn-primary base-bg border-0" type="button"
                       onclick="applyCoupon();">{{ __('Apply') }}</button>
                   </div>

@@ -6,11 +6,13 @@
   method="POST"
 >
   <input
+    aria-label="{{__('Razorpay Payment ID')}}"
     type="hidden"
     name="razorpay_payment_id"
     id="razorpay_payment_id"
   >
   <input
+    aria-label="{{__('Razorpay Signature')}}"
     type="hidden"
     name="razorpay_signature"
     id="razorpay_signature"

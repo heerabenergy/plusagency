@@ -210,7 +210,7 @@
 								<form id="footerSubscribeForm" action="{{route('front.subscribe')}}" method="post">
                                     @csrf
 									<div class="form_group">
-										<input type="email" class="form_control" placeholder="{{__('Enter Email Address')}}" name="email" required>
+										<input aria-label="{{__('Email')}}" type="email" class="form_control" placeholder="{{__('Enter Email Address')}}" name="email" required>
                                         <p id="erremail" class="text-danger mb-0 err-email"></p>
 										<button aria-label="{{__('Subscribe')}}" type="submit" class="finlance_btn py-0">{{__('Subscribe')}}</button>
 									</div>

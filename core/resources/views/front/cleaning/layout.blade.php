@@ -201,7 +201,7 @@
                         <h4>{{__('Newsletter')}}</h4>
                         <p>{{convertUtf8($bs->newsletter_text)}}</p>
                         <form id="footerSubscribeForm" action="{{route('front.subscribe')}}" method="post">
-                            <input type="email" name="email" required placeholder="{{__('Enter Email Address')}}">
+                            <input aria-label="{{__('Email')}}" type="email" name="email" required placeholder="{{__('Enter Email Address')}}">
                             <button aria-label="{{__('Subscribe')}}" type="submit" class="main-btn footer-form-btn">{{__('Subscribe')}}</button>
                         </form>
                     </div>

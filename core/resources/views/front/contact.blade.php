@@ -69,7 +69,7 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-element">
-                                <input name="name" type="text" placeholder="{{__('Name')}}" required>
+                                <input aria-label="{{__('Name')}}" name="name" type="text" placeholder="{{__('Name')}}" required>
                             </div>
                             @if ($errors->has('name'))
                             <p class="text-danger mb-0">{{$errors->first('name')}}</p>
@@ -77,7 +77,7 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-element">
-                                <input name="email" type="email" placeholder="{{__('Email')}}" required>
+                                <input aria-label="{{__('Email')}}" name="email" type="email" placeholder="{{__('Email')}}" required>
                             </div>
                             @if ($errors->has('email'))
                             <p class="text-danger mb-0">{{$errors->first('email')}}</p>
@@ -85,7 +85,7 @@
                         </div>
                         <div class="col-md-12">
                             <div class="form-element">
-                                <input name="subject" type="text" placeholder="{{__('Subject')}}" required>
+                                <input aria-label="{{__('Subject')}}" name="subject" type="text" placeholder="{{__('Subject')}}" required>
                             </div>
                             @if ($errors->has('subject'))
                             <p class="text-danger mb-0">{{$errors->first('subject')}}</p>
@@ -93,7 +93,7 @@
                         </div>
                         <div class="col-md-12">
                             <div class="form-element">
-                                <textarea name="message" id="comment" cols="30" rows="10" placeholder="{{__('Comment')}}" required></textarea>
+                                <textarea aria-label="{{__('Comment')}}" name="message" id="comment" cols="30" rows="10" placeholder="{{__('Comment')}}" required></textarea>
                             </div>
                             @if ($errors->has('message'))
                             <p class="text-danger mb-0">{{$errors->first('message')}}</p>
@@ -114,7 +114,7 @@
 
                         <div class="col-md-12">
                             <div class="form-element no-margin">
-                                <input type="submit" value="{{__('Submit')}}">
+                                <input aria-label="{{__('Submit')}}" type="submit" value="{{__('Submit')}}">
                             </div>
                         </div>
                     </div>

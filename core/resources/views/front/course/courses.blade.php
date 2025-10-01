@@ -116,6 +116,7 @@
               <h4>{{ __('Course Type') }}</h4>
               <div class="single_radio">
                 <input
+                  aria-label="{{__('Course Type')}}"
                   type="radio"
                   id="radio1"
                   class="course-type"
@@ -127,6 +128,7 @@
               </div>
               <div class="single_radio">
                 <input
+                  aria-label="{{__('Course Type')}}"
                   type="radio"
                   id="radio2"
                   class="course-type"
@@ -138,6 +140,7 @@
               </div>
               <div class="single_radio">
                 <input
+                  aria-label="{{__('Course Type')}}"
                   type="radio"
                   id="radio3"
                   class="course-type"
@@ -175,6 +178,7 @@
               <h4>{{ __('Filter By Rating') }}</h4>
               <div class="single_radio">
                 <input
+                  aria-label="{{__('Filter By Rating')}}"
                   type="radio"
                   id="ratingAll"
                   class="rating-filter"
@@ -186,6 +190,7 @@
               </div>
               <div class="single_radio">
                 <input
+                  aria-label="{{__('Filter By Rating')}}"
                   type="radio"
                   id="rating5"
                   class="rating-filter"
@@ -197,6 +202,7 @@
               </div>
               <div class="single_radio">
                 <input
+                  aria-label="{{__('Filter By Rating')}}"
                   type="radio"
                   id="rating4"
                   class="rating-filter"
@@ -208,6 +214,7 @@
               </div>
               <div class="single_radio">
                 <input
+                  aria-label="{{__('Filter By Rating')}}"
                   type="radio"
                   id="rating3"
                   class="rating-filter"
@@ -219,6 +226,7 @@
               </div>
               <div class="single_radio">
                 <input
+                  aria-label="{{__('Filter By Rating')}}"
                   type="radio"
                   id="rating2"
                   class="rating-filter"
@@ -230,6 +238,7 @@
               </div>
               <div class="single_radio">
                 <input
+                  aria-label="{{__('Filter By Rating')}}"
                   type="radio"
                   id="rating1"
                   class="rating-filter"
@@ -247,6 +256,7 @@
               <div id="slider-range"></div>
               <label for="amount">{{ __('Price') . ':' }}</label>
               <input
+                aria-label="{{__('Price')}}"
                 type="text"
                 id="amount"
               >
@@ -259,7 +269,7 @@
             <div class="row">
               <div class="col-lg-3 col-md-6 col-sm-12">
                 <div class="form_group">
-                  <select id="filterType">
+                  <select aria-label="{{__('Filter')}}" id="filterType">
                     <option selected disabled>{{ __('Filter') }}</option>
                     <option value="new" {{ request()->input('filterValue') == 'new' ? 'selected' : '' }}>{{ __('New Courses') }}</option>
                     <option value="old" {{ request()->input('filterValue') == 'old' ? 'selected' : '' }}>{{ __('Old Courses') }}</option>
@@ -281,6 +291,7 @@
                     id="search-input-btn"
                   ></i>
                   <input
+                    aria-label="{{__('Search By Course Name')}}"
                     type="search"
                     class="form_control"
                     id="searchInput"
@@ -378,12 +389,14 @@
   {{-- search form --}}
   <form id="searchForm" class="d-none" action="{{ route('courses') }}" method="GET">
     <input
+      aria-label="{{__('Search By Course Name')}}"
       type="hidden"
       id="searchKey"
       name="search"
       value="{{ !empty(request()->input('search')) ? request()->input('search') : '' }}"
     >
     <input
+      aria-label="{{__('Category')}}"
       type="hidden"
       id="categoryKey"
       name="category_id"
@@ -392,6 +405,7 @@
 
     @if($bex->is_course_rating == 1)
     <input
+      aria-label="{{__('Rating')}}"
       type="hidden"
       id="ratingKey"
       name="rating"
@@ -400,24 +414,28 @@
     @endif
 
     <input
+      aria-label="{{__('Course Type')}}"
       type="hidden"
       id="checkedKey"
       name="checked_value"
       value="{{ !empty(request()->input('checked_value')) ? request()->input('checked_value') : '' }}"
     >
     <input
+      aria-label="{{__('Price')}}"
       type="hidden"
       id="minPriceId"
       name="minValue"
       value="{{ !empty(request()->input('minValue')) ? request()->input('minValue') : '' }}"
     >
     <input
+      aria-label="{{__('Price')}}"
       type="hidden"
       id="maxPriceId"
       name="maxValue"
       value="{{ !empty(request()->input('maxValue')) ? request()->input('maxValue') : '' }}"
     >
     <input
+      aria-label="{{__('Filter')}}"
       type="hidden"
       id="typeId"
       name="filterValue"

@@ -31,7 +31,7 @@
                         <form id="subscribeForm" action="{{route('front.subscribe')}}" method="POST">
                             @csrf
                             <div class="form_group">
-                                <input type="email" class="form_control" placeholder="{{__('Enter Email Address')}}" name="email" required>
+                                <input aria-label="{{__('Email')}}" type="email" class="form_control" placeholder="{{__('Enter Email Address')}}" name="email" required>
                                 <p id="erremail" class="text-white mb-3 err-email"></p>
                             </div>
                             <div class="form_group">
@@ -70,7 +70,7 @@
                             <form id="subscribeForm" action="{{route('front.subscribe')}}" method="POST">
                                 @csrf
                                 <div class="form_group">
-                                    <input type="email" class="form_control" placeholder="{{__('Enter Email Address')}}" name="email" required>
+                                    <input aria-label="{{__('Email')}}" type="email" class="form_control" placeholder="{{__('Enter Email Address')}}" name="email" required>
                                     <p id="erremail" class="text-danger mb-3 err-email"></p>
                                 </div>
                                 <div class="form_group">

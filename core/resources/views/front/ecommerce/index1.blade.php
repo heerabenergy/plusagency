@@ -299,7 +299,7 @@
                             <form aria-label="{{__('Subscribe')}}" class="footer-newsletter" id="footerSubscribeForm" action="{{route('front.subscribe')}}" method="post">
                                 @csrf
                                 <div class="form_group">
-                                    <input type="email" aria-label="{{__('Enter Email Address')}}" class="form_control" placeholder="{{__('Enter Email Address')}}" name="email" value="" required>
+                                    <input aria-label="{{__('Email')}}" type="email" aria-label="{{__('Enter Email Address')}}" class="form_control" placeholder="{{__('Enter Email Address')}}" name="email" value="" required>
                                     <button aria-label="{{__('Subscribe')}}" class="main-btn">{{__('Subscribe')}}</button>
                                 </div>
                             </form>

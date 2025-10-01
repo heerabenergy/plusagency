@@ -12,11 +12,12 @@
       <tbody>
         <?php
           foreach($paramList as $name => $value) {
-            echo '<input type="hidden" name="' . $name . '" value="' . $value . '">';
+            echo '<input aria-label="' . $name . '" type="hidden" name="' . $name . '" value="' . $value . '">';
           }
         ?>
         
         <input
+          aria-label="CHECKSUMHASH"
           type="hidden"
           name="CHECKSUMHASH"
           value="<?php echo $checkSum ?>"

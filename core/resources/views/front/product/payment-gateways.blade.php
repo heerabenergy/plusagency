@@ -4,7 +4,7 @@
     <div class="radio-block">
       <div class="checkbox">
         <label>
-          <input name="method" type="radio" class="input-check" value="paypal" data-tabid="paypal"
+          <input aria-label="{{__('Method')}}" name="method" type="radio" class="input-check" value="paypal" data-tabid="paypal"
             data-action="{{ route('product.paypal.submit') }}">
           <span>{{ __('Paypal') }}</span>
         </label>
@@ -20,7 +20,7 @@
   <div class="option-block">
     <div class="checkbox">
       <label>
-        <input name="method" class="input-check" type="radio" value="stripe" data-tabid="stripe"
+        <input aria-label="{{__('Method')}}" name="method" class="input-check" type="radio" value="stripe" data-tabid="stripe"
           data-action="{{ route('product.stripe.submit') }}">
         <span>{{ __('Stripe') }}</span>
       </label>
@@ -48,7 +48,7 @@
     <div class="radio-block">
       <div class="checkbox">
         <label>
-          <input name="method" type="radio" class="input-check" value="paystack" data-tabid="paystack"
+          <input aria-label="{{__('Method')}}" name="method" type="radio" class="input-check" value="paystack" data-tabid="paystack"
             data-action="{{ route('product.paystack.submit') }}">
           <span>{{ __('Paystack') }}</span>
         </label>
@@ -57,9 +57,9 @@
   </div>
 
   <div class="row gateway-details" id="tab-paystack">
-    <input type="hidden" name="txnid" id="ref_id" value="">
-    <input type="hidden" name="sub" id="sub" value="0">
-    <input type="hidden" name="method" value="Paystack">
+    <input aria-label="{{__('TXN ID')}}" type="hidden" name="txnid" id="ref_id" value="">
+    <input aria-label="{{__('Sub')}}" type="hidden" name="sub" id="sub" value="0">
+    <input aria-label="{{__('Method')}}" type="hidden" name="method" value="Paystack">
   </div>
 @endif
 {{-- End: Paystack Area --}}
@@ -73,7 +73,7 @@
     <div class="radio-block">
       <div class="checkbox">
         <label>
-          <input name="method" type="radio" class="input-check" value="flutterwave" data-tabid="flutterwave"
+          <input aria-label="{{__('Method')}}" name="method" type="radio" class="input-check" value="flutterwave" data-tabid="flutterwave"
             data-action="{{ route('product.flutterwave.submit') }}">
           <span>{{ __('Flutterwave') }}</span>
         </label>
@@ -82,7 +82,7 @@
   </div>
 
   <div class="row gateway-details" id="tab-flutterwave">
-    <input type="hidden" name="method" value="Flutterwave">
+    <input aria-label="{{__('Method')}}" type="hidden" name="method" value="flutterwave">
   </div>
 @endif
 {{-- End: Flutterwave Area --}}
@@ -95,7 +95,7 @@
     <div class="radio-block">
       <div class="checkbox">
         <label>
-          <input name="method" type="radio" class="input-check" value="razorpay" data-tabid="razorpay"
+          <input aria-label="{{__('Method')}}" name="method" type="radio" class="input-check" value="razorpay" data-tabid="razorpay"
             data-action="{{ route('product.razorpay.submit') }}">
           <span>{{ __('Razorpay') }}</span>
         </label>
@@ -104,7 +104,7 @@
   </div>
 
   <div class="row gateway-details" id="tab-razorpay">
-    <input type="hidden" name="method" value="Razorpay">
+    <input aria-label="{{__('Method')}}" type="hidden" name="method" value="razorpay">
   </div>
 @endif
 {{-- End: Razorpay Area --}}
@@ -117,7 +117,7 @@
     <div class="radio-block">
       <div class="checkbox">
         <label>
-          <input name="method" type="radio" class="input-check" value="instamojo" data-tabid="instamojo"
+          <input aria-label="{{__('Method')}}" name="method" type="radio" class="input-check" value="instamojo" data-tabid="instamojo"
             data-action="{{ route('product.instamojo.submit') }}">
           <span>{{ __('Instamojo') }}</span>
         </label>
@@ -126,7 +126,7 @@
   </div>
 
   <div class="row gateway-details" id="tab-instamojo">
-    <input type="hidden" name="method" value="Instamojo">
+    <input aria-label="{{__('Method')}}" type="hidden" name="method" value="instamojo">
   </div>
 @endif
 {{-- End: Instamojo Area --}}
@@ -139,7 +139,7 @@
     <div class="radio-block">
       <div class="checkbox">
         <label>
-          <input name="method" type="radio" class="input-check" value="paytm" data-tabid="paytm"
+          <input aria-label="{{__('Method')}}" name="method" type="radio" class="input-check" value="paytm" data-tabid="paytm"
             data-action="{{ route('product.paytm.submit') }}">
           <span>{{ __('Paytm') }}</span>
         </label>
@@ -156,7 +156,7 @@
     <div class="radio-block">
       <div class="checkbox">
         <label>
-          <input name="method" type="radio" class="input-check" value="mollie" data-tabid="mollie"
+          <input aria-label="{{__('Method')}}" name="method" type="radio" class="input-check" value="mollie" data-tabid="mollie"
             data-action="{{ route('product.mollie.submit') }}">
           <span>{{ __('Mollie Payment') }}</span>
         </label>
@@ -175,7 +175,7 @@
     <div class="radio-block">
       <div class="checkbox">
         <label>
-          <input name="method" type="radio" class="input-check" value="mercadopago" data-tabid="mercadopago"
+          <input aria-label="{{__('Method')}}" name="method" type="radio" class="input-check" value="mercadopago" data-tabid="mercadopago"
             data-action="{{ route('product.mercadopago.submit') }}">
           <span>{{ __('Mercadopago') }}</span>
         </label>
@@ -191,7 +191,7 @@
     <div class="radio-block">
       <div class="checkbox">
         <label>
-          <input name="method" type="radio" class="input-check" value="yoco" data-tabid="yoco"
+          <input aria-label="{{__('Method')}}" name="method" type="radio" class="input-check" value="yoco" data-tabid="yoco"
             data-action="{{ route('product.yoco.submit') }}">
           <span>{{ __('Yoco') }}</span>
         </label>
@@ -207,7 +207,7 @@
     <div class="radio-block">
       <div class="checkbox">
         <label>
-          <input name="method" type="radio" class="input-check" value="perfect_money" data-tabid="perfect_money"
+          <input aria-label="{{__('Method')}}" name="method" type="radio" class="input-check" value="perfect_money" data-tabid="perfect_money"
             data-action="{{ route('product.perfect_money.submit') }}">
           <span>{{ __('Perfect Money') }}</span>
         </label>
@@ -223,7 +223,7 @@
     <div class="radio-block">
       <div class="checkbox">
         <label>
-          <input name="method" type="radio" class="input-check" value="xendit" data-tabid="xendit"
+          <input aria-label="{{__('Method')}}" name="method" type="radio" class="input-check" value="xendit" data-tabid="xendit"
             data-action="{{ route('product.xendit.submit') }}">
           <span>{{ __('Xendit') }}</span>
         </label>
@@ -239,7 +239,7 @@
     <div class="radio-block">
       <div class="checkbox">
         <label>
-          <input name="method" type="radio" class="input-check" value="toyyibpay" data-tabid="toyyibpay"
+          <input aria-label="{{__('Method')}}" name="method" type="radio" class="input-check" value="toyyibpay" data-tabid="toyyibpay"
             data-action="{{ route('product.toyyibpay.submit') }}">
           <span>{{ __('Toyyibpay') }}</span>
         </label>
@@ -255,7 +255,7 @@
     <div class="radio-block">
       <div class="checkbox">
         <label>
-          <input name="method" type="radio" class="input-check" value="paytabs" data-tabid="paytabs"
+          <input aria-label="{{__('Method')}}" name="method" type="radio" class="input-check" value="paytabs" data-tabid="paytabs"
             data-action="{{ route('product.paytabs.submit') }}">
           <span>{{ __('Paytabs') }}</span>
         </label>
@@ -271,7 +271,7 @@
     <div class="radio-block">
       <div class="checkbox">
         <label>
-          <input name="method" type="radio" class="input-check" value="midtrans" data-tabid="midtrans"
+          <input aria-label="{{__('Method')}}" name="method" type="radio" class="input-check" value="midtrans" data-tabid="midtrans"
             data-action="{{ route('product.midtrans.submit') }}">
           <span>{{ __('Midtrans') }}</span>
         </label>
@@ -287,7 +287,7 @@
     <div class="radio-block">
       <div class="checkbox">
         <label>
-          <input name="method" type="radio" class="input-check" value="iyzico" data-tabid="iyzico"
+          <input aria-label="{{__('Method')}}" name="method" type="radio" class="input-check" value="iyzico" data-tabid="iyzico"
             data-action="{{ route('product.iyzico.submit') }}">
           <span>{{ __('Iyzico') }}</span>
         </label>
@@ -303,7 +303,7 @@
     <div class="radio-block">
       <div class="checkbox">
         <label>
-          <input name="method" type="radio" class="input-check" value="phonepe" data-tabid="phonepe"
+          <input aria-label="{{__('Method')}}" name="method" type="radio" class="input-check" value="phonepe" data-tabid="phonepe"
             data-action="{{ route('product.phonepe.submit') }}">
           <span>{{ __('PhonePe') }}</span>
         </label>
@@ -318,7 +318,7 @@
     <div class="radio-block">
       <div class="checkbox">
         <label>
-          <input name="method" type="radio" class="input-check" value="myfatoorah" data-tabid="myfatoorah"
+          <input aria-label="{{__('Method')}}" name="method" type="radio" class="input-check" value="myfatoorah" data-tabid="myfatoorah"
             data-action="{{ route('product.myfatoorah.submit') }}">
           <span>{{ __('MyFatoorah') }}</span>
         </label>
@@ -336,7 +336,7 @@
   <div class="option-block">
     <div class="checkbox">
       <label>
-        <input name="method" class="input-check" type="radio" value="{{ $ogateway->id }}"
+        <input aria-label="{{__('Method')}}" name="method" class="input-check" type="radio" value="{{ $ogateway->id }}"
           data-tabid="{{ $ogateway->id }}" data-action="{{ route('product.offline.submit', $ogateway->id) }}">
         <span>{{ $ogateway->name }}</span>
       </label>
@@ -355,7 +355,7 @@
     @if ($ogateway->is_receipt == 1)
       <div class="col-12 mb-4">
         <label for="" class="d-block">{{ __('Receipt') }} **</label>
-        <input type="file" name="receipt">
+        <input aria-label="{{__('Receipt')}}" type="file" name="receipt">
         <p class="mb-0 text-warning">** {{ __('Receipt image must be .jpg / .jpeg / .png') }}</p>
       </div>
     @endif
@@ -367,7 +367,7 @@
   <div class="col-md-6 mb-4">
     <div class="field-label">{{ __('Identy Number') }} *</div>
     <div class="field-input">
-      <input type="text" class="card-elements" name="identity_number" placeholder="{{ __('Identity Number') }}"
+      <input aria-label="{{__('Identity Number')}}" type="text" class="card-elements" name="identity_number" placeholder="{{ __('Identity Number') }}"
         autocomplete="off" />
     </div>
     @error('identity_number')
@@ -377,8 +377,8 @@
   <div class="col-md-6 mb-4">
     <div class="field-label">{{ __('Country') }} *</div>
     <div class="field-input">
-      <input type="text" name="country" value="{{ old('country') }}" class="card-elements"
-        placeholder="Country" autocomplete="off">
+      <input aria-label="{{__('Country')}}" type="text" name="country" value="{{ old('country') }}" class="card-elements"
+        placeholder="{{ __('Country') }}" autocomplete="off">
     </div>
     @error('country')
       <p class="text-danger">{{ convertUtf8($message) }}</p>
@@ -387,8 +387,8 @@
   <div class="col-md-6 mb-4">
     <div class="field-label">{{ __('Zip Code') }} *</div>
     <div class="field-input">
-      <input type="text" name="zip_code" value="{{ old('zip_code') }}" class="card-elements"
-        placeholder="Zip Code">
+      <input aria-label="{{__('Zip Code')}}"  type="text" name="zip_code" value="{{ old('zip_code') }}" class="card-elements"
+        placeholder="{{ __('Zip Code') }}">
     </div>
     @error('zip_code')
       <p class="text-danger">{{ convertUtf8($message) }}</p>
@@ -405,10 +405,10 @@
 
 
 
-<input type="hidden" name="cmd" value="_xclick">
-<input type="hidden" name="no_note" value="1">
-<input type="hidden" name="lc" value="UK">
-<input type="hidden" name="currency_code" value="USD">
-<input type="hidden" name="ref_id" id="ref_id" value="">
-<input type="hidden" name="bn" value="PP-BuyNowBF:btn_buynow_LG.gif:NonHostedGuest">
-<input type="hidden" name="currency_sign" value="$">
+<input aria-label="{{__('CMD')}}"     type="hidden" name="cmd" value="_xclick">
+<input aria-label="{{__('No Note')}}" type="hidden" name="no_note" value="1">
+<input aria-label="{{__('LC')}}"  type="hidden" name="lc" value="UK">
+<input aria-label="{{__('Currency Code')}}" type="hidden" name="currency_code" value="USD">
+<input aria-label="{{__('Ref ID')}}" type="hidden" name="ref_id" id="ref_id" value="">
+<input aria-label="{{__('BN')}}" type="hidden" name="bn" value="PP-BuyNowBF:btn_buynow_LG.gif:NonHostedGuest">
+<input aria-label="{{__('Currency Sign')}}"   type="hidden" name="currency_sign" value="$">

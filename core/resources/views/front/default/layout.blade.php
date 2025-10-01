@@ -272,7 +272,7 @@
                      <form class="footer-newsletter" id="footerSubscribeForm" action="{{route('front.subscribe')}}" method="post">
                        @csrf
                        <p>{{convertUtf8($bs->newsletter_text)}}</p>
-                       <input type="email" name="email" value="" placeholder="{{__('Enter Email Address')}}" />
+                       <input aria-label="{{__('Email')}}" type="email" name="email" value="" placeholder="{{__('Enter Email Address')}}" />
                        <p id="erremail" class="text-danger mb-0 err-email"></p>
                        <button aria-label="{{__('Subscribe')}}" type="submit">{{__('Subscribe')}}</button>
                      </form>

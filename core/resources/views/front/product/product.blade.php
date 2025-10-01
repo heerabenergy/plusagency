@@ -30,13 +30,13 @@
         <div class="row justify-content-between align-items-center">
             <div class="col-lg-3 col-md-6">
                 <div class="shop-search mt-30">
-                    <input type="text" placeholder="Search Keywords" class="input-search" name="search" value="{{request()->input('search') ? request()->input('search') : ''}}">
+                    <input aria-label="{{__('Search Keywords')}}" type="text" placeholder="Search Keywords" class="input-search" name="search" value="{{request()->input('search') ? request()->input('search') : ''}}">
                     <i  class="fas fa-search input-search-btn cursor-pointer"></i>
                 </div>
             </div>
             <div class="col-lg-3 col-md-6">
                 <div class="shop-dropdown mt-30 text-right">
-                    <select name="type" id="type_sort">
+                    <select aria-label="{{__('Type')}}" name="type" id="type_sort">
                         <option value="new" {{ request()->input('type') == 'new' ? 'selected' : '' }}>{{__('Newest Product')}}</option>
                         <option value="old" {{ request()->input('type') == 'old' ? 'selected' : '' }}>{{__('Oldest Product')}}</option>
 
@@ -88,32 +88,32 @@
                         <div class="filter-item">
                              <ul class="checkbox_common checkbox_style2">
                                 <li>
-                                    <input type="radio" class="review_val" name="review_value"
+                                    <input aria-label="{{__('Show All')}}" type="radio" class="review_val" name="review_value"
                                     {{request()->input('review') == '' ? 'checked' : ''}}
                                     id="checkbox4" value="">
                                     <label for="checkbox4"><span></span> {{__('Show All')}}</label>
                                 </li>
 
                                 <li>
-                                    <input type="radio" class="review_val" name="review_value" id="checkbox5" value="4" {{request()->input('review') == 4 ? 'checked' : ''}}
+                                    <input aria-label="{{__('4 Star and higher')}}" type="radio" class="review_val" name="review_value" id="checkbox5" value="4" {{request()->input('review') == 4 ? 'checked' : ''}}
                                     id="checkbox4" value="all">
                                     <label for="checkbox5"><span></span>4 {{__('Star and higher')}}</label>
                                 </li>
 
                                 <li>
-                                    <input type="radio" class="review_val" name="review_value" id="checkbox6" value="3" {{request()->input('review') == 3 ? 'checked' : ''}}
+                                    <input aria-label="{{__('3 Star and higher')}}" type="radio" class="review_val" name="review_value" id="checkbox6" value="3" {{request()->input('review') == 3 ? 'checked' : ''}}
                                     id="checkbox4" value="all">
                                     <label for="checkbox6"><span></span>3 {{__('Star and higher')}}</label>
                                 </li>
 
                                 <li>
-                                    <input type="radio" class="review_val" name="review_value" id="checkbox7" value="2" {{request()->input('review') == 2 ? 'checked' : ''}}
+                                    <input aria-label="{{__('2 Star and higher')}}" type="radio" class="review_val" name="review_value" id="checkbox7" value="2" {{request()->input('review') == 2 ? 'checked' : ''}}
                                     id="checkbox4" value="all">
                                     <label for="checkbox7"><span></span>2 {{__('Star and higher')}}</label>
                                 </li>
 
                                 <li>
-                                    <input type="radio" class="review_val" name="review_value" id="checkbox8" value="1" {{request()->input('review') == 1 ? 'checked' : ''}}
+                                    <input aria-label="{{__('1 Star and higher')}}" type="radio" class="review_val" name="review_value" id="checkbox8" value="1" {{request()->input('review') == 1 ? 'checked' : ''}}
                                     id="checkbox4" value="all">
                                     <label for="checkbox8"><span></span>1 {{__('Star and higher')}}</label>
                                 </li>
@@ -132,7 +132,7 @@
                                 <form action="#">
                                     <div id="slider-range"></div>
                                     <span>{{__('Price')}}: </span>
-                                    <input type="text" name="text" id="amount" />
+                                    <input aria-label="{{__('Price')}}" type="text" name="text" id="amount" />
                                     <button aria-label="{{__('Filter')}}" type="button" class="btn filter-button" type="button">{{__('Filter')}}</button>
                                 </form>
                             </div>
@@ -206,19 +206,19 @@
 @endphp
 
 <form id="searchForm" class="d-none"  action="{{ route('front.product') }}" method="get">
-    <input type="hidden" id="search" name="search" value="{{ !empty(request()->input('search')) ? request()->input('search') : '' }}">
+    <input aria-label="{{__('Search')}}" type="hidden" id="search" name="search" value="{{ !empty(request()->input('search')) ? request()->input('search') : '' }}">
 
     @if ($bex->catalog_mode == 0)
-        <input type="hidden" id="minprice" name="minprice" value="{{ !empty(request()->input('minprice')) ? request()->input('minprice') : $minprice }}">
-        <input type="hidden" id="maxprice" name="maxprice" value="{{ !empty(request()->input('maxprice')) ? request()->input('maxprice') : $maxprice }}">
+        <input aria-label="{{__('Min Price')}}" type="hidden" id="minprice" name="minprice" value="{{ !empty(request()->input('minprice')) ? request()->input('minprice') : $minprice }}">
+        <input aria-label="{{__('Max Price')}}" type="hidden" id="maxprice" name="maxprice" value="{{ !empty(request()->input('maxprice')) ? request()->input('maxprice') : $maxprice }}">
     @endif
 
-    <input type="hidden" name="category_id" id="category_id" value="{{ !empty(request()->input('category_id')) ? request()->input('category_id') : null }}">
-    <input type="hidden" name="type" id="type" value="{{ !empty(request()->input('type')) ? request()->input('type') : 'new' }}">
-    <input type="hidden" name="tag" id="tag" value="{{ !empty(request()->input('tag')) ? request()->input('tag') : '' }}">
+    <input aria-label="{{__('Category ID')}}" type="hidden" name="category_id" id="category_id" value="{{ !empty(request()->input('category_id')) ? request()->input('category_id') : null }}">
+    <input aria-label="{{__('Type')}}" type="hidden" name="type" id="type" value="{{ !empty(request()->input('type')) ? request()->input('type') : 'new' }}">
+    <input aria-label="{{__('Tag')}}" type="hidden" name="tag" id="tag" value="{{ !empty(request()->input('tag')) ? request()->input('tag') : '' }}">
 
     @if ($bex->product_rating_system == 1 && $bex->catalog_mode == 0)
-        <input type="hidden" name="review" id="review" value="{{ !empty(request()->input('review')) ? request()->input('review') : '' }}">
+        <input aria-label="{{__('Review')}}" type="hidden" name="review" id="review" value="{{ !empty(request()->input('review')) ? request()->input('review') : '' }}">
     @endif
 
     <button aria-label="{{__('Search')}}" id="search-button" type="submit"></button>

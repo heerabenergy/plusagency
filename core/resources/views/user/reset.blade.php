@@ -47,13 +47,13 @@
 
                                             <div class="row">
                                                 <div class="col-lg-6">
-                                                    <input type="password" class="form_control" placeholder="{{__('Current Password')}}" name="cpass" value="{{Request::old('cpass')}}">
+                                                    <input aria-label="{{__('Current Password')}}" type="password" class="form_control" placeholder="{{__('Current Password')}}" name="cpass" value="{{Request::old('cpass')}}">
                                                     @error('cpass')
                                                         <p class="text-danger mb-4">{{ convertUtf8($message) }}</p>
                                                     @enderror
                                                 </div>
                                                 <div class="col-lg-6">
-                                                    <input type="password" class="form_control" placeholder="{{__('New Password')}}" name="npass" value="{{Request::old('npass')}}">
+                                                    <input aria-label="{{__('New Password')}}" type="password" class="form_control" placeholder="{{__('New Password')}}" name="npass" value="{{Request::old('npass')}}">
                                                     @error('npass')
                                                         <p class="text-danger mb-4">{{ convertUtf8($message) }}</p>
                                                     @enderror
@@ -62,7 +62,7 @@
 
                                             <div class="row">
                                                 <div class="col-lg-6">
-                                                    <input type="password" class="form_control" placeholder="{{__('Confirm Password')}}" name="cfpass" value="{{Request::old('cfpass')}}">
+                                                    <input aria-label="{{__('Confirm Password')}}" type="password" class="form_control" placeholder="{{__('Confirm Password')}}" name="cfpass" value="{{Request::old('cfpass')}}">
                                                     @error('cfpass')
                                                         <p class="text-danger mb-4">{{ convertUtf8($message) }}</p>
                                                     @enderror

@@ -19,7 +19,7 @@
                                 @endphp
                                 <form action="{{ route('front.product') }}">
                                     <div class="form_group">
-                                        <input type="text" aria-label="{{__('Search Keywords')}}" class="form_control" name="search" placeholder="{{__('Search Keywords')}}" value="{{ !empty(request()->input('search')) ? request()->input('search') : '' }}">
+                                        <input aria-label="{{__('Search Keywords')}}" type="text" aria-label="{{__('Search Keywords')}}" class="form_control" name="search" placeholder="{{__('Search Keywords')}}" value="{{ !empty(request()->input('search')) ? request()->input('search') : '' }}">
                                         <i class="fas fa-search"></i>
                                     </div>
                                 </form>
@@ -30,7 +30,7 @@
                                 <ul>
                                     <li>
                                         <form id="langForm" class="d-inline-block">
-                                            <select name="language" class="form-control form-control-sm mb-0">
+                                            <select aria-label="{{__('Language')}}" name="language" class="form-control form-control-sm mb-0">
                                                 @foreach ($langs as $lang)
                                                 <option {{$lang->code == $currentLang->code ? 'selected' : ''}} value="{{$lang->code}}">{{$lang->name}}</option>
                                                 @endforeach

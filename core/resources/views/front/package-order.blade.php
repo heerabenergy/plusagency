@@ -26,7 +26,7 @@
           enctype="multipart/form-data" method="POST" id="pay-form">
 
           @csrf
-          <input type="hidden" name="package_id" value="{{ $package->id }}">
+          <input aria-label="{{__('Package ID')}}" type="hidden" name="package_id" value="{{ $package->id }}">
           <div class="row">
             <div class="col-lg-6">
               <div class="form-element mb-4">
@@ -40,8 +40,8 @@
                       $name = old('name');
                   }
                 @endphp
-                <label>{{ __('Name') }} <span>**</span></label>
-                <input name="name" type="text" value="{{ $name }}" placeholder="{{ __('Enter Name') }}">
+                <label for="name">{{ __('Name') }} <span>**</span></label>
+                <input id="name" name="name" type="text" value="{{ $name }}" placeholder="{{ __('Enter Name') }}">
 
                 @if ($errors->has('name'))
                   <p class="text-danger mb-0">{{ $errors->first('name') }}</p>
@@ -60,8 +60,8 @@
                       $email = old('email');
                   }
                 @endphp
-                <label>{{ __('Email') }} <span>**</span></label>
-                <input name="email" type="text" value="{{ $email }}"
+                <label for="email">{{ __('Email') }} <span>**</span></label>
+                <input id="email" name="email" type="text" value="{{ $email }}"
                   placeholder="{{ __('Enter Email Address') }}">
 
                 @if ($errors->has('email'))
@@ -74,20 +74,20 @@
               <div class="{{ $input->type == 4 || $input->type == 3 ? 'col-lg-12' : 'col-lg-6' }}">
                 <div class="form-element mb-4">
                   @if ($input->type == 1)
-                    <label>{{ convertUtf8($input->label) }} @if ($input->required == 1)
+                    <label for="text{{ $input->name }}">{{ convertUtf8($input->label) }} @if ($input->required == 1)
                         <span>**</span>
                       @endif
                     </label>
-                    <input name="{{ $input->name }}" type="text" value="{{ old("$input->name") }}"
+                    <input id="text{{ $input->name }}" name="{{ $input->name }}" type="text" value="{{ old("$input->name") }}"
                       placeholder="{{ convertUtf8($input->placeholder) }}">
                   @endif
 
                   @if ($input->type == 2)
-                    <label>{{ convertUtf8($input->label) }} @if ($input->required == 1)
+                    <label for="select{{ $input->name }}">{{ convertUtf8($input->label) }} @if ($input->required == 1)
                         <span>**</span>
                       @endif
                     </label>
-                    <select name="{{ $input->name }}">
+                    <select id="select{{ $input->name }}" name="{{ $input->name }}">
                       <option value="" selected disabled>{{ convertUtf8($input->placeholder) }}</option>
                       @foreach ($input->package_input_options as $option)
                         <option value="{{ convertUtf8($option->name) }}"
@@ -115,30 +115,30 @@
                   @endif
 
                   @if ($input->type == 4)
-                    <label>{{ convertUtf8($input->label) }} @if ($input->required == 1)
+                    <label for="textarea{{ $input->name }}">{{ convertUtf8($input->label) }} @if ($input->required == 1)
                         <span>**</span>
                       @endif
                     </label>
-                    <textarea name="{{ $input->name }}" id="" cols="30" rows="10"
+                    <textarea id="textarea{{ $input->name }}" name="{{ $input->name }}" id="" cols="30" rows="10"
                       placeholder="{{ convertUtf8($input->placeholder) }}">{{ old("$input->name") }}</textarea>
                   @endif
 
                   @if ($input->type == 6)
-                    <label>{{ convertUtf8($input->label) }} @if ($input->required == 1)
+                    <label for="datepicker{{ $input->name }}">{{ convertUtf8($input->label) }} @if ($input->required == 1)
                         <span>**</span>
                       @endif
                     </label>
-                    <input class="datepicker" name="{{ $input->name }}" type="text"
+                    <input class="datepicker" id="datepicker{{ $input->name }}" name="{{ $input->name }}" type="text"
                       value="{{ old("$input->name") }}" placeholder="{{ convertUtf8($input->placeholder) }}"
                       autocomplete="off">
                   @endif
 
                   @if ($input->type == 7)
-                    <label>{{ convertUtf8($input->label) }} @if ($input->required == 1)
+                    <label for="timepicker{{ $input->name }}">{{ convertUtf8($input->label) }} @if ($input->required == 1)
                         <span>**</span>
                       @endif
                     </label>
-                    <input class="timepicker" name="{{ $input->name }}" type="text"
+                    <input class="timepicker" id="timepicker{{ $input->name }}" name="{{ $input->name }}" type="text"
                       value="{{ old("$input->name") }}" placeholder="{{ convertUtf8($input->placeholder) }}"
                       autocomplete="off">
                   @endif
@@ -147,11 +147,11 @@
                     <div class="row">
                       <div class="col-lg-12">
                         <div class="form-element mb-2">
-                          <label>{{ $input->label }} @if ($input->required == 1)
+                          <label for="file{{ $input->name }}">{{ $input->label }} @if ($input->required == 1)
                               <span>**</span>
                             @endif
                           </label>
-                          <input type="file" name="{{ $input->name }}" value="">
+                          <input type="file" id="file{{ $input->name }}" name="{{ $input->name }}" value="">
                         </div>
                         <p class="text-warning mb-0">** {{ __('Only zip file is allowed') }}</p>
                       </div>
@@ -171,7 +171,7 @@
             <div class="row mb-4">
               <div class="col-lg-6">
                 <div class="form-element mb-2">
-                  <label>{{ __('Pay Via') }} <span>**</span></label>
+                  <label for="method">{{ __('Pay Via') }} <span>**</span></label>
                   <select name="method" id="method" class="option input-field" required="">
                     @foreach ($gateways as $paydata)
                       <option value="{{ $paydata->name }}" data-form="{{ $paydata->showCheckoutLink() }}"
@@ -226,7 +226,7 @@
             <div class="row">
               <div class="col-md-6">
                 <div class="form-group mb-30">
-                  <input type="text" name="phone_number" value="{{ old('phone_number') }}"
+                  <input aria-label="{{__('Phone Number')}}" type="text" name="phone_number" value="{{ old('phone_number') }}"
                     placeholder="Phone Number">
                   @error('phone_number')
                     <p class="text-danger">{{ $message }}</p>
@@ -235,7 +235,7 @@
               </div>
               <div class="col-md-6">
                 <div class="form-group mb-30">
-                  <input type="text" name="identity_number" value="{{ old('identity_number') }}"
+                  <input aria-label="{{__('Identity Number')}}" type="text" name="identity_number" value="{{ old('identity_number') }}"
                     placeholder="Identity Number">
                   @error('identity_number')
                     <p class="text-danger">{{ $message }}</p>
@@ -244,7 +244,7 @@
               </div>
               <div class="col-md-6">
                 <div class="form-group mb-30">
-                  <input type="text" name="city" value="{{ old('city') }}" placeholder="City">
+                  <input aria-label="{{__('City')}}" type="text" name="city" value="{{ old('city') }}" placeholder="City">
                   @error('city')
                     <p class="text-danger">{{ $message }}</p>
                   @enderror
@@ -252,7 +252,7 @@
               </div>
               <div class="col-md-6">
                 <div class="form-group mb-30">
-                  <input type="text" name="country" value="{{ old('country') }}" placeholder="Country">
+                  <input aria-label="{{__('Country')}}" type="text" name="country" value="{{ old('country') }}" placeholder="Country">
                   @error('country')
                     <p class="text-danger">{{ $message }}</p>
                   @enderror
@@ -260,7 +260,7 @@
               </div>
               <div class="col-md-6">
                 <div class="form-group mb-30">
-                  <input type="text" name="address" value="{{ old('address') }}" placeholder="Address">
+                  <input aria-label="{{__('Address')}}" type="text" name="address" value="{{ old('address') }}" placeholder="Address">
                   @error('address')
                     <p class="text-danger">{{ $message }}</p>
                   @enderror
@@ -268,7 +268,7 @@
               </div>
               <div class="col-md-6">
                 <div class="form-group mb-30">
-                  <input type="text" name="zip_code" value="{{ old('zip_code') }}" placeholder="Zip Code">
+                  <input aria-label="{{__('Zip Code')}}" type="text" name="zip_code" value="{{ old('zip_code') }}" placeholder="Zip Code">
                   @error('zip_code')
                     <p class="text-danger">{{ $message }}</p>
                   @enderror
@@ -278,12 +278,12 @@
           </div>
 
 
-          <input type="hidden" name="cmd" value="_xclick">
-          <input type="hidden" name="no_note" value="1">
-          <input type="hidden" name="lc" value="UK">
-          <input type="hidden" name="currency_code" id="currency_name" value="USD">
-          <input type="hidden" name="bn" value="PP-BuyNowBF:btn_buynow_LG.gif:NonHostedGuest">
-          <input type="hidden" name="sub" id="sub" value="0">
+          <input aria-label="{{__('Command')}}" type="hidden" name="cmd" value="_xclick">
+          <input aria-label="{{__('No Note')}}" type="hidden" name="no_note" value="1">
+          <input aria-label="{{__('Language')}}" type="hidden" name="lc" value="UK">
+          <input aria-label="{{__('Currency Code')}}" type="hidden" name="currency_code" id="currency_name" value="USD">
+          <input aria-label="{{__('Business Name')}}" type="hidden" name="bn" value="PP-BuyNowBF:btn_buynow_LG.gif:NonHostedGuest">
+          <input aria-label="{{__('Subscription')}}" type="hidden" name="sub" id="sub" value="0">
 
           <div class="row">
             <div class="col-lg-12">
@@ -452,6 +452,7 @@
         ref: '' + Math.floor((Math.random() * 1000000000) + 1),
         callback: function(response) {
           $('#ref_id').val(response.reference);
+          $('#sub').attr('aria-label', '{{__('Subscription')}}');
           $('#sub').val('1');
           $('#paystack button[type="submit"]').click();
         },

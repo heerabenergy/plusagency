@@ -72,7 +72,7 @@
             <form method="POST" id="paymentGatewayForm" enctype="multipart/form-data">
               {{-- this form using POST method for safety --}}
               @csrf
-              <input type="hidden" name="course_id" value="{{ $course_details->id }}">
+              <input aria-label="{{__('Course ID')}}" type="hidden" name="course_id" value="{{ $course_details->id }}">
               <div class="d-flex flex-row">
 
 
@@ -90,7 +90,7 @@
                   @else
                     <div
                       class="form_group {{ $rtl == 1 ? 'ml-3' : 'mr-3' }} {{ $course_details->current_price == null ? 'd-none' : '' }}">
-                      <select name="gateway" id="paymentType" class="select-payment">
+                      <select aria-label="{{__('Pay Via')}}" name="gateway" id="paymentType" class="select-payment">
                         <option selected disabled>{{ __('Pay Via') }}</option>
                         @foreach ($paymentGateways as $paymentGateway)
                           <option value="{{ $paymentGateway->keyword }}">{{ $paymentGateway->name }}</option>
@@ -114,7 +114,7 @@
                 @guest
                   <div
                     class="form_group {{ $rtl == 1 ? 'ml-3' : 'mr-3' }} {{ $course_details->current_price == null ? 'd-none' : '' }}">
-                    <select name="gateway" id="paymentType" class="select-payment">
+                    <select aria-label="{{__('Pay Via')}}" name="gateway" id="paymentType" class="select-payment">
                       <option selected disabled>{{ __('Pay Via') }}</option>
                       @foreach ($paymentGateways as $paymentGateway)
                         <option value="{{ $paymentGateway->keyword }}">{{ $paymentGateway->name }}</option>
@@ -148,7 +148,7 @@
                 <div class="col-md-6 mb-3">
                   <div class="field-label mb-2">{{ __('First Name') }}*</div>
                   <div class="field-input mb-2">
-                    <input type="text" name="payumoney_first_name" placeholder="{{ __('Enter First Name') }}" />
+                    <input aria-label="{{__('First Name')}}" type="text" name="payumoney_first_name" placeholder="{{ __('Enter First Name') }}" />
                   </div>
                   @if ($errors->has('payumoney_first_name'))
                     <p class="mb-0 text-danger">{{ $errors->first('payumoney_first_name') }}</p>
@@ -157,7 +157,7 @@
                 <div class="col-md-6 mb-3">
                   <div class="field-label mb-2">{{ __('Last Name') }}*</div>
                   <div class="field-input mb-2">
-                    <input type="text" name="payumoney_last_name" placeholder="{{ __('Enter Last Name') }}" />
+                    <input aria-label="{{__('Last Name')}}" type="text" name="payumoney_last_name" placeholder="{{ __('Enter Last Name') }}" />
                   </div>
                   @if ($errors->has('payumoney_last_name'))
                     <p class="mb-0 text-danger">{{ $errors->first('payumoney_last_name') }}</p>
@@ -166,7 +166,7 @@
                 <div class="col-md-6 mb-3">
                   <div class="field-label mb-2">{{ __('Phone Number') }}*</div>
                   <div class="field-input mb-2">
-                    <input type="text" name="payumoney_phone" placeholder="{{ __('Enter Phone Number') }}" />
+                    <input aria-label="{{__('Phone Number')}}" type="text" name="payumoney_phone" placeholder="{{ __('Enter Phone Number') }}" />
                   </div>
                   @if ($errors->has('payumoney_phone'))
                     <p class="mb-0 text-danger">{{ $errors->first('payumoney_phone') }}</p>
@@ -178,7 +178,7 @@
                 <div class="col-md-6 mb-3">
                   <div class="field-label mb-2">{{ __('Identity Number') }}*</div>
                   <div class="field-input mb-2">
-                    <input type="text" class="card-elements" name="identity_number"
+                    <input aria-label="{{__('Identity Number')}}" type="text" class="card-elements" name="identity_number"
                       placeholder="{{ __('Enter Identity Number') }}" autocomplete="off"
                       value="{{ old('identity_number') }}" />
                   </div>
@@ -189,7 +189,7 @@
                 <div class="col-md-6 mb-3">
                   <div class="field-label mb-2">{{ __('Zip Code') }}*</div>
                   <div class="field-input mb-2">
-                    <input type="text" class="card-elements" placeholder="{{ __('Enter Zip Code') }}"
+                    <input aria-label="{{__('Zip Code')}}" type="text" class="card-elements" placeholder="{{ __('Enter Zip Code') }}"
                       name="zip_code" value="{{ old('zip_code') }}">
                   </div>
                   @error('zip_code')
@@ -214,7 +214,7 @@
                   @if ($ogateway->is_receipt == 1)
                     <div class="col-12 mb-4">
                       <label for="" class="d-block">{{ __('Receipt') }} **</label>
-                      <input type="file" name="receipt">
+                      <input aria-label="{{__('Receipt')}}" type="file" name="receipt">
                       <p class="mb-0 text-warning">** {{ __('Receipt image must be .jpg / .jpeg / .png') }}</p>
                     </div>
                   @endif
@@ -366,12 +366,12 @@
                       <div class="review_form pt-4">
                         <form action="{{ route('course.review') }}" method="POST">
                           @csrf
-                          <input type="hidden" name="course_id" value="{{ $course_details->id }}">
+                          <input aria-label="{{__('Course ID')}}" type="hidden" name="course_id" value="{{ $course_details->id }}">
                           <div class="form_group">
-                            <label>{{ __('Comment') }}</label>
-                            <textarea class="form_control mt-2" name="comment" placeholder="{{ __('Write something about this course') }}"></textarea>
+                            <label for="comment">{{ __('Comment') }}</label>
+                            <textarea class="form_control mt-2" id="comment" name="comment" placeholder="{{ __('Write something about this course') }}"></textarea>
                           </div>
-                          <input type="hidden" id="ratingId" name="rating">
+                          <input aria-label="{{__('Rating')}}" type="hidden" id="ratingId" name="rating">
                           <div class="form_group">
                             <label>{{ __('Rating') . '*' }}</label>
                             <div class="review-content mt-2">

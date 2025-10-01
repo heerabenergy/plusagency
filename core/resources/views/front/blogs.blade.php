@@ -80,10 +80,10 @@
                     <div class="searchbar-form-section">
                        <form action="{{route('front.blogs', ['category' => request()->input('category'), 'month' => request()->input('month'), 'year' => request()->input('year')])}}" method="GET">
                           <div class="searchbar">
-                             <input name="category" type="hidden" value="{{request()->input('category')}}">
-                             <input name="month" type="hidden" value="{{request()->input('month')}}">
-                             <input name="year" type="hidden" value="{{request()->input('year')}}">
-                             <input name="term" type="text" placeholder="{{__('Search Blogs')}}" value="{{request()->input('term')}}">
+                             <input aria-label="{{__('Category')}}" name="category" type="hidden" value="{{request()->input('category')}}">
+                             <input aria-label="{{__('Month')}}" name="month" type="hidden" value="{{request()->input('month')}}">
+                             <input aria-label="{{__('Year')}}" name="year" type="hidden" value="{{request()->input('year')}}">
+                             <input aria-label="{{__('Search Blogs')}}" name="term" type="text" placeholder="{{__('Search Blogs')}}" value="{{request()->input('term')}}">
                              <button aria-label="{{__('Search')}}" type="submit"><i class="fa fa-search"></i></button>
                           </div>
                        </form>
@@ -138,9 +138,9 @@
                     <h3>{{__('SUBSCRIBE FOR NEWSLETTER')}}</h3>
                     <form id="subscribeForm" class="subscribe-form" action="{{route('front.subscribe')}}" method="POST">
                        @csrf
-                       <div class="form-element"><input name="email" type="email" placeholder="{{__('Email')}}"></div>
+                       <div class="form-element"><input aria-label="{{__('Email')}}" name="email" type="email" placeholder="{{__('Email')}}"></div>
                        <p id="erremail" class="text-danger mb-3 err-email"></p>
-                       <div class="form-element"><input type="submit" value="{{__('Subscribe')}}"></div>
+                       <div class="form-element"><input aria-label="{{__('Subscribe')}}" type="submit" value="{{__('Subscribe')}}"></div>
                     </form>
                  </div>
               </div>

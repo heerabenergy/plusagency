@@ -23,17 +23,17 @@
                 <div class="row no-gutters">
                        <div class="col-lg-3">
                            <div class="form_group border-right">
-                               <input type="text" class="form_control" name="title" placeholder="{{__('Event Name')}}" value="{{request()->input('title')}}">
+                               <input aria-label="{{__('Event Name')}}" type="text" class="form_control" name="title" placeholder="{{__('Event Name')}}" value="{{request()->input('title')}}">
                            </div>
                        </div>
                     <div class="col-lg-3">
                         <div class="form_group border-right">
-                            <input type="text" class="form_control" name="location" placeholder="{{__('Location')}}" value="{{request()->input('location')}}">
+                            <input aria-label="{{__('Location')}}" type="text" class="form_control" name="location" placeholder="{{__('Location')}}" value="{{request()->input('location')}}">
                         </div>
                     </div>
                     <div class="col-lg-2">
                            <div class="form_group border-right">
-                               <select name="category" onchange="document.getElementById('event-search').submit()">
+                               <select aria-label="{{__('Category')}}" name="category" onchange="document.getElementById('event-search').submit()">
                                    <option data-display="Catagory" value="">{{__('Choose an option')}}</option>
                                     @foreach($event_categories as $event_category)
                                         <option value="{{$event_category->id}}" {{request()->input('category') == $event_category->id ? 'selected' : ''}}>{{$event_category->name}}</option>
@@ -44,7 +44,7 @@
 
                        <div class="col-lg-2">
                            <div class="form_group">
-                               <input type="date" name="date" placeholder="dd-mm-yyyy" class="form_control" value="{{request()->input('date')}}" onchange="document.getElementById('event-search').submit()">
+                               <input aria-label="{{__('Date')}}" type="date" name="date" placeholder="dd-mm-yyyy" class="form_control" value="{{request()->input('date')}}" onchange="document.getElementById('event-search').submit()">
                            </div>
                        </div>
                        <div class="col-lg-2">

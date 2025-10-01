@@ -32,28 +32,28 @@
                         <form action="{{route('user-register-submit')}}" method="POST">@csrf
                             <div class="input-box">
                                 <span>{{__('Username')}} *</span>
-                                <input type="text" name="username" value="{{Request::old('username')}}">
+                                <input aria-label="{{__('Username')}}" type="text" name="username" value="{{Request::old('username')}}">
                                 @if ($errors->has('username'))
                                 <p class="text-danger mb-0 mt-2">{{$errors->first('username')}}</p>
                                 @endif
                             </div>
                             <div class="input-box">
                                 <span>{{__('Email')}} *</span>
-                                <input type="email" name="email" value="{{Request::old('email')}}">
+                                <input aria-label="{{__('Email')}}" type="email" name="email" value="{{Request::old('email')}}">
                                 @if ($errors->has('email'))
                                 <p class="text-danger mb-0 mt-2">{{$errors->first('email')}}</p>
                                 @endif
                             </div>
                             <div class="input-box">
                                 <span>{{__('Password')}} *</span>
-                                <input type="password" name="password" value="{{Request::old('password')}}">
+                                <input aria-label="{{__('Password')}}" type="password" name="password" value="{{Request::old('password')}}">
                                 @if ($errors->has('password'))
                                 <p class="text-danger mb-0 mt-2">{{$errors->first('password')}}</p>
                                 @endif
                             </div>
                             <div class="input-box mb-4">
                                 <span>{{__('Confirmation Password')}} *</span>
-                                <input type="password" name="password_confirmation" value="{{Request::old('password_confirmation')}}">
+                                <input aria-label="{{__('Confirmation Password')}}" type="password" name="password_confirmation" value="{{Request::old('password_confirmation')}}">
                                 @if ($errors->has('password_confirmation'))
                                 <p class="text-danger mb-0 mt-2">{{$errors->first('password_confirmation')}}</p>
                                 @endif

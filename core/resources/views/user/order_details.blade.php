@@ -185,7 +185,7 @@
                                                                     @if (!empty($product->download_file))
                                                                         <form action="{{route('user-digital-download')}}" method="POST">
                                                                             @csrf
-                                                                            <input type="hidden" name="product_id" value="{{$product->id}}">
+                                                                            <input aria-label="{{__('Product ID')}}" type="hidden" name="product_id" value="{{$product->id}}">
                                                                             <button aria-label="{{__('Download')}}" type="submit" class="digital-donwload-btn btn btn-primary btn-sm border-0">{{__('Download')}}</button>
                                                                         </form>
                                                                     @elseif (!empty($product->download_link))
@@ -207,7 +207,7 @@
                                                             <a aria-label="{{__($order->title)}}" class="d-block" href="{{route('front.product.details',$product->slug)}}">{{$order->title}}</a>
                                                             <form action="{{route('user-digital-download')}}" method="POST">
                                                                 @csrf
-                                                                <input type="hidden" name="product_id" value="{{$product->id}}">
+                                                                <input aria-label="{{__('Product ID')}}" type="hidden" name="product_id" value="{{$product->id}}">
                                                                 @if ($product->type == 'digital')
                                                                 <button aria-label="{{__('Download')}}" type="submit" class="digital-donwload-btn btn btn-primary btn-sm border-0">Download</button>
                                                                 @endif

@@ -74,11 +74,11 @@
                                 <td class="qty">
                                     <div class="product-quantity d-flex mb-35" id="quantity">
                                         <button aria-label="{{__('Subtract')}}" type="button" id="sub" class="sub">-</button>
-                                        <input type="text" class="cart_qty" id="1" value="{{$item['qty']}}" />
+                                        <input aria-label="{{__('Quantity')}}" type="text" class="cart_qty" id="1" value="{{$item['qty']}}" />
                                         <button aria-label="{{__('Add')}}" type="button" id="add" class="add">+</button>
                                     </div>
                                 </td>
-                                <input type="hidden" value="{{$id}}" class="product_id">
+                                <input aria-label="{{__('Product ID')}}" type="hidden" value="{{$id}}" class="product_id">
                                 <td class="unit-price">
                                     <div class="available-info">
                                         @if ($product->type == 'digital')

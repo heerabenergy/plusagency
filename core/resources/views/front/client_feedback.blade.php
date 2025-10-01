@@ -25,7 +25,7 @@
             <form action="{{ route('store_feedback') }}" method="POST">
               @csrf
               <div class="row">
-                <input type="hidden" id="ratingId" name="rating">
+                <input aria-label="{{__('Rating')}}" type="hidden" id="ratingId" name="rating">
 
                 <div class="col-lg-12">
                   <div class="form_group">
@@ -94,7 +94,7 @@
 
                 <div class="col-lg-12">
                   <div class="form_group">
-                    <input type="text" class="form_control" placeholder="{{__('Enter Name')}}" name="name">
+                    <input aria-label="{{__('Name')}}" type="text" class="form_control" placeholder="{{__('Enter Name')}}" name="name">
                   </div>
                   @if ($errors->has('name'))
                     <p class="text-danger mb-2 text-left">{{ $errors->first('name') }}</p>
@@ -103,7 +103,7 @@
 
                 <div class="col-lg-12">
                   <div class="form_group">
-                    <input type="email" class="form_control" placeholder="{{__('Email Address')}}" name="email">
+                    <input aria-label="{{__('Email')}}" type="email" class="form_control" placeholder="{{__('Email Address')}}" name="email">
                   </div>
                   @if ($errors->has('email'))
                     <p class="text-danger mb-2 text-left">{{ $errors->first('email') }}</p>
@@ -112,7 +112,7 @@
 
                 <div class="col-lg-12">
                   <div class="form_group">
-                    <input type="text" class="form_control" placeholder="{{__('Subject')}}" name="subject">
+                    <input aria-label="{{__('Subject')}}" type="text" class="form_control" placeholder="{{__('Subject')}}" name="subject">
                   </div>
                   @if ($errors->has('subject'))
                     <p class="text-danger mb-2 text-left">{{ $errors->first('subject') }}</p>
@@ -120,7 +120,7 @@
                 </div>
 
                 <div class="col-lg-12">
-                  <textarea class="form_control pt-4" placeholder="{{__('Write Feedback')}}" name="feedback"></textarea>
+                  <textarea aria-label="{{__('Feedback')}}" class="form_control pt-4" placeholder="{{__('Write Feedback')}}" name="feedback"></textarea>
                   @if ($errors->has('feedback'))
                     <p class="text-danger mb-2 text-left">{{ $errors->first('feedback') }}</p>
                   @endif
