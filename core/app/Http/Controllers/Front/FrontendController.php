@@ -537,7 +537,10 @@ class FrontendController extends Controller
         }
 
         $data['version'] = $version;
-        $data['inputs'] = ServiceInput::where('service_id', $data['service']->id)->get();
+        $data['inputs'] = ServiceInput::where('service_id', $data['service']->id)->where('active',1)->get();
+        if(count($data['inputs']) == 0) {
+            return to_route('front.services')->with("error", "No input fields found!");
+        }
         return view('front.service-form', $data);
     }
     public function sendservice(Request $request, $slug)
