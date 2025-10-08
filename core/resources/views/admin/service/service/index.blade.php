@@ -145,6 +145,12 @@ $selLang = \App\Language::where('code', request()->input('language'))->first();
                                             </span>
                                             Form
                                         </a>
+                                        <a class="btn btn-info btn-sm" href="{{route('admin.service.form.requests', $service->id) . '?language=' . request()->input('language')}}">
+                                            <span class="btn-label">
+                                                <i class="fas fa-users"></i>
+                                            </span>
+                                            Requests
+                                        </a>
                                         <a class="btn btn-secondary btn-sm" href="{{route('admin.service.edit', $service->id) . '?language=' . request()->input('language')}}">
                                             <span class="btn-label">
                                                 <i class="fas fa-edit"></i>

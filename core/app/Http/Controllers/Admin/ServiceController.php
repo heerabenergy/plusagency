@@ -12,11 +12,14 @@ use App\Language;
 use App\Megamenu;
 use App\ServiceInput;
 use App\ServiceInputOption;
+use App\ServiceRequest;
+use Exception;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Session;
+use PHPMailer\PHPMailer\PHPMailer;
 
 class ServiceController extends Controller
 {
@@ -35,8 +38,7 @@ class ServiceController extends Controller
             $bex->save();
         }
 
-        $request->session()->flash('success', 'Settings updated successfully!');
-        return back();
+        return back()->with("success", "Settings updated successfully!");
     }
 
     public function index(Request $request)
@@ -420,5 +422,103 @@ class ServiceController extends Controller
         $serviceInput->active = !$serviceInput->active;
         $serviceInput->update();
         return back()->withSuccess('Input field active status updated successfully!');
+    }
+
+    public function formRequests(string $id) : View
+    {
+        $data['service'] = Service::findOrFail((int)$id);
+        $data['serviceRequests'] = ServiceRequest::where('service_id', $id)->paginate(15);
+        return view('admin.service.service.form.requests', $data);
+    }
+    public function formRequestsMail(string $id,Request $request) : string|JsonResponse{
+        $rules = [
+            'email' => 'required',
+            'subject' => 'required',
+            'message' => 'required'
+        ];
+
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            $errmsgs = $validator->getMessageBag()->add('error', 'true');
+            return response()->json($validator->errors());
+        }
+
+
+        $be = BasicExtra::first();
+        $from = $be->from_mail;
+
+        $sub = $request->subject;
+        $msg = $request->message;
+        $to = $request->email;
+
+        // Mail::to($to)->send(new ContactMail($from, $sub, $msg));
+
+                // Send Mail
+        $mail = new PHPMailer(true);
+
+        if ($be->is_smtp == 1) {
+            try {
+                $mail->isSMTP();
+                $mail->Host       = $be->smtp_host;
+                $mail->SMTPAuth   = true;
+                $mail->Username   = $be->smtp_username;
+                $mail->Password   = $be->smtp_password;
+                $mail->SMTPSecure = $be->encryption;
+                $mail->Port       = $be->smtp_port;
+
+                //Recipients
+                $mail->setFrom($from);
+                $mail->addAddress($to);
+
+                // Content
+                $mail->isHTML(true);
+                $mail->Subject = $sub;
+                $mail->Body    = $msg;
+
+                $mail->send();
+            } catch (Exception $e) {
+
+            }
+        } else {
+            try {
+
+                //Recipients
+                $mail->setFrom($from);
+                $mail->addAddress($to);
+
+                // Content
+                $mail->isHTML(true);
+                $mail->Subject = $sub;
+                $mail->Body    = $msg;
+
+                $mail->send();
+            } catch (Exception $e) {
+
+            }
+        }
+
+        Session::flash('success', 'Mail sent successfully!');
+        return "success";
+
+    }
+    public function formRequestsDelete(string $id,Request $request) : RedirectResponse{
+        $serviceRequest = ServiceRequest::findOrFail((int)$request->service_request_id);
+        $serviceRequest->delete();
+        return back()->with("success", "Request deleted successfully!");
+    }
+    public function formRequestsStatus(string $id,Request $request) : RedirectResponse{
+        $serviceRequest = ServiceRequest::findOrFail((int)$request->service_request_id);
+        $serviceRequest->update([
+            'status' => $request->status
+        ]);
+        return back()->with("success",'Request status updated successfully!');
+    }
+    public function formRequestsBulkDelete(string $id,Request $request) : RedirectResponse{
+        $ids = $request->ids;
+        foreach ($ids as $id) {
+            $serviceRequest = ServiceRequest::findOrFail((int)$id);
+            $serviceRequest->delete();
+        }
+        return back()->with("success", "Requests deleted successfully!");
     }
 }

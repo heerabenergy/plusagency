@@ -611,6 +611,7 @@ class FrontendController extends Controller
         $serviceRequest->lname = isset($request->lname) ? $request->lname : Auth::user()->lname;
         $serviceRequest->username = Auth::user()->username;
         $serviceRequest->user_id = Auth::user()->id;
+        $serviceRequest->service_id = $service->id;
         $serviceRequest->email = isset($request->email) ? $request->email : Auth::user()->email;
         $serviceRequest->mobile = isset($request->mobile) ? $request->mobile : Auth::user()->mobile;
         $serviceRequest->user_agent = $request->userAgent();

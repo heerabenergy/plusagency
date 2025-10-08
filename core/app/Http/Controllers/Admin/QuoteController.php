@@ -5,20 +5,15 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Quote;
-use App\BasicSetting as BS;
 use App\BasicExtended as BE;
 use App\BasicSetting;
 use App\Language;
-use App\Mail\ContactMail;
 use App\QuoteInput;
 use App\QuoteInputOption;
-use Illuminate\Support\Facades\Mail;
 use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
-use Illuminate\Support\Str;
-use Validator;
-use Session;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Session;
 
 class QuoteController extends Controller
 {
@@ -35,8 +30,7 @@ class QuoteController extends Controller
             $bs->save();
         }
 
-        $request->session()->flash('success', 'Page status updated successfully!');
-        return back();
+        return back()->with("success", "Page status updated successfully!");
     }
 
 

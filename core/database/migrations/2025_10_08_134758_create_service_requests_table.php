@@ -19,9 +19,10 @@ return new class extends Migration
             $table->string('username')->nullable();
             $table->string('email')->nullable();
             $table->string('mobile')->nullable();
+            $table->unsignedBigInteger('service_id');
             $table->text('user_agent');
             $table->ipAddress();
-            $table->string('status')->default('pending');
+            $table->string('status')->default('Pending');
             $table->json('fields');
             $table->timestamps();
         });

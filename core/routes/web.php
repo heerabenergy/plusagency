@@ -962,6 +962,11 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:admin', 'checkstatus',
       Route::group(["prefix"=>"form","as"=>"form."],function(){
         Route::get('{id}', [ServiceController::class, 'createForm'])->name('index');
         Route::post('{id}/store', [ServiceController::class, 'formStore'])->name('store');
+        Route::get('{id}/requests', [ServiceController::class, 'formRequests'])->name('requests');
+        Route::post('{id}/requests/mail', [ServiceController::class, 'formRequestsMail'])->name('requests.mail');
+        Route::post('{id}/requests/delete', [ServiceController::class, 'formRequestsDelete'])->name('requests.delete');
+        Route::post('{id}/requests/status', [ServiceController::class, 'formRequestsStatus'])->name('requests.status');
+        Route::post('{id}/requests/bulk-delete', [ServiceController::class, 'formRequestsBulkDelete'])->name('requests.bulk.delete');
         Route::get('{input_id}/input-edit', [ServiceController::class, 'inputEdit'])->name('inputEdit');
         Route::put('{input_id}/input-update', [ServiceController::class, 'inputUpdate'])->name('inputUpdate');
         Route::get('{input_id}/options', [ServiceController::class, 'options'])->name('options');
