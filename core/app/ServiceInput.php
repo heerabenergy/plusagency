@@ -10,7 +10,7 @@ final class ServiceInput extends Model
 {
     protected $fillable = ['service_id', 'type', 'label', 'name', 'placeholder', 'required', 'active'];
 
-    public function service_input_options() : HasMany
+    public function input_options() : HasMany
     {
         return $this->hasMany(ServiceInputOption::class);
     }

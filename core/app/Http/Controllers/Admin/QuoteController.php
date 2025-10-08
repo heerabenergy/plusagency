@@ -108,7 +108,7 @@ class QuoteController extends Controller
     public function inputDelete(Request $request)
     {
         $input = QuoteInput::find($request->input_id);
-        $input->quote_input_options()->delete();
+        $input->input_options()->delete();
         $input->delete();
         Session::flash('success', 'Input field deleted successfully!');
         return back();
@@ -117,8 +117,8 @@ class QuoteController extends Controller
     public function inputEdit($id)
     {
         $data['input'] = QuoteInput::find($id);
-        if (!empty($data['input']->quote_input_options)) {
-            $options = $data['input']->quote_input_options;
+        if (!empty($data['input']->input_options)) {
+            $options = $data['input']->input_options;
             $data['options'] = $options;
             $data['counter'] = count($options);
         }
@@ -181,7 +181,7 @@ class QuoteController extends Controller
         $input->save();
 
         if ($request->type == 2 || $request->type == 3) {
-            $input->quote_input_options()->delete();
+            $input->input_options()->delete();
             $options = $request->options;
             foreach ($options as $key => $option) {
                 $op = new QuoteInputOption;

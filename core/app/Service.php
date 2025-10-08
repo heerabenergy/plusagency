@@ -3,23 +3,30 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Service extends Model
+final class Service extends Model
 {
   public $timestamps = false;
 
-  public function scategory()
+  public function scategory() : BelongsTo
   {
-    return $this->belongsTo('App\Scategory');
+      return $this->belongsTo(Scategory::class);
   }
 
-  public function portfolios()
+  public function portfolios() : HasMany
   {
-    return $this->hasMany('App\Portfolio');
+    return $this->hasMany(Portfolio::class);
   }
 
-  public function language()
+  public function language() : BelongsTo
   {
-    return $this->belongsTo('App\Language');
+    return $this->belongsTo(Language::class);
+  }
+
+  public function inputs() : HasMany
+  {
+    return $this->hasMany(ServiceInput::class);
   }
 }

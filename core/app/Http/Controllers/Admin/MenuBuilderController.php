@@ -10,8 +10,6 @@ use App\Megamenu;
 use App\Menu;
 use App\Page;
 use App\Permalink;
-use App\Scategory;
-use Illuminate\Support\Facades\Session;
 
 use function GuzzleHttp\json_decode;
 use function GuzzleHttp\json_encode;

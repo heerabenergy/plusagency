@@ -655,8 +655,8 @@ class LanguageController extends Controller
         if (!empty($la->quote_inputs)) {
             $ins = $la->quote_inputs;
             foreach ($ins as $in) {
-                if ($in->quote_input_options()->count() > 0) {
-                    $in->quote_input_options()->delete();
+                if ($in->input_options()->count() > 0) {
+                    $in->input_options()->delete();
                 }
                 $in->delete();
             }

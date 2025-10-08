@@ -131,7 +131,7 @@ class PackageController extends Controller
   public function inputDelete(Request $request)
   {
     $input = PackageInput::find($request->input_id);
-    $input->package_input_options()->delete();
+    $input->input_options()->delete();
     $input->delete();
     Session::flash('success', 'Input field deleted successfully!');
     return back();
@@ -140,8 +140,8 @@ class PackageController extends Controller
   public function inputEdit($id)
   {
     $data['input'] = PackageInput::find($id);
-    if (!empty($data['input']->package_input_options)) {
-      $options = $data['input']->package_input_options;
+    if (!empty($data['input']->input_options)) {
+      $options = $data['input']->input_options;
       $data['options'] = $options;
       $data['counter'] = count($options);
     }
@@ -204,7 +204,7 @@ class PackageController extends Controller
     $input->save();
 
     if ($request->type == 2 || $request->type == 3) {
-      $input->package_input_options()->delete();
+      $input->input_options()->delete();
       $options = $request->options;
       foreach ($options as $key => $option) {
         $op = new PackageInputOption;

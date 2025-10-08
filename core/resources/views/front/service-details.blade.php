@@ -13,7 +13,6 @@
 
 @section('content')
 
-
   <!--    services details section start   -->
   <div class="pt-115 pb-110 service-details-section">
      <div class="container">
@@ -22,6 +21,9 @@
               <div class="service-details">
                 {!! replaceBaseUrl(convertUtf8($service->content)) !!}
               </div>
+              @if($service->inputs->count() > 0)
+                <a href="{{route('front.serviceform', $service->slug)}}" class="btn btn-primary">{{__('Submit Service')}}</a>
+              @endif
            </div>
            <!--    service sidebar start   -->
            @if ($service->sidebar == 1)

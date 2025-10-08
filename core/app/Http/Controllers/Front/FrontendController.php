@@ -62,6 +62,8 @@ use App\Http\Controllers\Payment\MyFatoorahController as PaymentMyFatoorahContro
 use App\Http\Controllers\Payment\product\MyFatoorahController as ShopMyFatoorahController;
 use App\Http\Controllers\Payment\Course\MyFatoorahController as CourseMyFatoorahController;
 use App\Http\Controllers\Payment\causes\MyFatoorahController as CauseEventMyFatoorahController;
+use App\ServiceInput;
+use App\ServiceRequest;
 
 class FrontendController extends Controller
 {
@@ -511,6 +513,138 @@ class FrontendController extends Controller
         $data['version'] = $version;
 
         return view('front.service-details', $data);
+    }
+    public function serviceform($slug)
+    {
+        if (session()->has('lang')) {
+            $currentLang = Language::where('code', session()->get('lang'))->first();
+        } else {
+            $currentLang = Language::where('is_default', 1)->first();
+        }
+
+        $data['service'] = Service::where('slug', $slug)->firstOrFail();
+
+        if ($data['service']->details_page_status == 0) {
+            return back();
+        }
+
+        $data['be'] = $currentLang->basic_extended;
+        $data['bs'] = $currentLang->basic_setting;
+        $version = $data['be']->theme_version;
+
+        if ($version == 'dark') {
+            $version = 'default';
+        }
+
+        $data['version'] = $version;
+        $data['inputs'] = ServiceInput::where('service_id', $data['service']->id)->get();
+        return view('front.service-form', $data);
+    }
+    public function sendservice(Request $request, $slug)
+    {
+        $messages = [
+            'g-recaptcha-response.required' => 'Please verify that you are not a robot.',
+            'g-recaptcha-response.captcha' => 'Captcha error! try again later or contact site admin.',
+        ];
+
+        $rules = [];
+        if (session()->has('lang')) {
+            $currentLang = Language::where('code', session()->get('lang'))->first();
+        } else {
+            $currentLang = Language::where('is_default', 1)->first();
+        }
+
+        $bs = $currentLang->basic_setting;
+        $be = $currentLang->basic_extended;
+        $service = Service::where('slug', $slug)->firstOrFail();
+        $serviceInputs = ServiceInput::where('service_id', $service->id)->get();
+        $allowedExts = array('zip');
+        foreach ($serviceInputs as $input) {
+            if ($input->required == 1) {
+                $rules["$input->name"][] = 'required';
+            }
+            // check if input type is 5, then check for zip extension
+            if ($input->type == 5) {
+                $rules["$input->name"][] = function ($attribute, $value, $fail) use ($request, $input, $allowedExts) {
+                    if ($request->hasFile("$input->name")) {
+                        $ext = $request->file("$input->name")->getClientOriginalExtension();
+                        if (!in_array($ext, $allowedExts)) {
+                            return $fail("Only zip file is allowed");
+                        }
+                    }
+                };
+            }
+        }
+
+        if ($bs->is_recaptcha == 1) {
+            $rules['g-recaptcha-response'] = 'required|captcha';
+        }
+
+        $request->validate($rules, $messages);
+        $fields = [];
+        foreach ($serviceInputs as $key => $input) {
+            $in_name = $input->name;
+            // if the input is file, then move it to 'files' folder
+            if ($input->type == 5) {
+                if ($request->hasFile("$in_name")) {
+                    $fileName = uniqid() . '.' . $request->file("$in_name")->getClientOriginalExtension();
+                    $directory = 'assets/front/files/';
+                    @mkdir($directory, 0775, true);
+                    $request->file("$in_name")->move($directory, $fileName);
+
+                    $fields["$in_name"]['value'] = $fileName;
+                    $fields["$in_name"]['type'] = $input->type;
+                }
+            } else {
+                if ($request["$in_name"]) {
+                    $fields["$in_name"]['value'] = $request["$in_name"];
+                    $fields["$in_name"]['type'] = $input->type;
+                }
+            }
+        }
+        $jsonfields = json_encode($fields);
+        $jsonfields = str_replace("\/", "/", $jsonfields);
+
+
+        $serviceRequest = new ServiceRequest;
+        $serviceRequest->fname = isset($request->fname) ? $request->fname : Auth::user()->fname;
+        $serviceRequest->lname = isset($request->lname) ? $request->lname : Auth::user()->lname;
+        $serviceRequest->username = Auth::user()->username;
+        $serviceRequest->user_id = Auth::user()->id;
+        $serviceRequest->email = isset($request->email) ? $request->email : Auth::user()->email;
+        $serviceRequest->mobile = isset($request->mobile) ? $request->mobile : Auth::user()->mobile;
+        $serviceRequest->user_agent = $request->userAgent();
+        $serviceRequest->ip_address = $request->ip();
+        $serviceRequest->fields = $jsonfields;
+
+        $serviceRequest->save();
+
+
+        // send mail to Admin
+        $from = $serviceRequest->email;
+        $to = $be->to_mail;
+        $subject = "Service Request Received";
+
+        $fields = json_decode($serviceRequest->fields, true);
+
+        try {
+
+           if($serviceRequest->email){
+            $mail = new PHPMailer(true);
+            $mail->setFrom($from, $serviceRequest->fname . ' ' . $serviceRequest->lname . ' : ' . $serviceRequest->username);
+            $mail->addAddress($to);     // Add a recipient
+
+            // Content
+            $mail->isHTML(true);  // Set email format to HTML
+            $mail->Subject = $subject;
+            $mail->Body    = 'A new service request has been sent.<br/><strong>Client Name: </strong>' . $request->name . '<br/><strong>Client Mail: </strong>' . $request->email;
+
+            $mail->send();
+           }
+        } catch (\Exception $e) {
+            // die($e->getMessage());
+        }
+        return back()->with('success', 'Service request sent successfully');
     }
 
     public function careerdetails($slug)

@@ -3,17 +3,20 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class QuoteInput extends Model
+final class QuoteInput extends Model
 {
     protected $fillable = ['language_id', 'type', 'label', 'name', 'placeholder', 'required', 'active'];
 
-    public function quote_input_options()
+    public function input_options() : HasMany
     {
-        return $this->hasMany('App\QuoteInputOption');
+        return $this->hasMany(QuoteInputOption::class);
     }
 
-    public function language() {
-      return $this->belongsTo('App\Language');
+    public function language() : BelongsTo
+    {
+        return $this->belongsTo(Language::class);
     }
 }

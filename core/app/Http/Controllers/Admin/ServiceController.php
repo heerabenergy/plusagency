@@ -401,8 +401,8 @@ class ServiceController extends Controller
     public function inputEdit(string $id) : View
     {
         $data['input'] = ServiceInput::findOrFail((int)$id);
-        if (!empty($data['input']->service_input_options)) {
-            $options = $data['input']->service_input_options;
+        if (!empty($data['input']->input_options)) {
+            $options = $data['input']->input_options;
             $data['options'] = $options;
             $data['counter'] = count($options);
         }

@@ -101,7 +101,7 @@
                             <div class="col-md-10">
                             <select class="form-control" name="">
                                 <option value="" selected disabled>{{$input->placeholder}}</option>
-                                @foreach ($input->quote_input_options as $key => $option)
+                                @foreach ($input->input_options as $key => $option)
                                 <option value="">{{$option->name}}</option>
                                 @endforeach
                             </select>
@@ -128,7 +128,7 @@
                         <label for="">{{$input->label}} @if($input->required == 1) <span>**</span> @elseif($input->required == 0) (Optional) @endif</label>
                         <div class="row">
                             <div class="col-md-10">
-                            @foreach ($input->quote_input_options as $key => $option)
+                            @foreach ($input->input_options as $key => $option)
                                 <div class="custom-control custom-checkbox">
                                     <input type="checkbox" id="customRadio{{$option->id}}" name="customRadio" class="custom-control-input">
                                     <label class="custom-control-label" for="customRadio{{$option->id}}">{{$option->name}}</label>
