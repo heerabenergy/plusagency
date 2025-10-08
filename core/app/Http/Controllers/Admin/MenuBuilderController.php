@@ -11,8 +11,6 @@ use App\Menu;
 use App\Page;
 use App\Permalink;
 
-use function GuzzleHttp\json_decode;
-use function GuzzleHttp\json_encode;
 
 class MenuBuilderController extends Controller
 {
@@ -236,12 +234,14 @@ class MenuBuilderController extends Controller
         }
 
 
-        $menus = json_encode($menus);
+        if(isset($megamenu)){
+            $menus = json_encode($menus);
         $megamenu->menus = $menus;
         $megamenu->save();
 
-        $request->session()->flash('success', 'Mega Menu updated for ' . $request->type);
-        return back();
+        return back()->with("success", "Mega Menu updated for " . $request->type);
+        }
+        return back()->with("error", "Mega Menu not found for " . $request->type);
     }
 
     public function permalinks() {
