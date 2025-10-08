@@ -97,7 +97,7 @@
                                 <td>
                                     <div class="remove">
                                         <div class="checkbox">
-                                        <span aria-label="{{__('Remove')}}" class="fas fa-times item-remove" rel="{{$id}}" data-href="{{route('cart.item.remove',$id)}}"></span>
+                                        <span aria-label="{{__('Remove')}}" class="fas fa-times item-remove" rel="{{$id}}" data-href="{{route('front.cart.item.remove',$id)}}"></span>
                                         </div>
                                     </div>
                                 </td>
@@ -118,10 +118,10 @@
             <div class="row cart-middle">
                 <div class="col-lg-6 offset-lg-6 col-sm-12">
                     <div class="update-cart float-right d-inline-block ml-4">
-                        <a aria-label="{{__('Proceed to Checkout')}}" class="proceed-checkout-btn" style="padding-top: 0;" href="{{route('front.checkout')}}" type="button"><span>{{__('Checkout')}}</span></a>
+                        <a aria-label="{{__('Proceed to Checkout')}}" class="proceed-checkout-btn" style="padding-top: 0;" href="{{route('front.checkout.index')}}" type="button"><span>{{__('Checkout')}}</span></a>
                     </div>
                     <div class="update-cart float-right d-inline-block">
-                        <button aria-label="{{__('Update Cart')}}" class="main-btn main-btn-2" id="cartUpdate" data-href="{{route('cart.update')}}" type="button"><span>{{__('Update Cart')}}</span></button>
+                        <button aria-label="{{__('Update Cart')}}" class="main-btn main-btn-2" id="cartUpdate" data-href="{{route('front.cart.update')}}" type="button"><span>{{__('Update Cart')}}</span></button>
                     </div>
                 </div>
             </div>

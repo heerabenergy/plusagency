@@ -22,7 +22,7 @@
         <div class="row justify-content-center">
             <div class="col-lg-8">
                 @if($bex->product_guest_checkout == 1 && !empty(request()->input('redirected')) && request()->input('redirected') == 'checkout' && !containsDigitalItemsInCart())
-                    <a aria-label="{{__('Checkout as Guest')}}" href="{{route('front.checkout', ['type' => 'guest'])}}" class="btn btn-block btn-primary mb-4 base-bg py-3 border-0">{{__('Checkout as Guest')}}</a>
+                    <a aria-label="{{__('Checkout as Guest')}}" href="{{route('front.checkout.index', ['type' => 'guest'])}}" class="btn btn-block btn-primary mb-4 base-bg py-3 border-0">{{__('Checkout as Guest')}}</a>
 
                     <div class="mt-4 mb-3 text-center">
                         <h3 class="mb-0"><strong>{{__('OR')}},</strong></h3>

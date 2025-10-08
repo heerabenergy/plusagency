@@ -91,7 +91,7 @@ function initPush() {
         })
         .then((permissionResult) => {
             if (permissionResult !== 'granted') {
-                throw new Error('We weren\'t granted permission.');
+                return;
             }
             subscribeUser();
         });

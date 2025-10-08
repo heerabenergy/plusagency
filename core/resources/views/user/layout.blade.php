@@ -255,7 +255,7 @@
 
     @if ($bex->is_shop == 1 && $bex->catalog_mode == 0)
         <div id="cartIconWrapper">
-            <a class="d-block" id="cartIcon" href="{{route('front.cart')}}">
+            <a class="d-block" id="cartIcon" href="{{route('front.cart.index')}}">
                 <div class="cart-length">
                     <i class="fas fa-cart-plus"></i>
                     <span class="length">{{cartLength()}} {{__('ITEMS')}}</span>

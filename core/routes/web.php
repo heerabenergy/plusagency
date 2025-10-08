@@ -1,5 +1,51 @@
 <?php
 
+use App\Http\Controllers\Admin\SummernoteController;
+use App\Http\Controllers\CronJobController;
+use App\Http\Controllers\Front\CausesController;
+use App\Http\Controllers\Front\EventController;
+use App\Http\Controllers\Front\FrontendController;
+use App\Http\Controllers\Front\MidtransController;
+use App\Http\Controllers\Front\ProductController;
+use App\Http\Controllers\Front\PushController;
+use App\Http\Controllers\Payment\causes\FlutterWaveController;
+use App\Http\Controllers\Payment\causes\InstamojoController;
+use App\Http\Controllers\Payment\causes\IyzicoController;
+use App\Http\Controllers\Payment\causes\MercadopagoController;
+use App\Http\Controllers\Payment\causes\MidtransController as CausesMidtransController;
+use App\Http\Controllers\Payment\causes\MollieController;
+use App\Http\Controllers\Payment\causes\MyFatoorahController;
+use App\Http\Controllers\Payment\causes\PaypalController;
+use App\Http\Controllers\Payment\causes\PaystackController;
+use App\Http\Controllers\Payment\causes\PaytabsController;
+use App\Http\Controllers\Payment\causes\PaytmController;
+use App\Http\Controllers\Payment\causes\PayumoneyController;
+use App\Http\Controllers\Payment\causes\PerfectMoneyController;
+use App\Http\Controllers\Payment\causes\PhonePeController;
+use App\Http\Controllers\Payment\causes\RazorpayController;
+use App\Http\Controllers\Payment\causes\ToyyibpayController;
+use App\Http\Controllers\Payment\causes\XenditController;
+use App\Http\Controllers\Payment\causes\YocoController;
+use App\Http\Controllers\Payment\FlutterWaveController as PaymentFlutterWaveController;
+use App\Http\Controllers\Payment\InstamojoController as PaymentInstamojoController;
+use App\Http\Controllers\Payment\IyzicoController as PaymentIyzicoController;
+use App\Http\Controllers\Payment\MercadopagoController as PaymentMercadopagoController;
+use App\Http\Controllers\Payment\MidtransController as PaymentMidtransController;
+use App\Http\Controllers\Payment\MollieController as PaymentMollieController;
+use App\Http\Controllers\Payment\MyFatoorahController as PaymentMyFatoorahController;
+use App\Http\Controllers\Payment\OfflineController;
+use App\Http\Controllers\Payment\PaymentController;
+use App\Http\Controllers\Payment\PaystackController as PaymentPaystackController;
+use App\Http\Controllers\Payment\PaytabsController as PaymentPaytabsController;
+use App\Http\Controllers\Payment\PaytmController as PaymentPaytmController;
+use App\Http\Controllers\Payment\PayumoneyController as PaymentPayumoneyController;
+use App\Http\Controllers\Payment\PerfectMoneyController as PaymentPerfectMoneyController;
+use App\Http\Controllers\Payment\PhonepeController as PaymentPhonepeController;
+use App\Http\Controllers\Payment\RazorpayController as PaymentRazorpayController;
+use App\Http\Controllers\Payment\StripeController;
+use App\Http\Controllers\Payment\ToyyibpayController as PaymentToyyibpayController;
+use App\Http\Controllers\Payment\XenditController as PaymentXenditController;
+use App\Http\Controllers\Payment\YocoController as PaymentYocoController;
 use Illuminate\Support\Facades\Route;
 use App\Permalink;
 
@@ -19,201 +65,261 @@ Route::fallback(function () {
   return view('errors.404');
 });
 
-Route::get('/check-payment', 'CronJobController@index')->name('cron.check.payment');
+Route::get('check-payment', [CronJobController::class,"index"])->name('cron.check.payment');
 
 Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth:admin', 'setLfmPath']], function () {
   \UniSharp\LaravelFilemanager\Lfm::routes();
-  Route::post('summernote/upload', 'Admin\SummernoteController@uploadFileManager')->name('lfm.summernote.upload');
+  Route::post('summernote/upload', [SummernoteController::class,'uploadFileManager'])->name('lfm.summernote.upload');
 });
 
-Route::get('/backup', 'Front\FrontendController@backup');
+Route::get('backup', [FrontendController::class,'backup']);
 
-Route::get('/myfatoorah/callback', 'Front\FrontendController@myfatoorah_callback')->name('myfatoorah.success');
-Route::get('myfatoorah/cancel', 'Front\FrontendController@myfatoorah_cancel')->name('myfatoorah.cancel');
+Route::group(['prefix' => 'myfatoorah','as'=>"myfatoorah."], function () {
+  Route::get('callback', [FrontendController::class,'myfatoorah_callback'])->name('success');
+  Route::get('cancel', [FrontendController::class,'myfatoorah_cancel'])->name('cancel');
+});
 
-Route::post('xendit/callback', 'Front\FrontendController@xendit_callback')->name('xendit_cancel');
-Route::get('midtrans/bank-notify', 'Front\MidtransController@onlineBankNotify')->name('bank.notify');
-Route::get('midtrans/cancel', 'Front\MidtransController@cancel')->name('midtrans.cancel');
+Route::get('midtrans/bank-notify', [MidtransController::class,"onlineBankNotify"])->name('bank.notify');
+Route::get('midtrans/cancel', [MidtransController::class,'cancel'])->name('midtrans.cancel');
 
 /*=======================================================
 ******************** Front Routes **********************
 =======================================================*/
 
-Route::post('/push', 'Front\PushController@store');
+Route::post('push', [PushController::class,'store']);
 
 Route::group(['middleware' => 'setlang'], function () {
-  Route::get('/', 'Front\FrontendController@index')->name('front.index');
+  Route::get('', [FrontendController::class,"index"])->name('front.index');
 
   Route::group(['prefix' => 'donation'], function () {
-    Route::get('/paystack/success', 'Payment\causes\PaystackController@successPayment')->name('donation.paystack.success');
+    Route::get('paystack/success', [PaystackController::class,'successPayment'])->name('donation.paystack.success');
   });
 
   //causes donation payment
-  Route::post('/cause/payment', 'Front\CausesController@makePayment')->name('front.causes.payment');
+  Route::post('cause/payment', [CausesController::class,'makePayment'])->name('front.causes.payment');
   //event tickets payment
-  Route::post('/event/payment', 'Front\EventController@makePayment')->name('front.event.payment');
+  Route::post('event/payment', [EventController::class,"makePayment"])->name('front.event.payment');
   //causes donation payment via Paypal
-  Route::get('/cause/paypal/payment/success', 'Payment\causes\PaypalController@successPayment')->name('donation.paypal.success');
-  Route::get('/cause/paypal/payment/cancel', 'Payment\causes\PaypalController@cancelPayment')->name('donation.paypal.cancel');
+  Route::group(["prefix"=>"cause/paypal/payment","as"=>"donation.paypal."],function(){
+    Route::get('success', [PaypalController::class,"successPayment"])->name('success');
+    Route::get('cancel', [PaypalController::class,"cancelPayment"])->name('cancel');
+  });
 
   //causes donation payment via Paytm
-  Route::post('/cause/paytm/payment/success', 'Payment\causes\PaytmController@paymentStatus')->name('donation.paytm.paymentStatus');
+  Route::post('cause/paytm/payment/success', [PaytmController::class,"paymentStatus"])->name('donation.paytm.paymentStatus');
 
   //causes donation payment via Razorpay
-  Route::post('/cause/razorpay/payment/success', 'Payment\causes\RazorpayController@successPayment')->name('donation.razorpay.success');
-  Route::post('/cause/razorpay/payment/cancel', 'Payment\causes\RazorpayController@cancelPayment')->name('donation.razorpay.cancel');
+  Route::group(["prefix"=>"cause/razorpay/payment","as"=>"donation.razorpay."],function(){
+    Route::post('success', [RazorpayController::class,"successPayment"])->name('success');
+    Route::post('cancel', [RazorpayController::class,"cancelPayment"])->name('cancel');
+  });
 
   //causes donation payment via Payumoney
-  Route::post('/cause/payumoney/payment', 'Payment\causes\PayumoneyController@payment')->name('donation.payumoney.payment');
+  Route::post('cause/payumoney/payment', [PayumoneyController::class,"payment"])->name('donation.payumoney.payment');
 
   //causes donation payment via Flutterwave
-  Route::post('/cause/flutterwave/success', 'Payment\causes\FlutterWaveController@successPayment')->name('donation.flutterwave.success');
-  Route::post('/cause/flutterwave/cancel', 'Payment\causes\FlutterWaveController@cancelPayment')->name('donation.flutterwave.cancel');
-  Route::get('/cause/flutterwave/success', 'Payment\causes\FlutterWaveController@successPage')->name('donation.flutterwave.successPage');
-
+  Route::group(['prefix' => 'cause/flutterwave','as'=>"cause.flutterwave."], function () {
+    Route::post('success', [FlutterWaveController::class,"successPayment"])->name('success');
+    Route::post('cancel', [FlutterWaveController::class,"cancelPayment"])->name('cancel');
+    Route::get('success', [FlutterWaveController::class,"successPage"])->name('successPage');
+  });
   //causes donation payment via Instamojo
-  Route::get('/cause/instamojo/success', 'Payment\causes\InstamojoController@successPayment')->name('donation.instamojo.success');
-  Route::post('/cause/instamojo/cancel', 'Payment\causes\InstamojoController@cancelPayment')->name('donation.instamojo.cancel');
-
+  Route::group(["prefix"=>"cause/instamojo","as"=>"donation.instamojo."],function(){
+    Route::get('success', [InstamojoController::class,"successPayment"])->name('success');
+    Route::post('cancel', [InstamojoController::class,"cancelPayment"])->name('cancel');
+  });
   //causes donation payment via Mollie
-  Route::get('/cause/mollie/success', 'Payment\causes\MollieController@successPayment')->name('donation.mollie.success');
-  Route::post('/cause/mollie/cancel', 'Payment\causes\MollieController@cancelPayment')->name('donation.mollie.cancel');
+  Route::group(["prefix"=>"cause/mollie","as"=>"donation.mollie."],function(){
+    Route::get('success', [MollieController::class,"successPayment"])->name('success');
+    Route::post('cancel', [MollieController::class,"cancelPayment"])->name('cancel');
+  });
   // Mercado Pago
-  Route::post('/cause/mercadopago/cancel', 'Payment\causes\MercadopagoController@cancelPayment')->name('donation.mercadopago.cancel');
-  Route::post('/cause/mercadopago/success', 'Payment\causes\MercadopagoController@successPayment')->name('donation.mercadopago.success');
-
-
+  Route::group(["prefix"=>"cause/mercadopago","as"=>"donation.mercadopago."],function(){
+    Route::post('cancel', [MercadopagoController::class,"cancelPayment"])->name('cancel');
+    Route::post('success', [MercadopagoController::class,"successPayment"])->name('success');
+  });
   // yoco
-  Route::post('/cause/yoco/cancel', 'Payment\causes\YocoController@cancelPayment')->name('donation.yoco.cancel');
-  Route::get('/cause/yoco/success', 'Payment\causes\YocoController@successPayment')->name('donation.yoco.success');
+  Route::group(["prefix"=>"cause/yoco","as"=>"donation.yoco."],function(){
+    Route::post('cancel', [YocoController::class,"cancelPayment"])->name('cancel');
+    Route::get('success', [YocoController::class,"successPayment"])->name('success');
+  });
   // perfect money
-  Route::any('/cause/perfect_money/cancel', 'Payment\causes\PerfectMoneyController@cancelPayment')->name('donation.perfect_money.cancel');
-  Route::get('/cause/perfect_money/success', 'Payment\causes\PerfectMoneyController@successPayment')->name('donation.perfect_money.success');
+  Route::group(["prefix"=>"cause/perfect_money","as"=>"donation.perfect_money."],function(){
+    Route::any('cancel', [PerfectMoneyController::class,"cancelPayment"])->name('cancel');
+    Route::get('success', [PerfectMoneyController::class,"successPayment"])->name('success');
+  });
   // xendit
-  Route::post('/cause/xendit/cancel', 'Payment\causes\XenditController@cancelPayment')->name('donation.xendit.cancel');
-  Route::get('/cause/xendit/success', 'Payment\causes\XenditController@successPayment')->name('donation.xendit.success');
-
+  Route::group(["prefix"=>"cause/xendit","as"=>"donation.xendit."],function(){
+    Route::post('cancel', [XenditController::class,"cancelPayment"])->name('cancel');
+    Route::get('success', [XenditController::class,"successPayment"])->name('success');
+  });
   // toyyibpay 
-  Route::post('/cause/toyyibpay/cancel', 'Payment\causes\ToyyibpayController@cancelPayment')->name('donation.toyyibpay.cancel');
-  Route::get('/cause/toyyibpay/success', 'Payment\causes\ToyyibpayController@successPayment')->name('donation.toyyibpay.success');
+  Route::group(["prefix"=>"cause/toyyibpay","as"=>"donation.toyyibpay."],function(){
+    Route::post('cancel', [ToyyibpayController::class,'cancelPayment'])->name('cancel');
+    Route::get('success', [ToyyibpayController::class,'successPayment'])->name('success');
+  });
 
   // paytabs 
-  Route::post('/cause/paytabs/cancel', 'Payment\causes\PaytabsController@cancelPayment')->name('donation.paytabs.cancel');
-  Route::post('/cause/paytabs/success', 'Payment\causes\PaytabsController@successPayment')->name('donation.paytabs.success');
+  Route::group(["prefix"=>"cause/paytabs","as"=>"donation.paytabs."],function(){
+    Route::post('cancel', [PaytabsController::class,'cancelPayment'])->name('cancel');
+    Route::post('success', [PaytabsController::class,'successPayment'])->name('success');
+  });
+
+  Route::group(["prefix"=>"cause/midtrans","as"=>"donation.midtrans."],function(){
+    Route::post('cancel', [CausesMidtransController::class,"cancelPayment"])->name('cancel');
+    Route::get('success/{order_id}', [CausesMidtransController::class,"successPayment"])->name('success');
+  });
+  Route::group(["prefix"=>"cause/iyzico","as"=>"donation.iyzico."],function(){
+    Route::get('cancel', [IyzicoController::class,"cancelPayment"])->name('cancel');
+    Route::post('success', [IyzicoController::class,"successPayment"])->name('success');
+  });
+
+  Route::group(["prefix"=>"cause/phonepe","as"=>"donation.phonepe."],function(){
+    Route::get('cancel', [PhonePeController::class,"cancelPayment"])->name('cancel');
+    Route::post('success', [PhonePeController::class,"successPayment"])->name('success');
+  });
+
+  Route::group(["prefix"=>"cause/myfatoorah","as"=>"donation.myfatoorah."],function(){
+    Route::get('cancel', [MyFatoorahController::class,"cancelPayment"])->name('cancel');
+    Route::post('success', [MyFatoorahController::class,"successPayment"])->name('success');
+  });
+
+  Route::post('/payment/instructions', [FrontendController::class,'paymentInstruction'])->name('front.payment.instructions');
+
+  Route::group(["as"=>"front."],function(){
+    Route::post('sendmail', [FrontendController::class,'sendmail'])->name('sendmail');
+    Route::post('subscribe', [FrontendController::class,'subscribe'])->name('subscribe');
+    Route::get('quote', [FrontendController::class,'quote'])->name('quote');
+    Route::post('sendquote', [FrontendController::class,'sendquote'])->name('sendquote');
+
+    Route::get('checkout/payment/{slug1}/{slug2}', [FrontendController::class,'loadpayment'])->name('load.payment');
+    // Package Order Routes
+    Route::post('package-order', [FrontendController::class,'submitorder'])->name('packageorder.submit');
+    Route::get('order-confirmation/{packageid}/{packageOrderId}', [FrontendController::class,'orderConfirmation'])->name('packageorder.confirmation');
+    Route::get('payment/{packageid}/cancle', [PaymentController::class,'paycancle'])->name('payment.cancle');
+    //Paypal Routes
+    Route::group(["prefix"=>"paypal","as"=>"paypal."],function(){
+      Route::post('submit', [PaypalController::class,'store'])->name('submit');
+      Route::get('{packageid}/notify', [PaypalController::class,'notify'])->name('notify');
+    });
+    //Stripe Routes
+    Route::post('stripe/submit', [StripeController::class,'store'])->name('stripe.submit');
+    //Paystack Routes
+    Route::post('paystack/submit', [PaymentPaystackController::class,'store'])->name('paystack.submit');
+
+    //PayTM Routes
+    Route::group(["prefix"=>"paytm","as"=>"paytm."],function(){
+      Route::post('submit', [PaymentPaytmController::class,'store'])->name('submit');
+      Route::post('notify', [PaymentPaytmController::class,'notify'])->name('notify');
+    });
+    
+    //Flutterwave Routes
+    Route::group(["prefix"=>"flutterwave","as"=>"flutterwave."],function(){
+      Route::post('submit', [PaymentFlutterWaveController::class,'store'])->name('submit');
+      Route::post('notify', [PaymentFlutterWaveController::class,'notify'])->name('notify');
+    });
+    //   Route::get('/flutterwave/notify', 'Payment\FlutterWaveController@success')->name('front.flutterwave.success');
+    //Instamojo Routes
+    Route::group(["prefix"=>"instamojo","as"=>"instamojo."],function(){
+      Route::post('submit', [PaymentInstamojoController::class,'store'])->name('submit');
+      Route::get('notify', [PaymentInstamojoController::class,'notify'])->name('notify');
+    });
+    //Mollie Routes
+    Route::group(["prefix"=>"mollie","as"=>"mollie."],function(){
+      Route::post('submit', [PaymentMollieController::class,'store'])->name('submit');
+      Route::get('notify', [PaymentMollieController::class,'notify'])->name('notify');
+    });
+    Route::group(["prefix"=>"razorpay","as"=>"razorpay."],function(){
+      Route::post('submit', [PaymentRazorpayController::class,'store'])->name('submit');
+      Route::post('notify', [PaymentRazorpayController::class,'notify'])->name('notify');
+    });
+    // Mercado Pago
+    Route::group(["prefix"=>"mercadopago","as"=>"mercadopago."],function(){
+      Route::post('submit', [PaymentMercadopagoController::class,'store'])->name('submit');
+      Route::post('notify', [PaymentMercadopagoController::class,'notify'])->name('notify');
+    });
+    // Payu
+    Route::group(["prefix"=>"payumoney","as"=>"payumoney."],function(){
+      Route::post('submit', [PaymentPayumoneyController::class,'store'])->name('submit');
+      Route::post('notify', [PaymentPayumoneyController::class,'notify'])->name('notify');
+    });
+    Route::group(["prefix"=>"yoco","as"=>"yoco."],function(){
+      Route::post('submit', [PaymentYocoController::class,'store'])->name('submit');
+      Route::get('notify', [PaymentYocoController::class,'notify'])->name('notify');
+    });
+    Route::group(["prefix"=>"perfect-money","as"=>"perfect-money."],function(){
+      Route::post('submit', [PaymentPerfectMoneyController::class,'store'])->name('submit');
+      Route::get('notify', [PaymentPerfectMoneyController::class,'notify'])->name('notify');
+    });
+    //xendit
+    Route::group(["prefix"=>"xendit","as"=>"xendit."],function(){
+      Route::post('submit', [PaymentXenditController::class,'store'])->name('submit');
+      Route::get('notify', [PaymentXenditController::class,'notify'])->name('notify');
+    });
+    
+    //toyyibpay
+    Route::group(["prefix"=>"toyyibpay","as"=>"toyyibpay."],function(){
+      Route::post('submit', [PaymentToyyibpayController::class,'store'])->name('submit');
+      Route::get('notify', [PaymentToyyibpayController::class,'notify'])->name('notify');
+    });
+    //toyyibpay
+    Route::group(["prefix"=>"paytabs","as"=>"paytabs."],function(){
+      Route::post('submit', [PaymentPaytabsController::class,'store'])->name('submit');
+      Route::post('notify', [PaymentPaytabsController::class,'notify'])->name('notify');
+    });
+    
+    //midtrans
+    Route::group(["prefix"=>"midtrans","as"=>"midtrans."],function(){
+      Route::post('submit', [PaymentMidtransController::class,'store'])->name('submit');
+      Route::get('notify/{order_id}', [PaymentMidtransController::class,'cardNotify'])->name('notify');
+    });
+    // iyzico
+    Route::group(["prefix"=>"iyzico","as"=>"iyzico."],function(){
+      Route::post('submit', [PaymentIyzicoController::class,'store'])->name('submit');
+      Route::post('notify', [PaymentIyzicoController::class,'notify'])->name('notify');
+    });
+
+    // phonepe
+    Route::group(["prefix"=>"phonepe","as"=>"phonepe."],function(){
+      Route::post('submit', [PaymentPhonepeController::class,'store'])->name('submit');
+      Route::post('notify', [PaymentPhonepeController::class,'notify'])->name('notify');
+    });
+    // phonepe
+    Route::post('myfatoorah/submit', [PaymentMyFatoorahController::class,'store'])->name('myfatoorah.submit');
+    //Offline Routes
+    Route::post('offline/{oid}/submit', [OfflineController::class,'store'])->name('offline.submit');
+    
+    Route::get('team', [FrontendController::class,'team'])->name('team');
+    Route::get('gallery', [FrontendController::class,'gallery'])->name('gallery');
+    Route::get('faq', [FrontendController::class,'faq'])->name('faq');
 
 
-  Route::post('/cause/midtrans/cancel', 'Payment\causes\MidtransController@cancelPayment')->name('donation.midtrans.cancel');
-  Route::get('/cause/midtrans/success/{order_id}', 'Payment\causes\MidtransController@successPayment')->name('donation.midtrans.success');
+
+    // Product
+    Route::group(["prefix"=>"cart","as"=>"cart."],function(){
+      Route::get('', [ProductController::class,'cart'])->name('index');
+      Route::get('add/{id}', [ProductController::class,'addToCart'])->name('add');
+      Route::post('update', [ProductController::class,'updatecart'])->name('update');
+      Route::get('item/remove/{id}', [ProductController::class,'cartitemremove'])->name('item.remove');  
+    });
+    Route::group(["prefix"=>"checkout","as"=>"checkout."],function(){
+      Route::get('', [ProductController::class,'checkout'])->name('index');
+      Route::get('{slug}', [ProductController::class,'Prdouctcheckout'])->name('product');
+    });
+    Route::post('/coupon', [ProductController::class,'coupon'])->name('coupon');
+  });
 
 
-  Route::get('/cause/iyzico/cancel', 'Payment\causes\IyzicoController@cancelPayment')->name('donation.iyzico.cancel');
-  Route::post('/cause/iyzico/success', 'Payment\causes\IyzicoController@successPayment')->name('donation.iyzico.success');
 
-  Route::get('/cause/phonepe/cancel', 'Payment\causes\PhonePeController@cancelPayment')->name('donation.phonepe.cancel');
-  Route::post('/cause/phonepe/success', 'Payment\causes\PhonePeController@successPayment')->name('donation.phonepe.success');
-
-  Route::get('/cause/myfatoorah/cancel', 'Payment\causes\MyFatoorahController@cancelPayment')->name('donation.myfatoorah.cancel');
-  Route::post('/cause/myfatoorah/success', 'Payment\causes\MyFatoorahController@successPayment')->name('donation.myfatoorah.success');
-
-  Route::post('/payment/instructions', 'Front\FrontendController@paymentInstruction')->name('front.payment.instructions');
-
-
-  Route::post('/sendmail', 'Front\FrontendController@sendmail')->name('front.sendmail');
-  Route::post('/subscribe', 'Front\FrontendController@subscribe')->name('front.subscribe');
-  Route::get('/quote', 'Front\FrontendController@quote')->name('front.quote');
-  Route::post('/sendquote', 'Front\FrontendController@sendquote')->name('front.sendquote');
-
-
-  Route::get('/checkout/payment/{slug1}/{slug2}', 'Front\FrontendController@loadpayment')->name('front.load.payment');
-
-
-  // Package Order Routes
-  Route::post('/package-order', 'Front\FrontendController@submitorder')->name('front.packageorder.submit');
-  Route::get('/order-confirmation/{packageid}/{packageOrderId}', 'Front\FrontendController@orderConfirmation')->name('front.packageorder.confirmation');
-  Route::get('/payment/{packageid}/cancle', 'Payment\PaymentController@paycancle')->name('front.payment.cancle');
-  //Paypal Routes
-  Route::post('/paypal/submit', 'Payment\PaypalController@store')->name('front.paypal.submit');
-  Route::get('/paypal/{packageid}/notify', 'Payment\PaypalController@notify')->name('front.paypal.notify');
-  //Stripe Routes
-  Route::post('/stripe/submit', 'Payment\StripeController@store')->name('front.stripe.submit');
-  //Paystack Routes
-  Route::post('/paystack/submit', 'Payment\PaystackController@store')->name('front.paystack.submit');
-  //PayTM Routes
-  Route::post('/paytm/submit', 'Payment\PaytmController@store')->name('front.paytm.submit');
-  Route::post('/paytm/notify', 'Payment\PaytmController@notify')->name('front.paytm.notify');
-  //Flutterwave Routes
-  Route::post('/flutterwave/submit', 'Payment\FlutterWaveController@store')->name('front.flutterwave.submit');
-  Route::post('/flutterwave/notify', 'Payment\FlutterWaveController@notify')->name('front.flutterwave.notify');
-  //   Route::get('/flutterwave/notify', 'Payment\FlutterWaveController@success')->name('front.flutterwave.success');
-  //Instamojo Routes
-  Route::post('/instamojo/submit', 'Payment\InstamojoController@store')->name('front.instamojo.submit');
-  Route::get('/instamojo/notify', 'Payment\InstamojoController@notify')->name('front.instamojo.notify');
-  //Mollie Routes
-  Route::post('/mollie/submit', 'Payment\MollieController@store')->name('front.mollie.submit');
-  Route::get('/mollie/notify', 'Payment\MollieController@notify')->name('front.mollie.notify');
-  // RazorPay
-  Route::post('razorpay/submit', 'Payment\RazorpayController@store')->name('front.razorpay.submit');
-  Route::post('razorpay/notify', 'Payment\RazorpayController@notify')->name('front.razorpay.notify');
-  // Mercado Pago
-  Route::post('mercadopago/submit', 'Payment\MercadopagoController@store')->name('front.mercadopago.submit');
-  Route::post('mercadopago/notify', 'Payment\MercadopagoController@notify')->name('front.mercadopago.notify');
-  // Payu
-  Route::post('/payumoney/submit', 'Payment\PayumoneyController@store')->name('front.payumoney.submit');
-  Route::post('/payumoney/notify', 'Payment\PayumoneyController@notify')->name('front.payumoney.notify');
-
-  Route::post('/yoco/submit', 'Payment\YocoController@store')->name('front.yoco.submit');
-  Route::get('/yoco/notify', 'Payment\YocoController@notify')->name('front.yoco.notify');
-
-  Route::post('/perfect-money/submit', 'Payment\PerfectMoneyController@store')->name('front.perfect-money.submit');
-  Route::get('/perfect-money/notify', 'Payment\PerfectMoneyController@notify')->name('front.perfect_money.notify');
-
-  //xendit
-  Route::post('/xendit/submit', 'Payment\XenditController@store')->name('front.xendit.submit');
-  Route::get('/xendit/notify', 'Payment\XenditController@notify')->name('front.xendit.notify');
-
-  //toyyibpay
-  Route::post('/toyyibpay/submit', 'Payment\ToyyibpayController@store')->name('front.toyyibpay.submit');
-  Route::get('/toyyibpay/notify', 'Payment\ToyyibpayController@notify')->name('front.toyyibpay.notify');
-
-  //toyyibpay
-  Route::post('/paytabs/submit', 'Payment\PaytabsController@store')->name('front.paytabs.submit');
-  Route::post('/paytabs/notify', 'Payment\PaytabsController@notify')->name('front.paytabs.notify');
-
-  //midtrans
-  Route::post('/midtrans/submit', 'Payment\MidtransController@store')->name('front.midtrans.submit');
-  Route::get('/midtrans/notify/{order_id}', 'Payment\MidtransController@cardNotify')->name('front.midtrans.notify');
-
-  // iyzico
-  Route::post('/iyzico/submit', 'Payment\IyzicoController@store')->name('front.iyzico.submit');
-  Route::post('/iyzico/notify', 'Payment\IyzicoController@notify')->name('front.iyzico.notify');
-
-  // phonepe
-  Route::post('/phonepe/submit', 'Payment\PhonepeController@store')->name('front.phonepe.submit');
-  Route::post('/phonepe/notify', 'Payment\PhonepeController@notify')->name('front.phonepe.notify');
-
-  // phonepe
-  Route::post('/myfatoorah/submit', 'Payment\MyFatoorahController@store')->name('front.myfatoorah.submit');
-
-
-  //Offline Routes
-  Route::post('/offline/{oid}/submit', 'Payment\OfflineController@store')->name('front.offline.submit');
-
-
-  Route::get('/team', 'Front\FrontendController@team')->name('front.team');
-  Route::get('/gallery', 'Front\FrontendController@gallery')->name('front.gallery');
-  Route::get('/faq', 'Front\FrontendController@faq')->name('front.faq');
 
   // change language routes
-  Route::get('/changelanguage/{lang}', 'Front\FrontendController@changeLanguage')->name('changeLanguage');
+  Route::get('changelanguage/{lang}', [FrontendController::class,'changeLanguage'])->name('changeLanguage');
 
-  // Product
-  Route::get('/cart', 'Front\ProductController@cart')->name('front.cart');
-  Route::get('/add-to-cart/{id}', 'Front\ProductController@addToCart')->name('add.cart');
-  Route::post('/cart/update', 'Front\ProductController@updatecart')->name('cart.update');
-  Route::get('/cart/item/remove/{id}', 'Front\ProductController@cartitemremove')->name('cart.item.remove');
-  Route::get('/checkout', 'Front\ProductController@checkout')->name('front.checkout');
-  Route::get('/checkout/{slug}', 'Front\ProductController@Prdouctcheckout')->name('front.product.checkout');
-  Route::post('/coupon', 'Front\ProductController@coupon')->name('front.coupon');
+
+
+
+
+
 
   // review
   Route::post('product/review/submit', 'Front\ReviewController@reviewsubmit')->name('product.review.submit');
@@ -1468,7 +1574,7 @@ if (!app()->runningInConsole()) {
         $routeName = 'front.cart';
       } elseif ($type == 'product_checkout') {
         $action = 'Front\ProductController@checkout';
-        $routeName = 'front.checkout';
+        $routeName = 'front.checkout.index';
       } elseif ($type == 'team') {
         $action = 'Front\FrontendController@team';
         $routeName = 'front.team';

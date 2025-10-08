@@ -137,7 +137,7 @@
                             <div class="single-category">
                                 @if (!empty($scategory->image))
                                     <div class="img-wrapper">
-                                        <img class="lazy d-block" data-src="{{asset('assets/front/img/service_category_icons/'.$scategory->image)}}" style="width: 195px; height: 110px;" alt="{{__($scategory->name)}}">
+                                        <img class="lazy d-block mx-auto" data-src="{{asset('assets/front/img/service_category_icons/'.$scategory->image)}}" style="width: 64px; height: 64px;" alt="{{__($scategory->name)}}">
                                     </div>
                                 @endif
                                 <div class="text">

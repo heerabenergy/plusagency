@@ -364,14 +364,14 @@ class ProductController extends Controller
         if (!Auth::check()) {
             if ($bex->product_guest_checkout == 1) {
                 if ($request->type != 'guest') {
-                    Session::put('link', route('front.checkout'));
+                    Session::put('link', route('front.checkout.index'));
                     return redirect(route('user.login', ['redirected' => 'checkout']));
                 } elseif (containsDigitalItemsInCart()) {
-                    Session::put('link', route('front.checkout'));
+                    Session::put('link', route('front.checkout.index'));
                     return redirect(route('user.login', ['redirected' => 'checkout']));
                 }
             } elseif ($bex->product_guest_checkout == 0) {
-                Session::put('link', route('front.checkout'));
+                Session::put('link', route('front.checkout.index'));
                 return redirect(route('user.login', ['redirected' => 'checkout']));
             }
         }
@@ -430,7 +430,7 @@ class ProductController extends Controller
 
         $data['version'] = $version;
 
-        return view('front.product.checkout', $data);
+        return view('front.checkout.product', $data);
     }
 
 
@@ -473,7 +473,7 @@ class ProductController extends Controller
                 Session::put('link', url()->current());
                 return redirect(route('user.login'));
             }
-            return redirect(route('front.checkout'));
+            return redirect(route('front.checkout.index'));
         }
 
 
@@ -492,7 +492,7 @@ class ProductController extends Controller
                 Session::put('link', url()->current());
                 return redirect(route('user.login'));
             }
-            return redirect(route('front.checkout'));
+            return redirect(route('front.checkout.index'));
         }
 
         if ($product->type != 'digital' && $product->stock <  $qty) {
@@ -516,7 +516,7 @@ class ProductController extends Controller
             Session::put('link', url()->current());
             return redirect(route('user.login'));
         }
-        return redirect(route('front.checkout'));
+        return redirect(route('front.checkout.index'));
     }
 
     public function coupon(Request $request)

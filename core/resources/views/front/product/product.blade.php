@@ -152,9 +152,9 @@
                             <img class="lazy" data-src="{{asset('assets/front/img/product/featured/'.$product->feature_image)}}" alt="{{__($product->title)}}">
                             <ul>
                                 @if ($bex->catalog_mode == 0)
-                                    <li><a aria-label="{{__('Order Now')}}" href="{{route('front.product.checkout',$product->slug)}}" data-toggle="tooltip" data-placement="top" title="{{__('Order Now')}}"><i class="far fa-credit-card"></i></a></li>
+                                    <li><a aria-label="{{__('Order Now')}}" href="{{route('front.checkout.product',$product->slug)}}" data-toggle="tooltip" data-placement="top" title="{{__('Order Now')}}"><i class="far fa-credit-card"></i></a></li>
 
-                                    <li><a aria-label="{{__('Add to Cart')}}" class="cart-link" data-href="{{route('add.cart',$product->id)}}" data-toggle="tooltip" data-placement="top" title="{{__('Add to Cart')}}"><i class="fas fa-shopping-cart"></i></a></li>
+                                    <li><a aria-label="{{__('Add to Cart')}}" class="cart-link" data-href="{{route('front.cart.add',$product->id)}}" data-toggle="tooltip" data-placement="top" title="{{__('Add to Cart')}}"><i class="fas fa-shopping-cart"></i></a></li>
                                 @endif
 
                                 <li><a aria-label="{{__('View Details')}}" href="{{route('front.product.details',$product->slug)}}" data-toggle="tooltip" data-placement="top" title="{{__('View Details')}}"><i class="fas fa-eye"></i></a></li>

@@ -119,9 +119,9 @@ if (!function_exists('getHref')) {
         } else if ($link["type"] == 'products' || $link["type"] == 'products-megamenu') {
             $href = route('front.product');
         } else if ($link["type"] == 'cart') {
-            $href = route('front.cart');
+            $href = route('front.cart.index');
         } else if ($link["type"] == 'checkout') {
-            $href = route('front.checkout');
+            $href = route('front.checkout.index');
         } else if ($link["type"] == 'blogs' || $link["type"] == 'blogs-megamenu') {
             $href = route('front.blogs');
         } else if ($link["type"] == 'rss') {
