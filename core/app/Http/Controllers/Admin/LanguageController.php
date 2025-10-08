@@ -678,6 +678,11 @@ class LanguageController extends Controller
         }
 
 
+        // deleting event categories for corresponding language
+        if (!empty($la->event_categories)) {
+            $la->event_categories()->delete();
+        }
+
         //event
         $events = Event::query()->where('lang_id', $id)->get();
         DB::transaction(function () use ($events, $id) {
@@ -729,8 +734,32 @@ class LanguageController extends Controller
             }
         });
 
-        $la->delete();
-        return back()->with('success', 'Delete Successfully');
+        // deleting course categories for corresponding language
+        if (!empty($la->course_categories)) {
+            $la->course_categories()->delete();
+        }
+
+        // deleting article categories for corresponding language
+        if (!empty($la->articleCategories)) {
+            $la->articleCategories()->delete();
+        }
+
+        // deleting megamenus for corresponding language
+        if (!empty($la->megamenus)) {
+            $la->megamenus()->delete();
+        }
+
+        // deleting popups for corresponding language
+        if (!empty($la->popups)) {
+            $la->popups()->delete();
+        }
+
+        try {
+            $la->delete();
+        } catch (\Exception $e) {
+            return back()->with('error', 'Failed to delete language!');
+        }
+        return back()->with('success', 'Language deleted successfully!');
     }
 
 
