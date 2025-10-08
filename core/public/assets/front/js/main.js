@@ -151,7 +151,7 @@
         // blog carousel initialization
         var blogCarousel = $('.blog-carousel');
         blogCarousel.owlCarousel({
-            loop: true,
+            loop: false,
             dots: false,
             margin: 22,
             autoplay: false,
