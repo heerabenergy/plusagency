@@ -6,13 +6,17 @@ use App\BasicExtended;
 use App\BasicExtra;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Str;
 use App\Service;
 use App\Scategory;
 use App\Language;
 use App\Megamenu;
-use Validator;
-use Session;
+use App\ServiceInput;
+use App\ServiceInputOption;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Session;
 
 class ServiceController extends Controller
 {
@@ -328,5 +332,93 @@ class ServiceController extends Controller
         }
 
         return back();
+    }
+
+    public function createForm(string $id) : View
+    {
+        $data['service'] = Service::findOrFail((int)$id);
+        $data['serviceInputs'] = ServiceInput::where('service_id', $id)->get();
+        // if(count($data['serviceInputs']) == 0) {
+            return view('admin.service.service.form.create', $data);
+        // }
+        return view('admin.service.service.form.edit', $data);
+    }
+    public function formStore(string $id,Request $request) : string|JsonResponse{
+        $service = Service::findOrFail((int)$id);
+
+        $inname = make_input_name($request->label);
+        $inputs = ServiceInput::where('service_id', $service->id)->get();
+
+        $messages = [
+            'options.*.required_if' => 'Options are required if field type is select dropdown/checkbox',
+            'placeholder.required_unless' => 'The placeholder field is required unless field type is Checkbox or File'
+        ];
+
+        $rules = [
+            'label' => [
+                'required',
+                function ($attribute, $value, $fail) use ($inname, $inputs) {
+                    foreach ($inputs as $key => $input) {
+                        if ($input->name == $inname) {
+                            $fail("Input field already exists.");
+                        }
+                    }
+                },
+            ],
+            'placeholder' => 'required_unless:type,3,5',
+            'type' => 'required',
+            'options.*' => 'required_if:type,2,3'
+        ];
+
+        $validator = Validator::make($request->all(), $rules, $messages);
+        if ($validator->fails()) {
+            $errmsgs = $validator->getMessageBag()->add('error', 'true');
+            return response()->json($validator->errors());
+        }
+
+        $input = new ServiceInput;
+        $input->service_id = $service->id;
+        $input->type = $request->type;
+        $input->label = $request->label;
+        $input->name = $inname;
+        $input->placeholder = $request->placeholder;
+        $input->required = $request->required;
+        $input->save();
+
+        if ($request->type == 2 || $request->type == 3) {
+            $options = $request->options;
+            foreach ($options as $key => $option) {
+                $op = new ServiceInputOption;
+                $op->service_input_id = $input->id;
+                $op->name = $option;
+                $op->save();
+            }
+        }
+
+        Session::flash('success', 'Input field added successfully!');
+        return "success";
+    }
+    public function inputEdit(string $id) : View
+    {
+        $data['input'] = ServiceInput::findOrFail((int)$id);
+        if (!empty($data['input']->service_input_options)) {
+            $options = $data['input']->service_input_options;
+            $data['options'] = $options;
+            $data['counter'] = count($options);
+        }
+        $data['service'] = Service::findOrFail($data['input']->service_id);
+        return view('admin.service.service.form.edit', $data);
+    }
+    public function inputUpdate(string $id,Request $request) : string|JsonResponse{
+        $serviceInput = ServiceInput::findOrFail((int)$id);
+        $serviceInput->update($request->all());
+        Session::flash('success', 'Input field updated successfully!');
+        return "success";
+    }
+    public function inputDelete(string $input_id) : RedirectResponse{
+        $serviceInput = ServiceInput::findOrFail((int)$input_id);
+        $serviceInput->active = !$serviceInput->active;
+        $serviceInput->update();
+        return back()->withSuccess('Input field active status updated successfully!');
     }
 }

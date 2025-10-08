@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\ServiceController;
 use App\Http\Controllers\Admin\SummernoteController;
 use App\Http\Controllers\CronJobController;
 use App\Http\Controllers\Front\CausesController;
@@ -67,255 +68,255 @@ Route::fallback(function () {
   return view('errors.404');
 });
 
-Route::get('check-payment', [CronJobController::class,"index"])->name('cron.check.payment');
+Route::get('check-payment', [CronJobController::class, "index"])->name('cron.check.payment');
 
 Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth:admin', 'setLfmPath']], function () {
   \UniSharp\LaravelFilemanager\Lfm::routes();
-  Route::post('summernote/upload', [SummernoteController::class,'uploadFileManager'])->name('lfm.summernote.upload');
+  Route::post('summernote/upload', [SummernoteController::class, 'uploadFileManager'])->name('lfm.summernote.upload');
 });
 
-Route::get('backup', [FrontendController::class,'backup']);
+Route::get('backup', [FrontendController::class, 'backup']);
 
-Route::group(['prefix' => 'myfatoorah','as'=>"myfatoorah."], function () {
-  Route::get('callback', [FrontendController::class,'myfatoorah_callback'])->name('success');
-  Route::get('cancel', [FrontendController::class,'myfatoorah_cancel'])->name('cancel');
+Route::group(['prefix' => 'myfatoorah', 'as' => "myfatoorah."], function () {
+  Route::get('callback', [FrontendController::class, 'myfatoorah_callback'])->name('success');
+  Route::get('cancel', [FrontendController::class, 'myfatoorah_cancel'])->name('cancel');
 });
 
-Route::get('midtrans/bank-notify', [MidtransController::class,"onlineBankNotify"])->name('bank.notify');
-Route::get('midtrans/cancel', [MidtransController::class,'cancel'])->name('midtrans.cancel');
+Route::get('midtrans/bank-notify', [MidtransController::class, "onlineBankNotify"])->name('bank.notify');
+Route::get('midtrans/cancel', [MidtransController::class, 'cancel'])->name('midtrans.cancel');
 
 /*=======================================================
 ******************** Front Routes **********************
 =======================================================*/
 
-Route::post('push', [PushController::class,'store']);
+Route::post('push', [PushController::class, 'store']);
 
 Route::group(['middleware' => 'setlang'], function () {
-  Route::get('', [FrontendController::class,"index"])->name('front.index');
+  Route::get('', [FrontendController::class, "index"])->name('front.index');
 
   Route::group(['prefix' => 'donation'], function () {
-    Route::get('paystack/success', [PaystackController::class,'successPayment'])->name('donation.paystack.success');
+    Route::get('paystack/success', [PaystackController::class, 'successPayment'])->name('donation.paystack.success');
   });
 
   //causes donation payment
-  Route::post('cause/payment', [CausesController::class,'makePayment'])->name('front.causes.payment');
+  Route::post('cause/payment', [CausesController::class, 'makePayment'])->name('front.causes.payment');
   //event tickets payment
-  Route::post('event/payment', [EventController::class,"makePayment"])->name('front.event.payment');
+  Route::post('event/payment', [EventController::class, "makePayment"])->name('front.event.payment');
   //causes donation payment via Paypal
-  Route::group(["prefix"=>"cause/paypal/payment","as"=>"donation.paypal."],function(){
-    Route::get('success', [PaypalController::class,"successPayment"])->name('success');
-    Route::get('cancel', [PaypalController::class,"cancelPayment"])->name('cancel');
+  Route::group(["prefix" => "cause/paypal/payment", "as" => "donation.paypal."], function () {
+    Route::get('success', [PaypalController::class, "successPayment"])->name('success');
+    Route::get('cancel', [PaypalController::class, "cancelPayment"])->name('cancel');
   });
 
   //causes donation payment via Paytm
-  Route::post('cause/paytm/payment/success', [PaytmController::class,"paymentStatus"])->name('donation.paytm.paymentStatus');
+  Route::post('cause/paytm/payment/success', [PaytmController::class, "paymentStatus"])->name('donation.paytm.paymentStatus');
 
   //causes donation payment via Razorpay
-  Route::group(["prefix"=>"cause/razorpay/payment","as"=>"donation.razorpay."],function(){
-    Route::post('success', [RazorpayController::class,"successPayment"])->name('success');
-    Route::post('cancel', [RazorpayController::class,"cancelPayment"])->name('cancel');
+  Route::group(["prefix" => "cause/razorpay/payment", "as" => "donation.razorpay."], function () {
+    Route::post('success', [RazorpayController::class, "successPayment"])->name('success');
+    Route::post('cancel', [RazorpayController::class, "cancelPayment"])->name('cancel');
   });
 
   //causes donation payment via Payumoney
-  Route::post('cause/payumoney/payment', [PayumoneyController::class,"payment"])->name('donation.payumoney.payment');
+  Route::post('cause/payumoney/payment', [PayumoneyController::class, "payment"])->name('donation.payumoney.payment');
 
   //causes donation payment via Flutterwave
-  Route::group(['prefix' => 'cause/flutterwave','as'=>"cause.flutterwave."], function () {
-    Route::post('success', [FlutterWaveController::class,"successPayment"])->name('success');
-    Route::post('cancel', [FlutterWaveController::class,"cancelPayment"])->name('cancel');
-    Route::get('success', [FlutterWaveController::class,"successPage"])->name('successPage');
+  Route::group(['prefix' => 'cause/flutterwave', 'as' => "cause.flutterwave."], function () {
+    Route::post('success', [FlutterWaveController::class, "successPayment"])->name('success');
+    Route::post('cancel', [FlutterWaveController::class, "cancelPayment"])->name('cancel');
+    Route::get('success', [FlutterWaveController::class, "successPage"])->name('successPage');
   });
   //causes donation payment via Instamojo
-  Route::group(["prefix"=>"cause/instamojo","as"=>"donation.instamojo."],function(){
-    Route::get('success', [InstamojoController::class,"successPayment"])->name('success');
-    Route::post('cancel', [InstamojoController::class,"cancelPayment"])->name('cancel');
+  Route::group(["prefix" => "cause/instamojo", "as" => "donation.instamojo."], function () {
+    Route::get('success', [InstamojoController::class, "successPayment"])->name('success');
+    Route::post('cancel', [InstamojoController::class, "cancelPayment"])->name('cancel');
   });
   //causes donation payment via Mollie
-  Route::group(["prefix"=>"cause/mollie","as"=>"donation.mollie."],function(){
-    Route::get('success', [MollieController::class,"successPayment"])->name('success');
-    Route::post('cancel', [MollieController::class,"cancelPayment"])->name('cancel');
+  Route::group(["prefix" => "cause/mollie", "as" => "donation.mollie."], function () {
+    Route::get('success', [MollieController::class, "successPayment"])->name('success');
+    Route::post('cancel', [MollieController::class, "cancelPayment"])->name('cancel');
   });
   // Mercado Pago
-  Route::group(["prefix"=>"cause/mercadopago","as"=>"donation.mercadopago."],function(){
-    Route::post('cancel', [MercadopagoController::class,"cancelPayment"])->name('cancel');
-    Route::post('success', [MercadopagoController::class,"successPayment"])->name('success');
+  Route::group(["prefix" => "cause/mercadopago", "as" => "donation.mercadopago."], function () {
+    Route::post('cancel', [MercadopagoController::class, "cancelPayment"])->name('cancel');
+    Route::post('success', [MercadopagoController::class, "successPayment"])->name('success');
   });
   // yoco
-  Route::group(["prefix"=>"cause/yoco","as"=>"donation.yoco."],function(){
-    Route::post('cancel', [YocoController::class,"cancelPayment"])->name('cancel');
-    Route::get('success', [YocoController::class,"successPayment"])->name('success');
+  Route::group(["prefix" => "cause/yoco", "as" => "donation.yoco."], function () {
+    Route::post('cancel', [YocoController::class, "cancelPayment"])->name('cancel');
+    Route::get('success', [YocoController::class, "successPayment"])->name('success');
   });
   // perfect money
-  Route::group(["prefix"=>"cause/perfect_money","as"=>"donation.perfect_money."],function(){
-    Route::any('cancel', [PerfectMoneyController::class,"cancelPayment"])->name('cancel');
-    Route::get('success', [PerfectMoneyController::class,"successPayment"])->name('success');
+  Route::group(["prefix" => "cause/perfect_money", "as" => "donation.perfect_money."], function () {
+    Route::any('cancel', [PerfectMoneyController::class, "cancelPayment"])->name('cancel');
+    Route::get('success', [PerfectMoneyController::class, "successPayment"])->name('success');
   });
   // xendit
-  Route::group(["prefix"=>"cause/xendit","as"=>"donation.xendit."],function(){
-    Route::post('cancel', [XenditController::class,"cancelPayment"])->name('cancel');
-    Route::get('success', [XenditController::class,"successPayment"])->name('success');
+  Route::group(["prefix" => "cause/xendit", "as" => "donation.xendit."], function () {
+    Route::post('cancel', [XenditController::class, "cancelPayment"])->name('cancel');
+    Route::get('success', [XenditController::class, "successPayment"])->name('success');
   });
   // toyyibpay 
-  Route::group(["prefix"=>"cause/toyyibpay","as"=>"donation.toyyibpay."],function(){
-    Route::post('cancel', [ToyyibpayController::class,'cancelPayment'])->name('cancel');
-    Route::get('success', [ToyyibpayController::class,'successPayment'])->name('success');
+  Route::group(["prefix" => "cause/toyyibpay", "as" => "donation.toyyibpay."], function () {
+    Route::post('cancel', [ToyyibpayController::class, 'cancelPayment'])->name('cancel');
+    Route::get('success', [ToyyibpayController::class, 'successPayment'])->name('success');
   });
 
   // paytabs 
-  Route::group(["prefix"=>"cause/paytabs","as"=>"donation.paytabs."],function(){
-    Route::post('cancel', [PaytabsController::class,'cancelPayment'])->name('cancel');
-    Route::post('success', [PaytabsController::class,'successPayment'])->name('success');
+  Route::group(["prefix" => "cause/paytabs", "as" => "donation.paytabs."], function () {
+    Route::post('cancel', [PaytabsController::class, 'cancelPayment'])->name('cancel');
+    Route::post('success', [PaytabsController::class, 'successPayment'])->name('success');
   });
 
-  Route::group(["prefix"=>"cause/midtrans","as"=>"donation.midtrans."],function(){
-    Route::post('cancel', [CausesMidtransController::class,"cancelPayment"])->name('cancel');
-    Route::get('success/{order_id}', [CausesMidtransController::class,"successPayment"])->name('success');
+  Route::group(["prefix" => "cause/midtrans", "as" => "donation.midtrans."], function () {
+    Route::post('cancel', [CausesMidtransController::class, "cancelPayment"])->name('cancel');
+    Route::get('success/{order_id}', [CausesMidtransController::class, "successPayment"])->name('success');
   });
-  Route::group(["prefix"=>"cause/iyzico","as"=>"donation.iyzico."],function(){
-    Route::get('cancel', [IyzicoController::class,"cancelPayment"])->name('cancel');
-    Route::post('success', [IyzicoController::class,"successPayment"])->name('success');
-  });
-
-  Route::group(["prefix"=>"cause/phonepe","as"=>"donation.phonepe."],function(){
-    Route::get('cancel', [PhonePeController::class,"cancelPayment"])->name('cancel');
-    Route::post('success', [PhonePeController::class,"successPayment"])->name('success');
+  Route::group(["prefix" => "cause/iyzico", "as" => "donation.iyzico."], function () {
+    Route::get('cancel', [IyzicoController::class, "cancelPayment"])->name('cancel');
+    Route::post('success', [IyzicoController::class, "successPayment"])->name('success');
   });
 
-  Route::group(["prefix"=>"cause/myfatoorah","as"=>"donation.myfatoorah."],function(){
-    Route::get('cancel', [CausesMyFatoorahController::class,"cancelPayment"])->name('cancel');
-    Route::post('success', [CausesMyFatoorahController::class,"successPayment"])->name('success');
+  Route::group(["prefix" => "cause/phonepe", "as" => "donation.phonepe."], function () {
+    Route::get('cancel', [PhonePeController::class, "cancelPayment"])->name('cancel');
+    Route::post('success', [PhonePeController::class, "successPayment"])->name('success');
   });
 
-  Route::post('/payment/instructions', [FrontendController::class,'paymentInstruction'])->name('front.payment.instructions');
+  Route::group(["prefix" => "cause/myfatoorah", "as" => "donation.myfatoorah."], function () {
+    Route::get('cancel', [CausesMyFatoorahController::class, "cancelPayment"])->name('cancel');
+    Route::post('success', [CausesMyFatoorahController::class, "successPayment"])->name('success');
+  });
 
-  Route::group(["as"=>"front."],function(){
-    Route::post('sendmail', [FrontendController::class,'sendmail'])->name('sendmail');
-    Route::post('subscribe', [FrontendController::class,'subscribe'])->name('subscribe');
-    Route::get('quote', [FrontendController::class,'quote'])->name('quote');
-    Route::post('sendquote', [FrontendController::class,'sendquote'])->name('sendquote');
+  Route::post('/payment/instructions', [FrontendController::class, 'paymentInstruction'])->name('front.payment.instructions');
 
-    Route::get('checkout/payment/{slug1}/{slug2}', [FrontendController::class,'loadpayment'])->name('load.payment');
+  Route::group(["as" => "front."], function () {
+    Route::post('sendmail', [FrontendController::class, 'sendmail'])->name('sendmail');
+    Route::post('subscribe', [FrontendController::class, 'subscribe'])->name('subscribe');
+    Route::get('quote', [FrontendController::class, 'quote'])->name('quote');
+    Route::post('sendquote', [FrontendController::class, 'sendquote'])->name('sendquote');
+
+    Route::get('checkout/payment/{slug1}/{slug2}', [FrontendController::class, 'loadpayment'])->name('load.payment');
     // Package Order Routes
-    Route::post('package-order', [FrontendController::class,'submitorder'])->name('packageorder.submit');
-    Route::get('order-confirmation/{packageid}/{packageOrderId}', [FrontendController::class,'orderConfirmation'])->name('packageorder.confirmation');
-    Route::get('payment/{packageid}/cancle', [PaymentController::class,'paycancle'])->name('payment.cancle');
+    Route::post('package-order', [FrontendController::class, 'submitorder'])->name('packageorder.submit');
+    Route::get('order-confirmation/{packageid}/{packageOrderId}', [FrontendController::class, 'orderConfirmation'])->name('packageorder.confirmation');
+    Route::get('payment/{packageid}/cancle', [PaymentController::class, 'paycancle'])->name('payment.cancle');
     //Paypal Routes
-    Route::group(["prefix"=>"paypal","as"=>"paypal."],function(){
-      Route::post('submit', [PaypalController::class,'store'])->name('submit');
-      Route::get('{packageid}/notify', [PaypalController::class,'notify'])->name('notify');
+    Route::group(["prefix" => "paypal", "as" => "paypal."], function () {
+      Route::post('submit', [PaypalController::class, 'store'])->name('submit');
+      Route::get('{packageid}/notify', [PaypalController::class, 'notify'])->name('notify');
     });
     //Stripe Routes
-    Route::post('stripe/submit', [StripeController::class,'store'])->name('stripe.submit');
+    Route::post('stripe/submit', [StripeController::class, 'store'])->name('stripe.submit');
     //Paystack Routes
-    Route::post('paystack/submit', [PaymentPaystackController::class,'store'])->name('paystack.submit');
+    Route::post('paystack/submit', [PaymentPaystackController::class, 'store'])->name('paystack.submit');
 
     //PayTM Routes
-    Route::group(["prefix"=>"paytm","as"=>"paytm."],function(){
-      Route::post('submit', [PaymentPaytmController::class,'store'])->name('submit');
-      Route::post('notify', [PaymentPaytmController::class,'notify'])->name('notify');
+    Route::group(["prefix" => "paytm", "as" => "paytm."], function () {
+      Route::post('submit', [PaymentPaytmController::class, 'store'])->name('submit');
+      Route::post('notify', [PaymentPaytmController::class, 'notify'])->name('notify');
     });
-    
+
     //Flutterwave Routes
-    Route::group(["prefix"=>"flutterwave","as"=>"flutterwave."],function(){
-      Route::post('submit', [PaymentFlutterWaveController::class,'store'])->name('submit');
-      Route::post('notify', [PaymentFlutterWaveController::class,'notify'])->name('notify');
+    Route::group(["prefix" => "flutterwave", "as" => "flutterwave."], function () {
+      Route::post('submit', [PaymentFlutterWaveController::class, 'store'])->name('submit');
+      Route::post('notify', [PaymentFlutterWaveController::class, 'notify'])->name('notify');
     });
     //   Route::get('/flutterwave/notify', 'Payment\FlutterWaveController@success')->name('front.flutterwave.success');
     //Instamojo Routes
-    Route::group(["prefix"=>"instamojo","as"=>"instamojo."],function(){
-      Route::post('submit', [PaymentInstamojoController::class,'store'])->name('submit');
-      Route::get('notify', [PaymentInstamojoController::class,'notify'])->name('notify');
+    Route::group(["prefix" => "instamojo", "as" => "instamojo."], function () {
+      Route::post('submit', [PaymentInstamojoController::class, 'store'])->name('submit');
+      Route::get('notify', [PaymentInstamojoController::class, 'notify'])->name('notify');
     });
     //Mollie Routes
-    Route::group(["prefix"=>"mollie","as"=>"mollie."],function(){
-      Route::post('submit', [PaymentMollieController::class,'store'])->name('submit');
-      Route::get('notify', [PaymentMollieController::class,'notify'])->name('notify');
+    Route::group(["prefix" => "mollie", "as" => "mollie."], function () {
+      Route::post('submit', [PaymentMollieController::class, 'store'])->name('submit');
+      Route::get('notify', [PaymentMollieController::class, 'notify'])->name('notify');
     });
-    Route::group(["prefix"=>"razorpay","as"=>"razorpay."],function(){
-      Route::post('submit', [PaymentRazorpayController::class,'store'])->name('submit');
-      Route::post('notify', [PaymentRazorpayController::class,'notify'])->name('notify');
+    Route::group(["prefix" => "razorpay", "as" => "razorpay."], function () {
+      Route::post('submit', [PaymentRazorpayController::class, 'store'])->name('submit');
+      Route::post('notify', [PaymentRazorpayController::class, 'notify'])->name('notify');
     });
     // Mercado Pago
-    Route::group(["prefix"=>"mercadopago","as"=>"mercadopago."],function(){
-      Route::post('submit', [PaymentMercadopagoController::class,'store'])->name('submit');
-      Route::post('notify', [PaymentMercadopagoController::class,'notify'])->name('notify');
+    Route::group(["prefix" => "mercadopago", "as" => "mercadopago."], function () {
+      Route::post('submit', [PaymentMercadopagoController::class, 'store'])->name('submit');
+      Route::post('notify', [PaymentMercadopagoController::class, 'notify'])->name('notify');
     });
     // Payu
-    Route::group(["prefix"=>"payumoney","as"=>"payumoney."],function(){
-      Route::post('submit', [PaymentPayumoneyController::class,'store'])->name('submit');
-      Route::post('notify', [PaymentPayumoneyController::class,'notify'])->name('notify');
+    Route::group(["prefix" => "payumoney", "as" => "payumoney."], function () {
+      Route::post('submit', [PaymentPayumoneyController::class, 'store'])->name('submit');
+      Route::post('notify', [PaymentPayumoneyController::class, 'notify'])->name('notify');
     });
-    Route::group(["prefix"=>"yoco","as"=>"yoco."],function(){
-      Route::post('submit', [PaymentYocoController::class,'store'])->name('submit');
-      Route::get('notify', [PaymentYocoController::class,'notify'])->name('notify');
+    Route::group(["prefix" => "yoco", "as" => "yoco."], function () {
+      Route::post('submit', [PaymentYocoController::class, 'store'])->name('submit');
+      Route::get('notify', [PaymentYocoController::class, 'notify'])->name('notify');
     });
-    Route::group(["prefix"=>"perfect-money","as"=>"perfect-money."],function(){
-      Route::post('submit', [PaymentPerfectMoneyController::class,'store'])->name('submit');
-      Route::get('notify', [PaymentPerfectMoneyController::class,'notify'])->name('notify');
+    Route::group(["prefix" => "perfect-money", "as" => "perfect-money."], function () {
+      Route::post('submit', [PaymentPerfectMoneyController::class, 'store'])->name('submit');
+      Route::get('notify', [PaymentPerfectMoneyController::class, 'notify'])->name('notify');
     });
     //xendit
-    Route::group(["prefix"=>"xendit","as"=>"xendit."],function(){
-      Route::post('submit', [PaymentXenditController::class,'store'])->name('submit');
-      Route::get('notify', [PaymentXenditController::class,'notify'])->name('notify');
+    Route::group(["prefix" => "xendit", "as" => "xendit."], function () {
+      Route::post('submit', [PaymentXenditController::class, 'store'])->name('submit');
+      Route::get('notify', [PaymentXenditController::class, 'notify'])->name('notify');
     });
-    
+
     //toyyibpay
-    Route::group(["prefix"=>"toyyibpay","as"=>"toyyibpay."],function(){
-      Route::post('submit', [PaymentToyyibpayController::class,'store'])->name('submit');
-      Route::get('notify', [PaymentToyyibpayController::class,'notify'])->name('notify');
+    Route::group(["prefix" => "toyyibpay", "as" => "toyyibpay."], function () {
+      Route::post('submit', [PaymentToyyibpayController::class, 'store'])->name('submit');
+      Route::get('notify', [PaymentToyyibpayController::class, 'notify'])->name('notify');
     });
     //toyyibpay
-    Route::group(["prefix"=>"paytabs","as"=>"paytabs."],function(){
-      Route::post('submit', [PaymentPaytabsController::class,'store'])->name('submit');
-      Route::post('notify', [PaymentPaytabsController::class,'notify'])->name('notify');
+    Route::group(["prefix" => "paytabs", "as" => "paytabs."], function () {
+      Route::post('submit', [PaymentPaytabsController::class, 'store'])->name('submit');
+      Route::post('notify', [PaymentPaytabsController::class, 'notify'])->name('notify');
     });
-    
+
     //midtrans
-    Route::group(["prefix"=>"midtrans","as"=>"midtrans."],function(){
-      Route::post('submit', [PaymentMidtransController::class,'store'])->name('submit');
-      Route::get('notify/{order_id}', [PaymentMidtransController::class,'cardNotify'])->name('notify');
+    Route::group(["prefix" => "midtrans", "as" => "midtrans."], function () {
+      Route::post('submit', [PaymentMidtransController::class, 'store'])->name('submit');
+      Route::get('notify/{order_id}', [PaymentMidtransController::class, 'cardNotify'])->name('notify');
     });
     // iyzico
-    Route::group(["prefix"=>"iyzico","as"=>"iyzico."],function(){
-      Route::post('submit', [PaymentIyzicoController::class,'store'])->name('submit');
-      Route::post('notify', [PaymentIyzicoController::class,'notify'])->name('notify');
+    Route::group(["prefix" => "iyzico", "as" => "iyzico."], function () {
+      Route::post('submit', [PaymentIyzicoController::class, 'store'])->name('submit');
+      Route::post('notify', [PaymentIyzicoController::class, 'notify'])->name('notify');
     });
 
     // phonepe
-    Route::group(["prefix"=>"phonepe","as"=>"phonepe."],function(){
-      Route::post('submit', [PaymentPhonepeController::class,'store'])->name('submit');
-      Route::post('notify', [PaymentPhonepeController::class,'notify'])->name('notify');
+    Route::group(["prefix" => "phonepe", "as" => "phonepe."], function () {
+      Route::post('submit', [PaymentPhonepeController::class, 'store'])->name('submit');
+      Route::post('notify', [PaymentPhonepeController::class, 'notify'])->name('notify');
     });
     // phonepe
-    Route::post('myfatoorah/submit', [PaymentMyFatoorahController::class,'store'])->name('myfatoorah.submit');
+    Route::post('myfatoorah/submit', [PaymentMyFatoorahController::class, 'store'])->name('myfatoorah.submit');
     //Offline Routes
-    Route::post('offline/{oid}/submit', [OfflineController::class,'store'])->name('offline.submit');
-    
-    Route::get('team', [FrontendController::class,'team'])->name('team');
-    Route::get('gallery', [FrontendController::class,'gallery'])->name('gallery');
-    Route::get('faq', [FrontendController::class,'faq'])->name('faq');
+    Route::post('offline/{oid}/submit', [OfflineController::class, 'store'])->name('offline.submit');
+
+    Route::get('team', [FrontendController::class, 'team'])->name('team');
+    Route::get('gallery', [FrontendController::class, 'gallery'])->name('gallery');
+    Route::get('faq', [FrontendController::class, 'faq'])->name('faq');
 
 
 
     // Product
-    Route::group(["prefix"=>"cart","as"=>"cart."],function(){
-      Route::get('', [ProductController::class,'cart'])->name('index');
-      Route::get('add/{id}', [ProductController::class,'addToCart'])->name('add');
-      Route::post('update', [ProductController::class,'updatecart'])->name('update');
-      Route::get('item/remove/{id}', [ProductController::class,'cartitemremove'])->name('item.remove');  
+    Route::group(["prefix" => "cart", "as" => "cart."], function () {
+      Route::get('', [ProductController::class, 'cart'])->name('index');
+      Route::get('add/{id}', [ProductController::class, 'addToCart'])->name('add');
+      Route::post('update', [ProductController::class, 'updatecart'])->name('update');
+      Route::get('item/remove/{id}', [ProductController::class, 'cartitemremove'])->name('item.remove');
     });
-    Route::group(["prefix"=>"checkout","as"=>"checkout."],function(){
-      Route::get('', [ProductController::class,'checkout'])->name('index');
-      Route::get('{slug}', [ProductController::class,'Prdouctcheckout'])->name('product');
+    Route::group(["prefix" => "checkout", "as" => "checkout."], function () {
+      Route::get('', [ProductController::class, 'checkout'])->name('index');
+      Route::get('{slug}', [ProductController::class, 'Prdouctcheckout'])->name('product');
     });
-    Route::post('/coupon', [ProductController::class,'coupon'])->name('coupon');
+    Route::post('/coupon', [ProductController::class, 'coupon'])->name('coupon');
   });
 
 
 
 
   // change language routes
-  Route::get('changelanguage/{lang}', [FrontendController::class,'changeLanguage'])->name('changeLanguage');
+  Route::get('changelanguage/{lang}', [FrontendController::class, 'changeLanguage'])->name('changeLanguage');
 
 
 
@@ -386,7 +387,7 @@ Route::group(['middleware' => 'setlang'], function () {
   Route::post('/product/phonepe/submit', 'Payment\product\PhonepeController@store')->name('product.phonepe.submit');
   Route::post('/product/phonepe/notify', 'Payment\product\PhonepeController@notify')->name('product.phonepe.notify');
 
-  Route::post('/product/myfatoorah/submit', [ProductMyFatoorahController::class,'store'])->name('product.myfatoorah.submit');
+  Route::post('/product/myfatoorah/submit', [ProductMyFatoorahController::class, 'store'])->name('product.myfatoorah.submit');
   // CHECKOUT SECTION ENDS
 
   // client feedback route
@@ -549,7 +550,7 @@ Route::post('/course/payment/iyzico/notify', 'Payment\Course\IyzicoController@no
 Route::post('/course/payment/phonepe', 'Payment\Course\PhonePeController@redirectToPhonePe')->name('course.payment.phonepe');
 Route::post('/course/payment/phonepe/notify', 'Payment\Course\PhonePeController@notify')->name('course.phonepe.notify');
 
-Route::post('/course/payment/myfatoorah', [CourseMyFatoorahController::class,'redirectToMyfatoorah'])->name('course.payment.myfatoorah');
+Route::post('/course/payment/myfatoorah', [CourseMyFatoorahController::class, 'redirectToMyfatoorah'])->name('course.payment.myfatoorah');
 //yoco,zendit, perfect money, midtrans, myfatoorah, iyzico, toyyibpay, paytabs, phonepe routes end
 
 
@@ -931,9 +932,6 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:admin', 'checkstatus',
     Route::post('/ulink/delete', 'Admin\UlinkController@delete')->name('admin.ulink.delete');
 
 
-    // Service Settings Route
-    Route::get('/service/settings', 'Admin\ServiceController@settings')->name('admin.service.settings');
-    Route::post('/service/updateSettings', 'Admin\ServiceController@updateSettings')->name('admin.service.updateSettings');
 
     // Admin Service Category Routes
     Route::get('/scategorys', 'Admin\ScategoryController@index')->name('admin.scategory.index');
@@ -945,15 +943,31 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:admin', 'checkstatus',
     Route::post('/scategory/feature', 'Admin\ScategoryController@feature')->name('admin.scategory.feature');
 
     // Admin Services Routes
-    Route::get('/services', 'Admin\ServiceController@index')->name('admin.service.index');
-    Route::post('/service/store', 'Admin\ServiceController@store')->name('admin.service.store');
-    Route::get('/service/{id}/edit', 'Admin\ServiceController@edit')->name('admin.service.edit');
-    Route::post('/service/update', 'Admin\ServiceController@update')->name('admin.service.update');
-    Route::post('/service/delete', 'Admin\ServiceController@delete')->name('admin.service.delete');
-    Route::post('/service/bulk-delete', 'Admin\ServiceController@bulkDelete')->name('admin.service.bulk.delete');
-    Route::get('/service/{langid}/getcats', 'Admin\ServiceController@getcats')->name('admin.service.getcats');
-    Route::post('/service/feature', 'Admin\ServiceController@feature')->name('admin.service.feature');
-    Route::post('/service/sidebar', 'Admin\ServiceController@sidebar')->name('admin.service.sidebar');
+    Route::group(['prefix' => "service", 'as' => "admin.service."], function () {
+
+      // Service Settings Route
+      Route::get('settings', [ServiceController::class,'settings'])->name('settings');
+      Route::post('updateSettings', [ServiceController::class,'updateSettings'])->name('updateSettings');
+      Route::get('', [ServiceController::class, 'index'])->name('index');
+      // Form Route
+      Route::group(["prefix"=>"form","as"=>"form."],function(){
+        Route::get('{id}', [ServiceController::class, 'createForm'])->name('index');
+        Route::post('{id}/store', [ServiceController::class, 'formStore'])->name('store');
+        Route::get('{input_id}/input-edit', [ServiceController::class, 'inputEdit'])->name('inputEdit');
+        Route::put('{input_id}/input-update', [ServiceController::class, 'inputUpdate'])->name('inputUpdate');
+        Route::get('{input_id}/options', [ServiceController::class, 'options'])->name('options');
+        Route::delete('{input_id}/input-delete', [ServiceController::class, 'inputDelete'])->name('inputDelete');
+      });
+
+      Route::post('store', [ServiceController::class, 'store'])->name('store');
+      Route::get('{id}/edit', [ServiceController::class, 'edit'])->name('edit');
+      Route::post('update', [ServiceController::class, 'update'])->name('update');
+      Route::post('delete', [ServiceController::class, 'delete'])->name('delete');
+      Route::post('bulk-delete', [ServiceController::class, 'bulkDelete'])->name('bulk.delete');
+      Route::get('{langid}/getcats', [ServiceController::class, 'getcats'])->name('getcats');
+      Route::post('feature', [ServiceController::class, 'feature'])->name('feature');
+      Route::post('sidebar', [ServiceController::class, 'sidebar'])->name('sidebar');
+    });
 
 
     // Admin Portfolio Routes

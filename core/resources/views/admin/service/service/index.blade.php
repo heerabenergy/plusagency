@@ -139,6 +139,12 @@ $selLang = \App\Language::where('code', request()->input('language'))->first();
                                         </form>
                                     </td>
                                     <td>
+                                        <a class="btn btn-primary btn-sm" href="{{route('admin.service.form.index', $service->id) . '?language=' . request()->input('language')}}">
+                                            <span class="btn-label">
+                                                <i class="fas fa-wpforms"></i>
+                                            </span>
+                                            Form
+                                        </a>
                                         <a class="btn btn-secondary btn-sm" href="{{route('admin.service.edit', $service->id) . '?language=' . request()->input('language')}}">
                                             <span class="btn-label">
                                                 <i class="fas fa-edit"></i>
