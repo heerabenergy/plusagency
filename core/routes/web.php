@@ -14,7 +14,7 @@ use App\Http\Controllers\Payment\causes\IyzicoController;
 use App\Http\Controllers\Payment\causes\MercadopagoController;
 use App\Http\Controllers\Payment\causes\MidtransController as CausesMidtransController;
 use App\Http\Controllers\Payment\causes\MollieController;
-use App\Http\Controllers\Payment\causes\MyFatoorahController;
+use App\Http\Controllers\Payment\causes\MyFatoorahController as CausesMyFatoorahController;
 use App\Http\Controllers\Payment\causes\PaypalController;
 use App\Http\Controllers\Payment\causes\PaystackController;
 use App\Http\Controllers\Payment\causes\PaytabsController;
@@ -26,6 +26,7 @@ use App\Http\Controllers\Payment\causes\RazorpayController;
 use App\Http\Controllers\Payment\causes\ToyyibpayController;
 use App\Http\Controllers\Payment\causes\XenditController;
 use App\Http\Controllers\Payment\causes\YocoController;
+use App\Http\Controllers\Payment\Course\MyFatoorahController as CourseMyFatoorahController;
 use App\Http\Controllers\Payment\FlutterWaveController as PaymentFlutterWaveController;
 use App\Http\Controllers\Payment\InstamojoController as PaymentInstamojoController;
 use App\Http\Controllers\Payment\IyzicoController as PaymentIyzicoController;
@@ -41,6 +42,7 @@ use App\Http\Controllers\Payment\PaytmController as PaymentPaytmController;
 use App\Http\Controllers\Payment\PayumoneyController as PaymentPayumoneyController;
 use App\Http\Controllers\Payment\PerfectMoneyController as PaymentPerfectMoneyController;
 use App\Http\Controllers\Payment\PhonepeController as PaymentPhonepeController;
+use App\Http\Controllers\Payment\product\MyFatoorahController as ProductMyFatoorahController;
 use App\Http\Controllers\Payment\RazorpayController as PaymentRazorpayController;
 use App\Http\Controllers\Payment\StripeController;
 use App\Http\Controllers\Payment\ToyyibpayController as PaymentToyyibpayController;
@@ -180,8 +182,8 @@ Route::group(['middleware' => 'setlang'], function () {
   });
 
   Route::group(["prefix"=>"cause/myfatoorah","as"=>"donation.myfatoorah."],function(){
-    Route::get('cancel', [MyFatoorahController::class,"cancelPayment"])->name('cancel');
-    Route::post('success', [MyFatoorahController::class,"successPayment"])->name('success');
+    Route::get('cancel', [CausesMyFatoorahController::class,"cancelPayment"])->name('cancel');
+    Route::post('success', [CausesMyFatoorahController::class,"successPayment"])->name('success');
   });
 
   Route::post('/payment/instructions', [FrontendController::class,'paymentInstruction'])->name('front.payment.instructions');
@@ -384,7 +386,7 @@ Route::group(['middleware' => 'setlang'], function () {
   Route::post('/product/phonepe/submit', 'Payment\product\PhonepeController@store')->name('product.phonepe.submit');
   Route::post('/product/phonepe/notify', 'Payment\product\PhonepeController@notify')->name('product.phonepe.notify');
 
-  Route::post('/product/myfatoorah/submit', 'Payment\product\MyFatoorahController@store')->name('product.myfatoorah.submit');
+  Route::post('/product/myfatoorah/submit', [ProductMyFatoorahController::class,'store'])->name('product.myfatoorah.submit');
   // CHECKOUT SECTION ENDS
 
   // client feedback route
@@ -547,7 +549,7 @@ Route::post('/course/payment/iyzico/notify', 'Payment\Course\IyzicoController@no
 Route::post('/course/payment/phonepe', 'Payment\Course\PhonePeController@redirectToPhonePe')->name('course.payment.phonepe');
 Route::post('/course/payment/phonepe/notify', 'Payment\Course\PhonePeController@notify')->name('course.phonepe.notify');
 
-Route::post('/course/payment/myfatoorah', 'Payment\Course\MyFatoorahController@redirectToMyfatoorah')->name('course.payment.myfatoorah');
+Route::post('/course/payment/myfatoorah', [CourseMyFatoorahController::class,'redirectToMyfatoorah'])->name('course.payment.myfatoorah');
 //yoco,zendit, perfect money, midtrans, myfatoorah, iyzico, toyyibpay, paytabs, phonepe routes end
 
 
@@ -1571,7 +1573,7 @@ if (!app()->runningInConsole()) {
         $routeName = 'front.product';
       } elseif ($type == 'cart') {
         $action = 'Front\ProductController@cart';
-        $routeName = 'front.cart';
+        $routeName = 'front.cart.index';
       } elseif ($type == 'product_checkout') {
         $action = 'Front\ProductController@checkout';
         $routeName = 'front.checkout.index';

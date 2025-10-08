@@ -15,8 +15,8 @@ class PayumoneyController extends PaymentController
     public function __construct()
     {
         $data = PaymentGateway::whereKeyword('payumoney')->first();
-        $paydata = $data->convertAutoData();
-        if ($paydata['sandbox_check'] == 1) {
+        $paydata = $data?->convertAutoData();
+        if (@$paydata['sandbox_check'] == 1) {
             \Config::set('indipay.testMode', true);
         } else {
             \Config::set('indipay.testMode', false);

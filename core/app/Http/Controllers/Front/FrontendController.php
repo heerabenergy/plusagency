@@ -58,7 +58,7 @@ use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
-use App\Http\Controllers\Payment\MyFatoorahController;
+use App\Http\Controllers\Payment\MyFatoorahController as PaymentMyFatoorahController;
 use App\Http\Controllers\Payment\product\MyFatoorahController as ShopMyFatoorahController;
 use App\Http\Controllers\Payment\Course\MyFatoorahController as CourseMyFatoorahController;
 use App\Http\Controllers\Payment\causes\MyFatoorahController as CauseEventMyFatoorahController;
@@ -1475,7 +1475,7 @@ class FrontendController extends Controller
     {
         $type = Session::get('myfatoorah_payment_type');
         if ($type == 'package') {
-            $data = new MyFatoorahController();
+            $data = new PaymentMyFatoorahController();
             $data = $data->notify($request);
             Session::forget('myfatoorah_payment_type');
             return redirect($data['url']);

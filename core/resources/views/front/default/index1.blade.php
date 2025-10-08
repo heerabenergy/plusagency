@@ -454,7 +454,7 @@
 
   @if ($bs->partner_section == 1)
   <!--   partner section start    -->
-  <div class="partner-section">
+  <div id="partners" class="partner-section">
      <div class="container {{$be->theme_version != 'dark' ? 'top-border' : ''}}">
         <div class="row">
            <div class="col-md-12">

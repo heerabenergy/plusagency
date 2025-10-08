@@ -28,7 +28,7 @@ use App\Http\Controllers\Payment\causes\PaytabsController;
 use App\Http\Controllers\Payment\causes\MidtransController;
 use App\Http\Controllers\Payment\causes\IyzicoController;
 use App\Http\Controllers\Payment\causes\PhonePeController;
-use App\Http\Controllers\Payment\causes\MyFatoorahController;
+use App\Http\Controllers\Payment\causes\MyFatoorahController as CausesMyFatoorahController;
 use App\Http\Helpers\KreativMailer;
 use Illuminate\Support\Facades\Session;
 use PDF;
@@ -473,7 +473,7 @@ class CausesController extends Controller
             $email = $request->email;
             $success_url = null;
             $cancel_url = route('donation.myfatoorah.cancel');
-            $Payment = new MyFatoorahController;
+            $Payment = new CausesMyFatoorahController;
             return $Payment->paymentProcess($request, $amount, $success_url, $cancel_url);
         } elseif (in_array($request->payment_method, $offline_payment_gateways)) {
             $validator = Validator::make($request->all(), [
