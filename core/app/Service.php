@@ -29,4 +29,7 @@ final class Service extends Model
   {
     return $this->hasMany(ServiceInput::class);
   }
+  public function requests() : HasMany{
+    return $this->hasMany(ServiceRequest::class);
+  }
 }

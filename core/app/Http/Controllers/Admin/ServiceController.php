@@ -46,7 +46,11 @@ class ServiceController extends Controller
         $lang = Language::where('code', $request->language)->first();
 
         $lang_id = $lang->id;
-        $data['services'] = Service::where('language_id', $lang_id)->orderBy('id', 'DESC')->get();
+        $data['services'] = Service::where('language_id', $lang_id)->withCount([
+            "requests"=>function($query){
+                $query->where('status',"Pending");
+            }
+        ])->orderBy('id', 'DESC')->get();
 
         $data['lang_id'] = $lang_id;
         $data['abe'] = BasicExtended::where('language_id', $lang_id)->first();
@@ -340,15 +344,12 @@ class ServiceController extends Controller
     {
         $data['service'] = Service::findOrFail((int)$id);
         $data['serviceInputs'] = ServiceInput::where('service_id', $id)->get();
-        // if(count($data['serviceInputs']) == 0) {
-            return view('admin.service.service.form.create', $data);
-        // }
-        return view('admin.service.service.form.edit', $data);
+        return view('admin.service.service.form.create', $data);
     }
     public function formStore(string $id,Request $request) : string|JsonResponse{
         $service = Service::findOrFail((int)$id);
 
-        $inname = make_input_name($request->label);
+        $inname = make_input_name($request->unique_name);
         $inputs = ServiceInput::where('service_id', $service->id)->get();
 
         $messages = [
@@ -357,7 +358,7 @@ class ServiceController extends Controller
         ];
 
         $rules = [
-            'label' => [
+            'unique_name' => [
                 'required',
                 function ($attribute, $value, $fail) use ($inname, $inputs) {
                     foreach ($inputs as $key => $input) {
@@ -367,11 +368,11 @@ class ServiceController extends Controller
                     }
                 },
             ],
-            'placeholder' => 'required_unless:type,3,5',
+            "label" => 'required',
+            'placeholder' => 'required_unless:type,3,5,10',
             'type' => 'required',
             'options.*' => 'required_if:type,2,3'
         ];
-
         $validator = Validator::make($request->all(), $rules, $messages);
         if ($validator->fails()) {
             $errmsgs = $validator->getMessageBag()->add('error', 'true');
@@ -384,7 +385,7 @@ class ServiceController extends Controller
         $input->label = $request->label;
         $input->name = $inname;
         $input->placeholder = $request->placeholder;
-        $input->required = $request->required;
+        $input->required = (int)$request->required;
         $input->save();
 
         if ($request->type == 2 || $request->type == 3) {

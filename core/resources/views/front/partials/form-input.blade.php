@@ -1,15 +1,18 @@
 @foreach ($inputs as $input)
-    <div class="{{ $input->type == 4 || $input->type == 3 ? 'col-lg-12' : 'col-lg-6' }}">
+    <div class="{{ $input->type == 4 || $input->type == 3 || $input->type == 10 ? 'col-lg-12' : 'col-lg-6' }}">
         <div class="form-element mb-4">
-            @if ($input->type == 1)
+            @if ($input->type == 10)
+                <h5 class="mb-4 font-weight-bold">{{ convertUtf8($input->label) }}</h5>
+                <hr>
+            @endif
+            @if ($input->type == 1 || $input->type == 8 || $input->type == 9)
                 <label for="text{{ $input->name }}">{{ convertUtf8($input->label) }} @if ($input->required == 1)
                         <span>**</span>
                     @endif
                 </label>
-                <input name="{{ $input->name }}" id="text{{ $input->name }}" type="text"
+                <input name="{{ $input->name }}" id="text{{ $input->name }}" @if ($input->type == 8) type="tel" @elseif ($input->type == 9) type="email" @else type="text" @endif
                     value="{{ old("$input->name") }}" placeholder="{{ convertUtf8($input->placeholder) }}">
             @endif
-
             @if ($input->type == 2)
                 <label for="select{{ $input->name }}">{{ convertUtf8($input->label) }} @if ($input->required == 1)
                         <span>**</span>

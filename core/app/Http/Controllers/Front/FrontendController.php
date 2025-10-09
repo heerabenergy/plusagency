@@ -566,6 +566,12 @@ class FrontendController extends Controller
             if ($input->required == 1) {
                 $rules["$input->name"][] = 'required';
             }
+            if ($input->type == 8) {
+                $rules["$input->name"][] = 'digits:11';
+            }
+            if ($input->type == 9) {
+                $rules["$input->name"][] = 'email';
+            }
             // check if input type is 5, then check for zip extension
             if ($input->type == 5) {
                 $rules["$input->name"][] = function ($attribute, $value, $fail) use ($request, $input, $allowedExts) {
