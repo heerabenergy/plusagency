@@ -343,7 +343,7 @@ class ServiceController extends Controller
     public function createForm(string $id) : View
     {
         $data['service'] = Service::findOrFail((int)$id);
-        $data['serviceInputs'] = ServiceInput::where('service_id', $id)->get();
+        $data['serviceInputs'] = ServiceInput::where('service_id', $id)->orderBy('order', 'asc')->get();
         return view('admin.service.service.form.create', $data);
     }
     public function formStore(string $id,Request $request) : string|JsonResponse{
@@ -379,6 +379,9 @@ class ServiceController extends Controller
             return response()->json($validator->errors());
         }
 
+        // Get the next order number
+        $maxOrder = ServiceInput::where('service_id', $service->id)->max('order') ?? 0;
+        
         $input = new ServiceInput;
         $input->service_id = $service->id;
         $input->type = $request->type;
@@ -386,6 +389,7 @@ class ServiceController extends Controller
         $input->name = $inname;
         $input->placeholder = $request->placeholder;
         $input->required = (int)$request->required;
+        $input->order = $maxOrder + 1;
         $input->save();
 
         if ($request->type == 2 || $request->type == 3) {
@@ -423,6 +427,25 @@ class ServiceController extends Controller
         $serviceInput->active = !$serviceInput->active;
         $serviceInput->update();
         return back()->withSuccess('Input field active status updated successfully!');
+    }
+
+    public function updateInputOrder(Request $request) : JsonResponse
+    {
+        try {
+            $order = $request->input('order');
+            
+            if (!is_array($order)) {
+                return response()->json(['success' => false, 'message' => 'Invalid order data']);
+            }
+
+            foreach ($order as $index => $inputId) {
+                ServiceInput::where('id', $inputId)->update(['order' => $index + 1]);
+            }
+
+            return response()->json(['success' => true, 'message' => 'Input order updated successfully']);
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'message' => 'Failed to update input order']);
+        }
     }
 
     public function formRequests(string $id) : View

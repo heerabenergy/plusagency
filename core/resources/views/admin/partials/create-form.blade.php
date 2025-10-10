@@ -3,14 +3,18 @@
         <div class="card">
             <div class="card-body">
                 @if (count($inputs) > 0)
-
-                    @foreach ($inputs as $key => $input)
+                    <div id="sortable-inputs">
+                        @foreach ($inputs as $key => $input)
                         {{-- input type text --}}
                         @if ($input->type == 1 || $input->type == 8 || $input->type == 9)
-                            <form action="{{ route($deleteRoute, $input->id) }}" method="post">
-                                @csrf
-                                @method('DELETE')
-                                <div class="form-group">
+                            <div class="draggable-input" data-input-id="{{ $input->id }}">
+                                <div class="drag-handle">
+                                    <i class="fas fa-grip-vertical"></i>
+                                </div>
+                                <form action="{{ route($deleteRoute, $input->id) }}" method="post">
+                                    @csrf
+                                    @method('DELETE')
+                                    <div class="form-group">
                                     <label for="">{{ $input->label }} @if ($input->required == 1)
                                             <span>**</span>
                                         @elseif($input->required == 0)
@@ -42,12 +46,17 @@
                                         </div>
                                     </div>
                                 </div>
-                            </form>
+                                </form>
+                            </div>
                         @elseif ($input->type == 10)
-                            <form action="{{ route($deleteRoute, $input->id) }}" method="post">
-                                @csrf
-                                @method('DELETE')
-                                <div class="form-group">
+                            <div class="draggable-input" data-input-id="{{ $input->id }}">
+                                <div class="drag-handle">
+                                    <i class="fas fa-grip-vertical"></i>
+                                </div>
+                                <form action="{{ route($deleteRoute, $input->id) }}" method="post">
+                                    @csrf
+                                    @method('DELETE')
+                                    <div class="form-group">
                                     <label for="">{{ $input->label }}</label>
                                 </div>
                                 <div class="row">
@@ -74,12 +83,17 @@
                                         </button>
                                     </div>
                                 </div>
-                            </form>
+                                </form>
+                            </div>
                         @elseif ($input->type == 2)
-                            <form action="{{ route($deleteRoute, $input->id) }}" method="post">
-                                @csrf
-                                @method('DELETE')
-                                <div class="form-group">
+                            <div class="draggable-input" data-input-id="{{ $input->id }}">
+                                <div class="drag-handle">
+                                    <i class="fas fa-grip-vertical"></i>
+                                </div>
+                                <form action="{{ route($deleteRoute, $input->id) }}" method="post">
+                                    @csrf
+                                    @method('DELETE')
+                                    <div class="form-group">
                                     <label for="">{{ $input->label }} @if ($input->required == 1)
                                             <span>**</span>
                                         @elseif($input->required == 0)
@@ -117,12 +131,17 @@
                                         </div>
                                     </div>
                                 </div>
-                            </form>
+                                </form>
+                            </div>
                         @elseif ($input->type == 3)
-                            <form action="{{ route($deleteRoute, $input->id) }}" method="post">
-                                @csrf
-                                @method('DELETE')
-                                <div class="form-group">
+                            <div class="draggable-input" data-input-id="{{ $input->id }}">
+                                <div class="drag-handle">
+                                    <i class="fas fa-grip-vertical"></i>
+                                </div>
+                                <form action="{{ route($deleteRoute, $input->id) }}" method="post">
+                                    @csrf
+                                    @method('DELETE')
+                                    <div class="form-group">
                                     <label for="">{{ $input->label }} @if ($input->required == 1)
                                             <span>**</span>
                                         @elseif($input->required == 0)
@@ -160,12 +179,17 @@
                                         </div>
                                     </div>
                                 </div>
-                            </form>
+                                </form>
+                            </div>
                         @elseif ($input->type == 4)
-                            <form action="{{ route($deleteRoute, $input->id) }}" method="post">
-                                @csrf
-                                @method('DELETE')
-                                <div class="form-group">
+                            <div class="draggable-input" data-input-id="{{ $input->id }}">
+                                <div class="drag-handle">
+                                    <i class="fas fa-grip-vertical"></i>
+                                </div>
+                                <form action="{{ route($deleteRoute, $input->id) }}" method="post">
+                                    @csrf
+                                    @method('DELETE')
+                                    <div class="form-group">
                                     <label for="">{{ $input->label }} @if ($input->required == 1)
                                             <span>**</span>
                                         @elseif($input->required == 0)
@@ -196,12 +220,17 @@
                                         </div>
                                     </div>
                                 </div>
-                            </form>
+                                </form>
+                            </div>
                         @elseif ($input->type == 6)
-                            <form action="{{ route($deleteRoute, $input->id) }}" method="post">
-                                @csrf
-                                @method('DELETE')
-                                <div class="form-group">
+                            <div class="draggable-input" data-input-id="{{ $input->id }}">
+                                <div class="drag-handle">
+                                    <i class="fas fa-grip-vertical"></i>
+                                </div>
+                                <form action="{{ route($deleteRoute, $input->id) }}" method="post">
+                                    @csrf
+                                    @method('DELETE')
+                                    <div class="form-group">
                                     <label for="">{{ $input->label }} @if ($input->required == 1)
                                             <span>**</span>
                                         @elseif($input->required == 0)
@@ -233,12 +262,17 @@
                                         </div>
                                     </div>
                                 </div>
-                            </form>
+                                </form>
+                            </div>
                         @elseif ($input->type == 7)
-                            <form action="{{ route($deleteRoute, $input->id) }}" method="post">
-                                @csrf
-                                @method('DELETE')
-                                <div class="form-group">
+                            <div class="draggable-input" data-input-id="{{ $input->id }}">
+                                <div class="drag-handle">
+                                    <i class="fas fa-grip-vertical"></i>
+                                </div>
+                                <form action="{{ route($deleteRoute, $input->id) }}" method="post">
+                                    @csrf
+                                    @method('DELETE')
+                                    <div class="form-group">
                                     <label for="">{{ $input->label }} @if ($input->required == 1)
                                             <span>**</span>
                                         @elseif($input->required == 0)
@@ -270,12 +304,17 @@
                                         </div>
                                     </div>
                                 </div>
-                            </form>
+                                </form>
+                            </div>
                         @elseif ($input->type == 5)
-                            <form action="{{ route($deleteRoute, $input->id) }}" method="post">
-                                @csrf
-                                @method('DELETE')
-                                <div class="form-group">
+                            <div class="draggable-input" data-input-id="{{ $input->id }}">
+                                <div class="drag-handle">
+                                    <i class="fas fa-grip-vertical"></i>
+                                </div>
+                                <form action="{{ route($deleteRoute, $input->id) }}" method="post">
+                                    @csrf
+                                    @method('DELETE')
+                                    <div class="form-group">
                                     <label for="">{{ $input->label }} @if ($input->required == 1)
                                             <span>**</span>
                                         @elseif($input->required == 0)
@@ -306,10 +345,11 @@
                                         </div>
                                     </div>
                                 </div>
-                            </form>
+                                </form>
+                            </div>
                         @endif
-                    @endforeach
-
+                        @endforeach
+                    </div>
                 @endif
 
                 {{-- <div class="form-group">
@@ -464,7 +504,75 @@
 </div>
 
 
+@section('styles')
+<style>
+.draggable-input {
+    position: relative;
+    margin-bottom: 20px;
+    border: 1px solid #e3e6f0;
+    border-radius: 0.35rem;
+    background: #fff;
+    transition: all 0.3s ease;
+}
+
+.draggable-input:hover {
+    box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
+}
+
+.drag-handle {
+    position: absolute;
+    left: -30px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 25px;
+    height: 40px;
+    background: #f8f9fc;
+    border: 1px solid #e3e6f0;
+    border-radius: 0.25rem 0 0 0.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: move;
+    color: #5a5c69;
+    transition: all 0.3s ease;
+    z-index: 10;
+}
+
+.drag-handle:hover {
+    background: #e3e6f0;
+    color: #3a3b45;
+}
+
+.draggable-input .form-group {
+    margin-left: 10px;
+    margin-right: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.sortable-ghost {
+    opacity: 0.4;
+    background: #f8f9fc;
+}
+
+.sortable-chosen {
+    transform: rotate(2deg);
+}
+
+.sortable-drag {
+    transform: rotate(5deg);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
+
+#sortable-inputs {
+    position: relative;
+    padding-left: 30px;
+}
+</style>
+@endsection
+
 @section('vuescripts')
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
     <script>
         var app = new Vue({
             el: '#app',
@@ -474,7 +582,75 @@
                 placeholdershow: true,
                 isRequiredShow: true
             },
+            mounted() {
+                this.initializeSortable();
+            },
             methods: {
+                initializeSortable() {
+                    const sortableInputs = document.getElementById('sortable-inputs');
+                    if (sortableInputs) {
+                        new Sortable(sortableInputs, {
+                            handle: '.drag-handle',
+                            animation: 150,
+                            ghostClass: 'sortable-ghost',
+                            chosenClass: 'sortable-chosen',
+                            dragClass: 'sortable-drag',
+                            onEnd: (evt) => {
+                                this.updateInputOrder();
+                            }
+                        });
+                    }
+                },
+                updateInputOrder() {
+                    const inputs = document.querySelectorAll('.draggable-input');
+                    const order = Array.from(inputs).map(input => input.dataset.inputId);
+                    
+                    // Send AJAX request to update order
+                    fetch('{{ route("admin.service.form.updateOrder") }}', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                        },
+                        body: JSON.stringify({
+                            order: order
+                        })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            // Show success message
+                            this.showNotification('Input order updated successfully!', 'success');
+                        } else {
+                            this.showNotification('Failed to update input order', 'error');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        this.showNotification('An error occurred while updating order', 'error');
+                    });
+                },
+                showNotification(message, type) {
+                    // Simple notification - you can replace this with your preferred notification system
+                    const notification = document.createElement('div');
+                    notification.className = `alert alert-${type === 'success' ? 'success' : 'danger'} alert-dismissible fade show`;
+                    notification.style.position = 'fixed';
+                    notification.style.top = '20px';
+                    notification.style.right = '20px';
+                    notification.style.zIndex = '9999';
+                    notification.innerHTML = `
+                        ${message}
+                        <button type="button" class="close" data-dismiss="alert">
+                            <span>&times;</span>
+                        </button>
+                    `;
+                    document.body.appendChild(notification);
+                    
+                    // Auto remove after 3 seconds
+                    setTimeout(() => {
+                        notification.remove();
+                    }, 3000);
+                },
                 typeChange() {
                     if (this.type == 3 || this.type == 5 || this.type == 10) {
                         this.placeholdershow = false;

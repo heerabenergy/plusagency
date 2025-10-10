@@ -971,6 +971,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:admin', 'checkstatus',
         Route::put('{input_id}/input-update', [ServiceController::class, 'inputUpdate'])->name('inputUpdate');
         Route::get('{input_id}/options', [ServiceController::class, 'options'])->name('options');
         Route::delete('{input_id}/input-delete', [ServiceController::class, 'inputDelete'])->name('inputDelete');
+        Route::post('update-order', [ServiceController::class, 'updateInputOrder'])->name('updateOrder');
       });
 
       Route::post('store', [ServiceController::class, 'store'])->name('store');

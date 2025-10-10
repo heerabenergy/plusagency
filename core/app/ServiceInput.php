@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 final class ServiceInput extends Model
 {
-    protected $fillable = ['service_id', 'type', 'label', 'name', 'placeholder', 'required', 'active'];
+    protected $fillable = ['service_id', 'type', 'label', 'name', 'placeholder', 'required', 'active', 'order'];
 
     public function input_options() : HasMany
     {

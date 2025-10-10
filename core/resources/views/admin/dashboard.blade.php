@@ -491,13 +491,32 @@ if (!empty($admin->role)) {
                 <div class="row">
                     <div class="col-3">
                         <div class="icon-big text-center">
-                            <i class="far fa-users-cog"></i>
+                            <i class="fas fa-users-cog"></i>
                         </div>
                     </div>
                     <div class="col-9 col-stats">
                         <div class="numbers">
                             <p class="card-category">Services</p>
                             <h4 class="card-title">{{$default->services()->count()}}</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6 col-md-3">
+        <div class="card card-stats card-primary card-round">
+            <div class="card-body ">
+                <div class="row">
+                    <div class="col-3">
+                        <div class="icon-big text-center">
+                            <i class="fas fa-users"></i>
+                        </div>
+                    </div>
+                    <div class="col-9 col-stats">
+                        <div class="numbers">
+                            <p class="card-category">Pending Requests</p>
+                            <h4 class="card-title">{{$pending_requests}}</h4>
                         </div>
                     </div>
                 </div>

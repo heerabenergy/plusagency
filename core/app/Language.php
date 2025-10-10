@@ -3,224 +3,227 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Language extends Model
 {
   protected $fillable = ['id', 'name', 'is_default', 'code', 'rtl'];
 
-  public function basic_setting()
+  public function basic_setting() : HasOne
   {
-    return $this->hasOne('App\BasicSetting');
+    return $this->hasOne(BasicSetting::class);
   }
 
-  public function basic_extended()
+  public function basic_extended() : HasOne
   {
-    return $this->hasOne('App\BasicExtended', 'language_id');
+    return $this->hasOne(BasicExtended::class, 'language_id');
   }
 
-  public function basic_extra()
+  public function basic_extra() : HasOne
   {
-    return $this->hasOne('App\BasicExtra', 'language_id');
+    return $this->hasOne(BasicExtra::class, 'language_id');
   }
 
-  public function packages()
+  public function packages() : HasMany
   {
-    return $this->hasMany('App\Package');
+    return $this->hasMany(Package::class);
   }
 
-  public function sliders()
+  public function sliders() : HasMany
   {
-    return $this->hasMany('App\Slider');
+    return $this->hasMany(Slider::class);
   }
 
-  public function features()
+  public function features() : HasMany
   {
-    return $this->hasMany('App\Feature');
+    return $this->hasMany(Feature::class);
   }
 
-  public function points()
+  public function points() : HasMany
   {
-    return $this->hasMany('App\Point');
+    return $this->hasMany(Point::class);
   }
 
-  public function statistics()
+  public function statistics() : HasMany
   {
-    return $this->hasMany('App\Statistic');
+    return $this->hasMany(Statistic::class);
   }
 
-  public function testimonials()
+  public function testimonials() : HasMany
   {
-    return $this->hasMany('App\Testimonial');
+    return $this->hasMany(Testimonial::class);
   }
 
-  public function members()
+  public function members() : HasMany
   {
-    return $this->hasMany('App\Member');
+    return $this->hasMany(Member::class);
   }
 
-  public function partners()
+  public function partners() : HasMany
   {
-    return $this->hasMany('App\Partner');
+    return $this->hasMany(Partner::class);
   }
 
-  public function ulinks()
+  public function ulinks() : HasMany
   {
-    return $this->hasMany('App\Ulink');
+    return $this->hasMany(Ulink::class);
   }
 
-  public function pages()
+  public function pages() : HasMany 
   {
-    return $this->hasMany('App\Page');
+    return $this->hasMany(Page::class);
   }
 
-  public function scategories()
+  public function scategories() : HasMany
   {
-    return $this->hasMany('App\Scategory');
+    return $this->hasMany(Scategory::class);
   }
 
-  public function services()
+  public function services() : HasMany
   {
-    return $this->hasMany('App\Service');
+    return $this->hasMany(Service::class);
   }
 
-  public function portfolios()
+  public function portfolios() : HasMany
   {
-    return $this->hasMany('App\Portfolio');
+    return $this->hasMany(Portfolio::class);
   }
 
-  public function galleries()
+  public function galleries() : HasMany
   {
-    return $this->hasMany('App\Gallery');
+    return $this->hasMany(Gallery::class);
   }
 
-  public function faqs()
+  public function faqs() : HasMany
   {
-    return $this->hasMany('App\Faq');
+    return $this->hasMany(Faq::class);
   }
 
-  public function bcategories()
+  public function bcategories() : HasMany
   {
-    return $this->hasMany('App\Bcategory');
+    return $this->hasMany(Bcategory::class);
   }
 
-  public function blogs()
+  public function blogs() : HasMany
   {
-    return $this->hasMany('App\Blog');
+    return $this->hasMany(Blog::class);
   }
 
-  public function jcategories()
+  public function jcategories() : HasMany
   {
-    return $this->hasMany('App\Jcategory');
+    return $this->hasMany(Jcategory::class);
   }
 
-  public function jobs()
+  public function jobs() : HasMany
   {
-    return $this->hasMany('App\Job');
+    return $this->hasMany(Job::class);
   }
 
-  public function quote_inputs()
+  public function quote_inputs() : HasMany
   {
-    return $this->hasMany('App\QuoteInput');
+    return $this->hasMany(QuoteInput::class);
   }
 
-  public function package_inputs()
+  public function package_inputs() : HasMany
   {
-    return $this->hasMany('App\PackageInput');
+    return $this->hasMany(PackageInput::class);
   }
 
-  public function calendars()
+  public function calendars() : HasMany
   {
-    return $this->hasMany('App\CalendarEvent');
+    return $this->hasMany(CalendarEvent::class);
   }
 
-  public function menus()
+  public function menus() : HasMany 
   {
-    return $this->hasMany('App\Menu');
+    return $this->hasMany(Menu::class);
   }
 
-  public function feed()
+  public function feed() : HasMany
   {
-    return $this->hasMany('App\RssFeed');
+    return $this->hasMany(RssFeed::class);
   }
 
-  public function sitemaps()
+  public function sitemaps() : HasMany
   {
-    return $this->hasMany('App\Sitemap');
+    return $this->hasMany(Sitemap::class);
   }
-  public function products()
+  public function products() : HasMany
   {
-    return $this->hasMany('App\Product');
+    return $this->hasMany(Product::class);
   }
-  public function event_categories()
+  public function event_categories() : HasMany
   {
-    return $this->hasMany('App\EventCategory', 'lang_id');
+    return $this->hasMany(EventCategory::class, 'lang_id');
   }
-  public function events()
+  public function events() : HasMany
   {
-    return $this->hasMany('App\Event', 'lang_id');
+    return $this->hasMany(Event::class, 'lang_id');
   }
-  public function causes()
+  public function causes() : HasMany
   {
-    return $this->hasMany('App\Donation', 'lang_id');
+    return $this->hasMany(Donation::class, 'lang_id');
   }
-  public function course_categories()
+  public function course_categories() : HasMany
   {
-    return $this->hasMany('App\CourseCategory');
+    return $this->hasMany(CourseCategory::class);
   }
-  public function courses()
+  public function courses() : HasMany
   {
-    return $this->hasMany('App\Course');
+    return $this->hasMany(Course::class);
   }
-  public function shippings()
+  public function shippings() : HasMany
   {
-    return $this->hasMany('App\ShippingCharge');
+    return $this->hasMany(ShippingCharge::class);
   }
-  public function pcategories()
+  public function pcategories() : HasMany
   {
-    return $this->hasMany('App\Pcategory');
-  }
-
-  public function offline_gateways()
-  {
-    return $this->hasMany('App\OfflineGateway');
+    return $this->hasMany(Pcategory::class);
   }
 
-  public function homes()
+  public function offline_gateways() : HasMany
   {
-    return $this->hasMany('App\Home');
+    return $this->hasMany(OfflineGateway::class);
   }
 
-  public function articleCategories()
+  public function homes() : HasMany
   {
-    return $this->hasMany('App\ArticleCategory');
+    return $this->hasMany(Home::class);
   }
 
-  public function articles()
+  public function articleCategories() : HasMany 
   {
-    return $this->hasMany('App\Article');
+    return $this->hasMany(ArticleCategory::class);
   }
 
-  public function megamenus()
+  public function articles() : HasMany
   {
-    return $this->hasMany('App\Megamenu');
+    return $this->hasMany(Article::class);
   }
 
-  public function faqCategory()
+  public function megamenus() : HasMany
   {
-    return $this->hasMany('App\FAQCategory');
+    return $this->hasMany(Megamenu::class);
   }
 
-  public function galleryCategory()
+  public function faqCategory() : HasMany
   {
-    return $this->hasMany('App\GalleryCategory');
+    return $this->hasMany(FAQCategory::class);
   }
 
-  public function packageCategory()
+  public function galleryCategory() : HasMany
   {
-    return $this->hasMany('App\PackageCategory');
+    return $this->hasMany(GalleryCategory::class);
   }
 
-  public function popups() {
-      return $this->hasMany('App\Popup');
+  public function packageCategory() : HasMany
+  {
+    return $this->hasMany(PackageCategory::class);
+  }
+
+  public function popups() : HasMany
+  {
+      return $this->hasMany(Popup::class);
   }
 }
