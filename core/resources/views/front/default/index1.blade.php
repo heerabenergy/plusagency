@@ -5,11 +5,13 @@
 
 
 @section("styles")
-.blog-img-wrapper img {
+<style>
+   .blog-img-wrapper img {
    @media(min-width: 768px) {
     height: 183px;
    }
 }
+</style>
 @endsection
 
 @section('content')
