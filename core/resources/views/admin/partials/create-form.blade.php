@@ -511,7 +511,7 @@
     margin-bottom: 20px;
     border: 1px solid #e3e6f0;
     border-radius: 0.35rem;
-    background: #fff;
+    background: #666;
     transition: all 0.3s ease;
 }
 

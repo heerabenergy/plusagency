@@ -18,6 +18,8 @@ class Authenticate extends Middleware
             if (\Request::is('admin') || \Request::is('admin/*')){
                 return route('admin.login');
             }else{
+                // Store the intended URL in session for redirect after login
+                session(['link' => $request->url()]);
                 return route('user.login');
             } 
         }

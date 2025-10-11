@@ -52,14 +52,23 @@ class LoginController extends Controller
             $currentLang = Language::where('is_default', 1)->first();
         }
 
-        $url = url()->previous();
-        $url = (explode('/', $url));
+        // Store the previous URL for redirect after login, but avoid login page itself
+        $previousUrl = url()->previous();
+        $loginUrl = route('user.login');
+        
+        // Only store the previous URL if it's not the login page itself
+        if ($previousUrl !== $loginUrl && !str_contains($previousUrl, '/login')) {
+            session(['link' => $previousUrl]);
+        }
+        
+        // Keep existing specific redirect logic for checkout, donation, and event
+        $url = (explode('/', $previousUrl));
         if (in_array('checkout', $url)) {
-            session(['link' => url()->previous()]);
+            session(['link' => $previousUrl]);
         } elseif (strpos(url()->full(), 'redirected=donation')) {
-            session(['link' => url()->previous()]);
+            session(['link' => $previousUrl]);
         } elseif (strpos(url()->full(), 'redirected=event')) {
-            session(['link' => url()->previous()]);
+            session(['link' => $previousUrl]);
         }
 
         $be = $currentLang->basic_extended;
@@ -80,6 +89,12 @@ class LoginController extends Controller
         if (Session::has('link')) {
             $redirectUrl = Session::get('link');
             Session::forget('link');
+            
+            // Avoid redirecting to login page or other auth pages
+            $loginUrl = route('user.login');
+            if ($redirectUrl === $loginUrl || str_contains($redirectUrl, '/login') || str_contains($redirectUrl, '/register')) {
+                $redirectUrl = route('user-dashboard');
+            }
         } else {
             $redirectUrl = route('user-dashboard');
         }
@@ -162,6 +177,12 @@ class LoginController extends Controller
         if (Session::has('link')) {
             $redirectUrl = Session::get('link');
             Session::forget('link');
+            
+            // Avoid redirecting to login page or other auth pages
+            $loginUrl = route('user.login');
+            if ($redirectUrl === $loginUrl || str_contains($redirectUrl, '/login') || str_contains($redirectUrl, '/register')) {
+                $redirectUrl = route('user-dashboard');
+            }
         } else {
             $redirectUrl = route('user-dashboard');
         }
