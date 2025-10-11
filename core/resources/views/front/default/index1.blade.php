@@ -4,6 +4,14 @@
 @section('meta-description', "$be->home_meta_description")
 
 
+@section("styles")
+.blog-img-wrapper img {
+   @media(min-width: 768px) {
+    height: 183px;
+   }
+}
+@endsection
+
 @section('content')
   <!--   hero area start   -->
   @if ($bs->home_version == 'static')
@@ -414,10 +422,18 @@
 
                     <p class="date"><small>{{__('By')}} <span class="username">{{__('Admin')}}</span></small> | <small>{{$blogDate}}</small> </p>
 
-                    <h4 class="blog-title"><a aria-label="{{__('Read More about')}} {{$blog->title}}" href="{{route('front.blogdetails', [$blog->slug, $blog->id])}}">{{strlen($blog->title) > 40 ? mb_substr($blog->title, 0, 40, 'utf-8') . '...' : $blog->title}}</a></h4>
+                    <h4 class="blog-title"><a style="display: -webkit-box;
+                        -webkit-box-orient: vertical;
+                        -webkit-line-clamp: 2;
+                        overflow: hidden;
+                        min-height: 63px;" aria-label="{{__('Read More about')}} {{$blog->title}}" href="{{route('front.blogdetails', [$blog->slug, $blog->id])}}">{{strlen($blog->title) > 40 ? mb_substr($blog->title, 0, 40, 'utf-8') . '...' : $blog->title}}</a></h4>
 
 
-                    <p class="blog-summary">{!! strlen(strip_tags($blog->content)) > 100 ? mb_substr(strip_tags($blog->content), 0, 100, 'utf-8') . '...' : strip_tags($blog->content) !!}</p>
+                    <p class="blog-summary" style="display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+  min-height: 72px;">{!! strlen(strip_tags($blog->content)) > 100 ? mb_substr(strip_tags($blog->content), 0, 100, 'utf-8') . '...' : strip_tags($blog->content) !!}</p>
 
 
                     <a aria-label="{{__('Read More about')}} {{$blog->title}}" href="{{route('front.blogdetails', [$blog->slug, $blog->id])}}" class="readmore-btn"><span>{{__('Read More')}}</span></a>
