@@ -149,7 +149,7 @@
           <div class="row">
             <div class="col-lg-6 support-contact-info d-flex">
               <span class="address"><i class="far fa-envelope"></i> {{$bs->support_email}}</span>
-              <span class="phone"><i class="flaticon-chat"></i> {{$bs->support_phone}}</span>
+              <span class="phone" dir="ltr"><i class="flaticon-chat"></i> {{$bs->support_phone}}</span>
             </div>
             <div class="col-lg-6 {{$rtl == 1 ? 'text-left' : 'text-right'}}">
               <ul class="social-links">
